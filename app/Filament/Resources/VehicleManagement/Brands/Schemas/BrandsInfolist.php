@@ -1,0 +1,140 @@
+<?php
+
+namespace App\Filament\Resources\VehicleManagement\Brands\Schemas;
+
+use Filament\Infolists\Components\Grid;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\Split;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+class BrandsInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                Split::make([
+                    Grid::make(2)
+                        ->schema([
+                            Section::make('Brand Information')
+                                ->schema([
+                                    TextEntry::make('name')
+                                        ->label('Brand Name')
+                                        ->size('lg')
+                                        ->weight('bold')
+                                        ->color('primary'),
+
+                                    TextEntry::make('name_ar')
+                                        ->label('Arabic Name')
+                                        ->placeholder('Not provided'),
+
+                                    TextEntry::make('slug')
+                                        ->label('Slug')
+                                        ->copyable()
+                                        ->badge()
+                                        ->color('gray'),
+
+                                    TextEntry::make('country_origin')
+                                        ->label('Country of Origin')
+                                        ->formatStateUsing(function (string $state): string {
+                                            return match ($state) {
+                                                'germany' => '🇩🇪 Germany',
+                                                'japan' => '🇯🇵 Japan',
+                                                'usa' => '🇺🇸 United States',
+                                                'uk' => '🇬🇧 United Kingdom',
+                                                'france' => '🇫🇷 France',
+                                                'italy' => '🇮🇹 Italy',
+                                                'south_korea' => '🇰🇷 South Korea',
+                                                'sweden' => '🇸🇪 Sweden',
+                                                'spain' => '🇪🇸 Spain',
+                                                'czech_republic' => '🇨🇿 Czech Republic',
+                                                'china' => '🇨🇳 China',
+                                                'india' => '🇮🇳 India',
+                                                'malaysia' => '🇲🇾 Malaysia',
+                                                default => '🌍 Other',
+                                            };
+                                        })
+                                        ->badge()
+                                        ->color(function (string $state): string {
+                                            return match ($state) {
+                                                'germany', 'japan', 'usa', 'uk' => 'success',
+                                                'france', 'italy', 'sweden' => 'info',
+                                                'south_korea', 'china' => 'warning',
+                                                default => 'gray',
+                                            };
+                                        }),
+
+                                    TextEntry::make('sort_order')
+                                        ->label('Sort Order')
+                                        ->badge()
+                                        ->color('secondary'),
+                                ]),
+
+                            Section::make('Brand Statistics')
+                                ->schema([
+                                    TextEntry::make('vehicles_count')
+                                        ->label('Total Vehicles')
+                                        ->getStateUsing(fn ($record) => $record->vehicles()->count())
+                                        ->badge()
+                                        ->color('primary')
+                                        ->size('lg'),
+
+                                    TextEntry::make('active_vehicles_count')
+                                        ->label('Active Vehicles')
+                                        ->getStateUsing(fn ($record) => $record->activeVehicles()->count())
+                                        ->badge()
+                                        ->color('success'),
+
+                                    TextEntry::make('vehicle_models_count')
+                                        ->label('Vehicle Models')
+                                        ->getStateUsing(fn ($record) => $record->vehicleModels()->count())
+                                        ->badge()
+                                        ->color('info'),
+
+                                    TextEntry::make('active_models_count')
+                                        ->label('Active Models')
+                                        ->getStateUsing(fn ($record) => $record->activeVehicleModels()->count())
+                                        ->badge()
+                                        ->color('warning'),
+                                ]),
+                        ]),
+
+                    Section::make('Brand Logo')
+                        ->schema([
+                            ImageEntry::make('logo')
+                                ->hiddenLabel()
+                                ->size(200)
+                                ->defaultImageUrl(function ($record) {
+                                    return 'https://ui-avatars.com/api/?name='.urlencode($record->name).
+                                           '&size=200&background=3B82F6&color=ffffff';
+                                }),
+                        ])
+                        ->grow(false),
+                ]),
+
+                Section::make('Timestamps')
+                    ->schema([
+                        Grid::make(3)
+                            ->schema([
+                                TextEntry::make('created_at')
+                                    ->label('Created At')
+                                    ->dateTime(),
+
+                                TextEntry::make('updated_at')
+                                    ->label('Updated At')
+                                    ->dateTime(),
+
+                                TextEntry::make('created_at')
+                                    ->label('Days Since Created')
+                                    ->getStateUsing(fn ($record) => $record->created_at->diffInDays().' days ago')
+                                    ->badge()
+                                    ->color('gray'),
+                            ]),
+                    ])
+                    ->collapsible()
+                    ->collapsed(),
+            ]);
+    }
+}

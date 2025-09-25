@@ -7,8 +7,18 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "filament/filament": "4.0",
+        "filament/spatie-laravel-media-library-plugin": "4.0",
+        "intervention/image": "~3.0",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/sanctum": "~4.0",
+        "laravel/tinker": "^2.10.1",
+        "pragmarx/google2fa-laravel": "~2.0",
+        "pxlrbt/filament-excel": "3.1",
+        "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-medialibrary": "~11.0",
+        "spatie/laravel-permission": "~6.0",
+        "spatie/laravel-translatable": "^6.11"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -25,8 +35,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
-        ,
+        },
         "files": [
             "app/Helpers/helpers.php"
         ]
@@ -39,7 +48,8 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan package:discover --ansi"
+            "@php artisan package:discover --ansi",
+            "@php artisan filament:upgrade"
         ],
         "post-update-cmd": [
             "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
@@ -49,7 +59,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
         "dev": [

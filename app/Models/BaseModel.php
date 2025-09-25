@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\User\RoleEnum;
+use App\Enums\User\UserTypeEnum;
 use App\Http\Filters\Filterable;
 use App\Traits\HasActivation;
 use Illuminate\Database\Eloquent\Model;
@@ -27,7 +27,7 @@ class BaseModel extends Model implements HasMedia
     ];
 
     protected $casts = [
-        'role' => RoleEnum::class, // Ensure role is cast as enum
+        'role' => UserTypeEnum::class, // Ensure role is cast as enum
         'is_active' => 'boolean',
     ];
 
@@ -135,7 +135,7 @@ class BaseModel extends Model implements HasMedia
         return $this->getFirstMediaUrl($collection) ?: null;
     }
 
-    public function getVideos($collection = 'videos'): array
+    public function getVideos($collection = 'videos'): array|Collection
     {
         return $this->getMedia($collection)->map(fn ($media) => $media->getUrl());
     }

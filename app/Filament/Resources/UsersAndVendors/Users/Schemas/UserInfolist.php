@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Filament\Resources\UsersAndVendors\Users\Schemas;
+
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Schema;
+
+class UserInfolist
+{
+    public static function configure(Schema $schema): Schema
+    {
+        return $schema
+            ->components([
+                TextEntry::make('name'),
+                TextEntry::make('email')
+                    ->label('Email address'),
+                TextEntry::make('phone'),
+                TextEntry::make('email_verified_at')
+                    ->dateTime(),
+                TextEntry::make('phone_verified_at')
+                    ->dateTime(),
+                TextEntry::make('locale'),
+                TextEntry::make('timezone'),
+                TextEntry::make('avatar'),
+                TextEntry::make('birth_date')
+                    ->date(),
+                TextEntry::make('gender'),
+                TextEntry::make('user_type'),
+                TextEntry::make('last_login_at')
+                    ->dateTime(),
+                TextEntry::make('last_login_ip'),
+                IconEntry::make('two_factor_enabled')
+                    ->boolean(),
+                TextEntry::make('two_factor_secret'),
+                TextEntry::make('created_at')
+                    ->dateTime(),
+                TextEntry::make('updated_at')
+                    ->dateTime(),
+                IconEntry::make('is_active')
+                    ->boolean(),
+                TextEntry::make('added_by_id')
+                    ->numeric(),
+                TextEntry::make('deleted_at')
+                    ->dateTime(),
+            ]);
+    }
+}
