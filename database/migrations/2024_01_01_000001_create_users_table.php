@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
-            $table->enum('user_type', ['super_admin', 'admin', 'user', 'employee'])->default('user');
+            $table->enum('user_type', ['admin', 'user'])->default('user');
             $table->timestamp('last_login_at')->nullable();
             $table->string('last_login_ip')->nullable();
             $table->boolean('two_factor_enabled')->default(false);

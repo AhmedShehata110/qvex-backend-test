@@ -4,9 +4,9 @@ namespace App\Filament\Resources\VehicleManagement\Categories\Schemas;
 
 use App\Models\Vehicle\VehicleModel;
 use Filament\Forms\Components\Card;
-use Filament\Forms\Components\Grid;
+use Filament\Schemas\Components\Grid;
 use Filament\Forms\Components\Group;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;

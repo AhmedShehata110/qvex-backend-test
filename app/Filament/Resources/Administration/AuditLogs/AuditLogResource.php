@@ -14,6 +14,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class AuditLogResource extends Resource
@@ -31,13 +32,13 @@ class AuditLogResource extends Resource
     protected static ?string $recordTitleAttribute = 'event';
 
     /**
-     * Only accessible by super admins and admins
+     * Only accessible by admins
      */
     public static function shouldRegisterNavigation(): bool
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
-        return $user?->user_type === UserTypeEnum::SUPER_ADMIN || $user?->user_type === UserTypeEnum::ADMIN ?? false;
+        return $user?->user_type === UserTypeEnum::ADMIN ?? false;
     }
 
     public static function form(Schema $schema): Schema

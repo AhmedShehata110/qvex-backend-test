@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Locations\Cities\Schemas;
 
 use App\Models\Location\Country;
-use Filament\Forms\Components\Section;
+use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;

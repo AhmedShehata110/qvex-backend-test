@@ -54,9 +54,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Vendor Subscriptions: '.\App\Models\Vendor\VendorSubscription::count());
         $this->command->info('');
         $this->command->info('🔐 Test Accounts:');
-        $this->command->info('Super Admin: superadmin@qvex.com / password');
         $this->command->info('Admin: admin@qvex.com / password');
-        $this->command->info('Employee: employee@qvex.com / password');
         $this->command->info('Vendor: vendor@qvex.com / password');
         $this->command->info('Vendor Staff: vendorstaff@qvex.com / password');
         $this->command->info('Customer: customer@qvex.com / password');

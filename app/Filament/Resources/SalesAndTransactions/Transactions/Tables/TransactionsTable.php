@@ -184,7 +184,7 @@ class TransactionsTable
 
                 Filter::make('amount_range')
                     ->form([
-                        \Filament\Forms\Components\Grid::make(2)
+                        \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\TextInput::make('amount_from')
                                     ->label('Amount From')
@@ -210,7 +210,7 @@ class TransactionsTable
 
                 Filter::make('date_range')
                     ->form([
-                        \Filament\Forms\Components\Grid::make(2)
+                        \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\DatePicker::make('created_from')
                                     ->label('Created From'),

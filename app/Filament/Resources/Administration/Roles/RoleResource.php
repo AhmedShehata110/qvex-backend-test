@@ -14,6 +14,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class RoleResource extends Resource
@@ -31,11 +32,11 @@ class RoleResource extends Resource
     protected static ?string $recordTitleAttribute = 'name';
 
     /**
-     * Only accessible by super admins
+     * Only accessible by admins
      */
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()?->user_type === UserTypeEnum::SUPER_ADMIN ?? false;
+        return Auth::user()?->user_type === UserTypeEnum::ADMIN ?? false;
     }
 
     public static function form(Schema $schema): Schema

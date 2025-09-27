@@ -15,6 +15,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use UnitEnum;
 
 class AdminResource extends Resource
@@ -40,15 +41,15 @@ class AdminResource extends Resource
      */
     public static function getEloquentQuery(): Builder
     {
-        return parent::getEloquentQuery()->whereIn('user_type', [UserTypeEnum::SUPER_ADMIN, UserTypeEnum::ADMIN]);
+        return parent::getEloquentQuery()->whereIn('user_type', [UserTypeEnum::ADMIN]);
     }
 
     /**
-     * Only accessible by super admins
+     * Only accessible by admins
      */
     public static function shouldRegisterNavigation(): bool
     {
-        return auth()->user()?->user_type === UserTypeEnum::SUPER_ADMIN ?? false;
+        return Auth::user()?->user_type === UserTypeEnum::ADMIN ?? false;
     }
 
     public static function form(Schema $schema): Schema

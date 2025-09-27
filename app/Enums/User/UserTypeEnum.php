@@ -4,9 +4,7 @@ namespace App\Enums\User;
 
 enum UserTypeEnum: string
 {
-    case SUPER_ADMIN = 'super_admin';
     case ADMIN = 'admin';
-    case EMPLOYEE = 'employee';
     case USER = 'user';
 
     /**
@@ -15,9 +13,7 @@ enum UserTypeEnum: string
     public static function values(): array
     {
         return [
-            self::SUPER_ADMIN->value => 'Super Admin',
             self::ADMIN->value => 'Admin',
-            self::EMPLOYEE->value => 'Employee',
             self::USER->value => 'User',
         ];
     }
@@ -28,9 +24,7 @@ enum UserTypeEnum: string
     public function label(): string
     {
         return match ($this) {
-            self::SUPER_ADMIN => 'Super Admin',
             self::ADMIN => 'Admin',
-            self::EMPLOYEE => 'Employee',
             self::USER => 'User',
         };
     }
@@ -41,10 +35,8 @@ enum UserTypeEnum: string
     public function description(): string
     {
         return match ($this) {
-            self::SUPER_ADMIN => 'Super administrator with complete system control',
-            self::ADMIN => 'Admin user with dashboard access and management privileges',
-            self::EMPLOYEE => 'Employee with limited administrative access',
-            self::USER => 'Regular user without dashboard access',
+            self::ADMIN => 'Administrator with complete system access and management privileges',
+            self::USER => 'Regular user/customer using the system',
         };
     }
 
@@ -53,7 +45,7 @@ enum UserTypeEnum: string
      */
     public function isAdmin(): bool
     {
-        return in_array($this, [self::SUPER_ADMIN, self::ADMIN]);
+        return $this === self::ADMIN;
     }
 
     /**
@@ -65,19 +57,11 @@ enum UserTypeEnum: string
     }
 
     /**
-     * Check if user type is staff (admin or employee)
-     */
-    public function isStaff(): bool
-    {
-        return in_array($this, [self::SUPER_ADMIN, self::ADMIN, self::EMPLOYEE]);
-    }
-
-    /**
      * Check if user type can access dashboard
      */
     public function canAccessDashboard(): bool
     {
-        return in_array($this, [self::SUPER_ADMIN, self::ADMIN, self::EMPLOYEE]);
+        return $this === self::ADMIN;
     }
 
     /**
@@ -85,15 +69,7 @@ enum UserTypeEnum: string
      */
     public static function adminTypes(): array
     {
-        return [self::SUPER_ADMIN, self::ADMIN];
-    }
-
-    /**
-     * Get staff types
-     */
-    public static function staffTypes(): array
-    {
-        return [self::SUPER_ADMIN, self::ADMIN, self::EMPLOYEE];
+        return [self::ADMIN];
     }
 
     /**
@@ -118,18 +94,8 @@ enum UserTypeEnum: string
     public function defaultPermissions(): array
     {
         return match ($this) {
-            self::SUPER_ADMIN => [
-                '*', // Complete system access
-            ],
             self::ADMIN => [
-                'dashboard.access', // Key permission for admin users
-                'users.manage', 'vendors.manage', 'vehicles.manage',
-                'transactions.manage', 'reviews.manage', 'content.manage',
-            ],
-            self::EMPLOYEE => [
-                'dashboard.access', // Limited dashboard access
-                'vehicles.view', 'users.view', 'reviews.moderate',
-                'content.manage', 'messages.view',
+                '*', // Complete system access for admin users
             ],
             self::USER => [
                 'profile.view', 'profile.update',
@@ -146,9 +112,7 @@ enum UserTypeEnum: string
     public function color(): string
     {
         return match ($this) {
-            self::SUPER_ADMIN => 'danger',
-            self::ADMIN => 'warning',
-            self::EMPLOYEE => 'info',
+            self::ADMIN => 'danger',
             self::USER => 'success',
         };
     }
@@ -159,9 +123,7 @@ enum UserTypeEnum: string
     public function icon(): string
     {
         return match ($this) {
-            self::SUPER_ADMIN => 'shield-check',
-            self::ADMIN => 'user-gear',
-            self::EMPLOYEE => 'user-cog',
+            self::ADMIN => 'shield-check',
             self::USER => 'user',
         };
     }

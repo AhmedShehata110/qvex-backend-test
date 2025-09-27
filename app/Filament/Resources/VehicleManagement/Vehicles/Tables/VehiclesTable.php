@@ -202,7 +202,7 @@ class VehiclesTable
 
                 Filter::make('price_range')
                     ->form([
-                        \Filament\Forms\Components\Grid::make(2)
+                        \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\TextInput::make('price_from')
                                     ->label('Price From')
@@ -239,7 +239,7 @@ class VehiclesTable
 
                 Filter::make('year_range')
                     ->form([
-                        \Filament\Forms\Components\Grid::make(2)
+                        \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\TextInput::make('year_from')
                                     ->label('Year From')

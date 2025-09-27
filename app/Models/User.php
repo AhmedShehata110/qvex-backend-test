@@ -321,11 +321,11 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Check if user is employee (by user_type)
+     * Check if user is employee (by user_type) - deprecated, employees are now ADMIN
      */
     public function isEmployee(): bool
     {
-        return $this->user_type === UserTypeEnum::EMPLOYEE;
+        return false; // Employees are now considered ADMIN
     }
 
     /**
@@ -631,7 +631,7 @@ class User extends Authenticatable implements HasMedia
 
     public function scopeEmployees($query)
     {
-        return $query->where('user_type', UserTypeEnum::EMPLOYEE->value);
+        return $query->where('user_type', UserTypeEnum::ADMIN->value);
     }
 
     public function scopeVendors($query)
