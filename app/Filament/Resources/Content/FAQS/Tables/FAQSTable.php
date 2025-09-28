@@ -3,12 +3,11 @@
 namespace App\Filament\Resources\Content\FAQS\Tables;
 
 use App\Models\Content\FAQ;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -28,8 +27,9 @@ class FAQSTable
                     ->limit(80)
                     ->weight('bold'),
 
-                BadgeColumn::make('category')
+                TextColumn::make('category')
                     ->label('Category')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         FAQ::CATEGORY_GENERAL => 'General',
                         FAQ::CATEGORY_BUYING => 'Buying',
@@ -48,8 +48,9 @@ class FAQSTable
                         'danger' => FAQ::CATEGORY_TECHNICAL,
                     ]),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->colors([
                         'gray' => FAQ::STATUS_DRAFT,

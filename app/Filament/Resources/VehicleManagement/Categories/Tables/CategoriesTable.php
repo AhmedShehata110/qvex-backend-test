@@ -3,12 +3,11 @@
 namespace App\Filament\Resources\VehicleManagement\Categories\Tables;
 
 use App\Models\Vehicle\VehicleModel;
-use Filament\Tables\Actions\ActionGroup;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
+use Filament\Actions\ActionGroup;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -40,8 +39,9 @@ class CategoriesTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                BadgeColumn::make('body_type')
+                TextColumn::make('body_type')
                     ->label('Body Type')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => VehicleModel::getBodyTypes()[$state] ?? ucfirst($state))
                     ->colors([
                         'primary' => [VehicleModel::BODY_TYPE_SEDAN, VehicleModel::BODY_TYPE_COUPE],
@@ -176,7 +176,7 @@ class CategoriesTable
                     ->searchable()
                     ->preload(),
             ])
-            ->actions([
+            ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),
                     EditAction::make(),

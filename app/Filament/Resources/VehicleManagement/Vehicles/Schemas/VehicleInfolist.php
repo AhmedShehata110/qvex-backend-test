@@ -2,12 +2,13 @@
 
 namespace App\Filament\Resources\VehicleManagement\Vehicles\Schemas;
 
-use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\TextSize;
 
 class VehicleInfolist
 {
@@ -15,18 +16,17 @@ class VehicleInfolist
     {
         return $schema
             ->components([
-                Split::make([
-                    Grid::make(2)
-                        ->schema([
+                Grid::make(2)
+                    ->schema([
                             Section::make('Vehicle Information')
                                 ->schema([
                                     TextEntry::make('title')
                                         ->label('Vehicle Title')
-                                        ->size('lg')
+                                        ->size(TextSize::Large)
                                         ->weight('bold')
                                         ->color('primary'),
 
-                                    Grid::make(3)
+                                    Grid::make(2)
                                         ->schema([
                                             TextEntry::make('make.name')
                                                 ->label('Make')
@@ -91,7 +91,7 @@ class VehicleInfolist
                                     TextEntry::make('price')
                                         ->label('Current Price')
                                         ->money('USD')
-                                        ->size('lg')
+                                        ->size(TextSize::Large)
                                         ->weight('bold')
                                         ->color('success'),
 
@@ -151,10 +151,8 @@ class VehicleInfolist
                                                 ->trueColor('success')
                                                 ->falseColor('danger'),
                                         ]),
-                                ]),
                         ]),
-                ]),
-
+                ])->columnSpanFull(),
                 Grid::make(2)
                     ->schema([
                         Section::make('Technical Specifications')
@@ -233,7 +231,7 @@ class VehicleInfolist
                                     ->placeholder('Location not specified')
                                     ->icon('heroicon-m-map-pin'),
                             ]),
-                    ]),
+                    ])->columnSpanFull(),
 
                 Section::make('Timestamps')
                     ->schema([

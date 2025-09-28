@@ -3,14 +3,15 @@
 namespace App\Filament\Resources\VehicleManagement\Categories\Schemas;
 
 use App\Models\Vehicle\VehicleModel;
-use Filament\Forms\Components\Card;
 use Filament\Schemas\Components\Grid;
-use Filament\Forms\Components\Group;
+use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
+use Illuminate\Support\Facades\Auth;
 
 class CategoriesForm
 {
@@ -18,7 +19,7 @@ class CategoriesForm
     {
         return $schema
             ->schema([
-                Card::make()
+                Section::make('Vehicle Model Information')
                     ->schema([
                         Section::make('Basic Information')
                             ->schema([
@@ -52,10 +53,7 @@ class CategoriesForm
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(function (string $operation, $state, $set) {
-                                                if ($operation !== 'create') {
-                                                    return;
-                                                }
+                                            ->afterStateUpdated(function (Set $set, ?string $state) {
                                                 $set('slug', \Illuminate\Support\Str::slug($state));
                                             }),
 
@@ -135,7 +133,7 @@ class CategoriesForm
                                     ->relationship('addedBy', 'name')
                                     ->searchable()
                                     ->preload()
-                                    ->default(auth()->id())
+                                    ->default(Auth::id())
                                     ->required()
                                     ->disabled(fn ($context) => $context === 'edit')
                                     ->dehydrated(fn ($context) => $context === 'create'),

@@ -9,6 +9,7 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\Str;
 
 class VendorForm
@@ -27,10 +28,8 @@ class VendorForm
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(function (string $operation, $state, $set) {
-                                        if ($operation === 'create') {
-                                            $set('slug', Str::slug($state));
-                                        }
+                                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                                        $set('slug', Str::slug($state));
                                     })
                                     ->helperText('The official name of the vendor/dealership'),
 

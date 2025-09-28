@@ -8,7 +8,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -29,8 +28,9 @@ class TransactionsTable
                     ->weight('bold')
                     ->color('primary'),
 
-                BadgeColumn::make('type')
+                TextColumn::make('type')
                     ->label('Type')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->colors([
                         'primary' => Transaction::TYPE_SALE,
@@ -38,8 +38,9 @@ class TransactionsTable
                         'info' => Transaction::TYPE_LEASE,
                     ]),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
                         'gray' => Transaction::STATUS_PENDING,

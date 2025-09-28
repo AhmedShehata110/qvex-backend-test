@@ -6,6 +6,7 @@ use App\Enums\User\UserTypeEnum;
 use App\Filament\Resources\Administration\Admins\Pages\CreateAdmin;
 use App\Filament\Resources\Administration\Admins\Pages\EditAdmin;
 use App\Filament\Resources\Administration\Admins\Pages\ListAdmins;
+use App\Filament\Resources\Administration\Admins\Pages\ViewAdmin;
 use App\Filament\Resources\Administration\Admins\Schemas\AdminForm;
 use App\Filament\Resources\Administration\Admins\Tables\AdminsTable;
 use App\Models\User;
@@ -74,6 +75,7 @@ class AdminResource extends Resource
         return [
             'index' => ListAdmins::route('/'),
             'create' => CreateAdmin::route('/create'),
+            'view' => ViewAdmin::route('/{record}'),
             'edit' => EditAdmin::route('/{record}/edit'),
         ];
     }

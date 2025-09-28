@@ -2,6 +2,12 @@
 
 namespace App\Filament\Resources\Administration\Admins\Schemas;
 
+use App\Enums\User\UserTypeEnum;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class AdminForm
@@ -10,7 +16,49 @@ class AdminForm
     {
         return $schema
             ->components([
-                //
+                TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('email')
+                    ->label('Email address')
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('phone')
+                    ->tel()
+                    ->maxLength(20),
+                TextInput::make('password')
+                    ->password()
+                    ->required()
+                    ->minLength(8)
+                    ->confirmed()
+                    ->revealable(),
+                TextInput::make('password_confirmation')
+                    ->password()
+                    ->required()
+                    ->minLength(8)
+                    ->label('Confirm Password'),
+                TextInput::make('locale')
+                    ->required()
+                    ->default('en')
+                    ->maxLength(5),
+                TextInput::make('timezone')
+                    ->required()
+                    ->default('UTC')
+                    ->maxLength(50),
+                DatePicker::make('birth_date'),
+                Select::make('gender')
+                    ->options([
+                        'male' => 'Male',
+                        'female' => 'Female',
+                        'other' => 'Other'
+                    ]),
+                Toggle::make('is_active')
+                    ->label('Active')
+                    ->default(true),
+                Toggle::make('two_factor_enabled')
+                    ->label('Two Factor Authentication')
+                    ->default(false),
             ]);
     }
 }

@@ -8,7 +8,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -59,8 +58,9 @@ class ReviewsTable
                     ->limit(30)
                     ->toggleable(),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
                         'warning' => Review::STATUS_PENDING,
@@ -179,7 +179,7 @@ class ReviewsTable
                     ->preload(),
 
                 SelectFilter::make('vendor')
-                    ->relationship('vendor', 'name')
+                    ->relationship('vendor', 'business_name')
                     ->searchable()
                     ->preload(),
             ])

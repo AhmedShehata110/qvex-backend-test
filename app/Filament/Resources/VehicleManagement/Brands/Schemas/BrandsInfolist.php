@@ -2,12 +2,12 @@
 
 namespace App\Filament\Resources\VehicleManagement\Brands\Schemas;
 
-use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\ImageEntry;
-use Filament\Infolists\Components\Section;
-use Filament\Infolists\Components\Split;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\TextSize;
 
 class BrandsInfolist
 {
@@ -15,14 +15,13 @@ class BrandsInfolist
     {
         return $schema
             ->components([
-                Split::make([
-                    Grid::make(2)
-                        ->schema([
+                Grid::make(2)
+                    ->schema([
                             Section::make('Brand Information')
                                 ->schema([
                                     TextEntry::make('name')
                                         ->label('Brand Name')
-                                        ->size('lg')
+                                        ->size(TextSize::Large)
                                         ->weight('bold')
                                         ->color('primary'),
 
@@ -79,7 +78,7 @@ class BrandsInfolist
                                         ->getStateUsing(fn ($record) => $record->vehicles()->count())
                                         ->badge()
                                         ->color('primary')
-                                        ->size('lg'),
+                                        ->size(TextSize::Large),
 
                                     TextEntry::make('active_vehicles_count')
                                         ->label('Active Vehicles')
@@ -98,10 +97,7 @@ class BrandsInfolist
                                         ->getStateUsing(fn ($record) => $record->activeVehicleModels()->count())
                                         ->badge()
                                         ->color('warning'),
-                                ]),
-                        ]),
-
-                    Section::make('Brand Logo')
+                ]),                    Section::make('Brand Logo')
                         ->schema([
                             ImageEntry::make('logo')
                                 ->hiddenLabel()

@@ -3,6 +3,7 @@
 namespace App\Models\Vehicle;
 
 use App\Models\BaseModel;
+use App\Models\Vehicle\Vehicle;
 use Database\Factories\ColorFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -36,4 +37,21 @@ class Color extends BaseModel
         'sort_order' => 'integer',
         'rgb_value' => 'array',
     ];
+
+    /**
+     * Get vehicles with this color (exterior or interior)
+     */
+    public function vehicles()
+    {
+        return Vehicle::where('exterior_color', $this->name)
+            ->orWhere('interior_color', $this->name);
+    }
+
+    /**
+     * Get active vehicles with this color
+     */
+    public function activeVehicles()
+    {
+        return $this->vehicles()->where('is_active', true);
+    }
 }

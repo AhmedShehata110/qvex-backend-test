@@ -5,7 +5,9 @@ namespace App\Filament\Resources\VehicleManagement\Colors;
 use App\Filament\Resources\VehicleManagement\Colors\Pages\CreateColor;
 use App\Filament\Resources\VehicleManagement\Colors\Pages\EditColor;
 use App\Filament\Resources\VehicleManagement\Colors\Pages\ListColors;
+use App\Filament\Resources\VehicleManagement\Colors\Pages\ViewColor;
 use App\Filament\Resources\VehicleManagement\Colors\Schemas\ColorForm;
+use App\Filament\Resources\VehicleManagement\Colors\Schemas\ColorInfolist;
 use App\Filament\Resources\VehicleManagement\Colors\Tables\ColorsTable;
 use App\Models\Vehicle\Color;
 use BackedEnum;
@@ -30,6 +32,11 @@ class ColorResource extends Resource
         return ColorForm::configure($schema);
     }
 
+    public static function infolist(Schema $schema): Schema
+    {
+        return ColorInfolist::configure($schema);
+    }
+
     public static function table(Table $table): Table
     {
         return ColorsTable::configure($table);
@@ -47,6 +54,7 @@ class ColorResource extends Resource
         return [
             'index' => ListColors::route('/'),
             'create' => CreateColor::route('/create'),
+            'view' => ViewColor::route('/{record}'),
             'edit' => EditColor::route('/{record}/edit'),
         ];
     }

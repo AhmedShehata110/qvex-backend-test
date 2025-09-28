@@ -7,11 +7,13 @@ use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Tabs;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\Str;
 
 class VehicleForm
@@ -22,7 +24,7 @@ class VehicleForm
             ->components([
                 Tabs::make('Vehicle Information')
                     ->tabs([
-                        Tabs\Tab::make('Basic Information')
+                        Tab::make('Basic Information')
                             ->schema([
                                 Section::make('Vehicle Details')
                                     ->description('Core vehicle information and specifications')
@@ -31,7 +33,7 @@ class VehicleForm
                                             ->schema([
                                                 Select::make('vendor_id')
                                                     ->label('Vendor')
-                                                    ->relationship('vendor', 'name')
+                                                    ->relationship('vendor', 'business_name')
                                                     ->searchable()
                                                     ->preload()
                                                     ->required(),
@@ -107,10 +109,8 @@ class VehicleForm
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
-                                            ->afterStateUpdated(function (string $operation, $state, $set) {
-                                                if ($operation === 'create') {
-                                                    $set('slug', Str::slug($state));
-                                                }
+                                            ->afterStateUpdated(function (Set $set, ?string $state) {
+                                                $set('slug', Str::slug($state));
                                             })
                                             ->columnSpanFull(),
 
@@ -128,9 +128,9 @@ class VehicleForm
                                             ->maxLength(2000)
                                             ->columnSpanFull(),
                                     ]),
-                            ]),
+                          ]),
 
-                        Tabs\Tab::make('Pricing & Rental')
+                        Tab::make('Pricing & Rental')
                             ->schema([
                                 Section::make('Sale Pricing')
                                     ->description('Pricing information for vehicle sales')
@@ -187,7 +187,7 @@ class VehicleForm
                                     ->visible(fn ($get) => in_array($get('availability_type'), [Vehicle::AVAILABILITY_RENT, Vehicle::AVAILABILITY_BOTH])),
                             ]),
 
-                        Tabs\Tab::make('Specifications')
+                        Tab::make('Specifications')
                             ->schema([
                                 Section::make('Technical Specifications')
                                     ->schema([
@@ -228,7 +228,34 @@ class VehicleForm
                                     ]),
                             ]),
 
-                        Tabs\Tab::make('Status & Settings')
+                        Tab::make('Location')
+                            ->schema([
+                                Section::make('Vehicle Location')
+                                    ->description('Geographic location where the vehicle is available')
+                                    ->schema([
+                                        Grid::make(2)
+                                            ->schema([
+                                                TextInput::make('city')
+                                                    ->label('City')
+                                                    ->required()
+                                                    ->maxLength(100),
+
+                                                TextInput::make('state')
+                                                    ->label('State/Province')
+                                                    ->required()
+                                                    ->maxLength(100),
+                                            ]),
+
+                                        TextInput::make('country')
+                                            ->label('Country Code')
+                                            ->required()
+                                            ->maxLength(2)
+                                            ->placeholder('e.g., US, CA, AE')
+                                            ->helperText('Use 2-letter country code (ISO 3166-1 alpha-2)'),
+                                    ]),
+                            ]),
+
+                        Tab::make('Status & Settings')
                             ->schema([
                                 Section::make('Listing Status')
                                     ->schema([

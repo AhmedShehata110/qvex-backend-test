@@ -7,9 +7,10 @@ use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Set;
 use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
 use Illuminate\Support\Str;
+use App\Models\Vehicle\VehicleMake;
 
 class BrandsForm
 {
@@ -26,7 +27,9 @@ class BrandsForm
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', Str::slug($state)))
+                                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                                        $set('slug', Str::slug($state));
+                                    })
                                     ->label('Brand Name'),
 
                                 TextInput::make('name_ar')
@@ -40,7 +43,7 @@ class BrandsForm
                                 TextInput::make('slug')
                                     ->required()
                                     ->maxLength(255)
-                                    ->unique(ignoreDuringUpdate: true)
+                                    ->unique(VehicleMake::class, 'slug', ignoreRecord: true)
                                     ->rules(['alpha_dash'])
                                     ->label('Slug')
                                     ->helperText('URL-friendly identifier'),
@@ -87,8 +90,8 @@ class BrandsForm
                                 '4:3',
                                 '1:1',
                             ])
-                            ->resize(50)
-                            ->optimize('webp')
+                            ->imageResizeTargetWidth(50)
+                            ->imageResizeTargetHeight(50)
                             ->directory('brands/logos')
                             ->visibility('public')
                             ->downloadable()

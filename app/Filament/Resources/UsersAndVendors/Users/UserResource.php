@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\UsersAndVendors\Users;
 
+use App\Enums\User\UserTypeEnum;
 use App\Filament\Resources\UsersAndVendors\Users\Pages\CreateUser;
 use App\Filament\Resources\UsersAndVendors\Users\Pages\EditUser;
 use App\Filament\Resources\UsersAndVendors\Users\Pages\ListUsers;
@@ -57,7 +58,13 @@ class UserResource extends Resource
             //
         ];
     }
-
+ /**
+     * Only show  users in this resource
+     */
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->whereIn('user_type', [UserTypeEnum::USER]);
+    }
     public static function getPages(): array
     {
         return [

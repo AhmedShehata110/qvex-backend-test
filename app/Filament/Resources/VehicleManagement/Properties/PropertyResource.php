@@ -5,7 +5,9 @@ namespace App\Filament\Resources\VehicleManagement\Properties;
 use App\Filament\Resources\VehicleManagement\Properties\Pages\CreateProperty;
 use App\Filament\Resources\VehicleManagement\Properties\Pages\EditProperty;
 use App\Filament\Resources\VehicleManagement\Properties\Pages\ListProperties;
+use App\Filament\Resources\VehicleManagement\Properties\Pages\ViewProperty;
 use App\Filament\Resources\VehicleManagement\Properties\Schemas\PropertyForm;
+use App\Filament\Resources\VehicleManagement\Properties\Schemas\PropertyInfolist;
 use App\Filament\Resources\VehicleManagement\Properties\Tables\PropertiesTable;
 use App\Models\Vehicle\VehicleFeature; // Using existing model
 use BackedEnum;
@@ -34,6 +36,11 @@ class PropertyResource extends Resource
         return PropertyForm::configure($schema);
     }
 
+    public static function infolist(Schema $schema): Schema
+    {
+        return PropertyInfolist::configure($schema);
+    }
+
     public static function table(Table $table): Table
     {
         return PropertiesTable::configure($table);
@@ -51,6 +58,7 @@ class PropertyResource extends Resource
         return [
             'index' => ListProperties::route('/'),
             'create' => CreateProperty::route('/create'),
+            'view' => ViewProperty::route('/{record}'),
             'edit' => EditProperty::route('/{record}/edit'),
         ];
     }

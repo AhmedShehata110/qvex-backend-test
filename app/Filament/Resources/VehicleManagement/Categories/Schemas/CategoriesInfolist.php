@@ -3,12 +3,14 @@
 namespace App\Filament\Resources\VehicleManagement\Categories\Schemas;
 
 use App\Models\Vehicle\VehicleModel;
-use Filament\Infolists\Components\Grid;
-use Filament\Infolists\Components\Group;
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\Section;
 use Filament\Infolists\Components\TextEntry;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Group;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
+use Filament\Support\Enums\IconSize;
+use Filament\Support\Enums\TextSize;
 
 class CategoriesInfolist
 {
@@ -28,7 +30,7 @@ class CategoriesInfolist
                                 TextEntry::make('name')
                                     ->label('Model Name')
                                     ->weight('bold')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
 
                                 TextEntry::make('name_ar')
                                     ->label('Arabic Name')
@@ -66,7 +68,7 @@ class CategoriesInfolist
                                     ->falseIcon('heroicon-o-x-circle')
                                     ->trueColor('success')
                                     ->falseColor('danger')
-                                    ->size('lg'),
+                                    ->size(IconSize::Large),
                             ]),
                     ]),
 
@@ -78,25 +80,25 @@ class CategoriesInfolist
                                     ->label('Production Start Year')
                                     ->badge()
                                     ->color('info')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
 
                                 TextEntry::make('year_end')
                                     ->label('Production End Year')
                                     ->badge()
                                     ->color('warning')
                                     ->placeholder('Still in production')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
 
                                 TextEntry::make('year_range')
                                     ->label('Production Period')
                                     ->badge()
                                     ->color(fn ($record) => $record->isCurrent() ? 'success' : 'gray')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
                             ]),
 
-                        TextEntry::make('isCurrent')
+                        TextEntry::make('current_production_status')
                             ->label('Current Production Status')
-                            ->formatStateUsing(fn ($record): string => $record->isCurrent() ? 'Currently in production' : 'Production discontinued')
+                            ->state(fn ($record): string => $record->isCurrent() ? 'Currently in production' : 'Production discontinued')
                             ->badge()
                             ->color(fn ($record) => $record->isCurrent() ? 'success' : 'danger'),
                     ]),
@@ -109,13 +111,13 @@ class CategoriesInfolist
                                     ->label('Total Vehicles')
                                     ->badge()
                                     ->color('primary')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
 
                                 TextEntry::make('active_vehicle_count')
                                     ->label('Active Vehicles')
                                     ->badge()
                                     ->color('success')
-                                    ->size('lg'),
+                                    ->size(TextSize::Large),
 
                                 TextEntry::make('sort_order')
                                     ->label('Sort Order')

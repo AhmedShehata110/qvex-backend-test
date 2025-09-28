@@ -47,7 +47,7 @@ class ReviewForm
 
                                 Select::make('vendor_id')
                                     ->label('Vendor')
-                                    ->relationship('vendor', 'name')
+                                    ->relationship('vendor', 'business_name')
                                     ->searchable()
                                     ->preload(),
 

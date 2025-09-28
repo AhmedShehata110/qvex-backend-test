@@ -8,7 +8,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -63,8 +62,9 @@ class VehiclesTable
                     ->weight('bold')
                     ->color('success'),
 
-                BadgeColumn::make('condition')
+                TextColumn::make('condition')
                     ->label('Condition')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->colors([
                         'success' => Vehicle::CONDITION_NEW,
@@ -73,8 +73,9 @@ class VehiclesTable
                         'danger' => Vehicle::CONDITION_SALVAGE,
                     ]),
 
-                BadgeColumn::make('availability_type')
+                TextColumn::make('availability_type')
                     ->label('Availability')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         Vehicle::AVAILABILITY_SALE => 'For Sale',
                         Vehicle::AVAILABILITY_RENT => 'For Rent',
@@ -87,8 +88,9 @@ class VehiclesTable
                         'success' => Vehicle::AVAILABILITY_BOTH,
                     ]),
 
-                BadgeColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
+                    ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
                         'success' => Vehicle::STATUS_ACTIVE,
@@ -184,7 +186,7 @@ class VehiclesTable
                     ]),
 
                 SelectFilter::make('vendor')
-                    ->relationship('vendor', 'name')
+                    ->relationship('vendor', 'business_name')
                     ->searchable()
                     ->preload(),
 
