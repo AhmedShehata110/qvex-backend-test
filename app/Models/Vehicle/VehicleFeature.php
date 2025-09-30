@@ -56,7 +56,7 @@ class VehicleFeature extends BaseModel
 
     public function vehicles(): BelongsToMany
     {
-        return $this->belongsToMany(Vehicle::class, 'vehicle_feature_pivot')
+        return $this->belongsToMany(Vehicle::class, 'vehicle_feature_pivot', 'feature_id', 'vehicle_id')
             ->withTimestamps();
     }
 
@@ -213,13 +213,13 @@ class VehicleFeature extends BaseModel
     /**
      * Get features grouped by category
      */
-    public static function getGroupedByCategory()
-    {
-        return static::active()
-            ->ordered()
-            ->get()
-            ->groupBy('category');
-    }
+    // public static function getGroupedByCategory()
+    // {
+    //     return static::active()
+    //         ->ordered()
+    //         ->get()
+    //         ->groupBy('category');
+    // }
 
     /**
      * Get popular features (most used)

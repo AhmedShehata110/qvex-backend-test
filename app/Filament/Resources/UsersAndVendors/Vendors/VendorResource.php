@@ -27,7 +27,7 @@ class VendorResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'business_name';
 
     public static function getNavigationBadge(): ?string
     {

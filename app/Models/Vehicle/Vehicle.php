@@ -3,6 +3,10 @@
 namespace App\Models\Vehicle;
 
 use App\Models\BaseModel;
+use App\Models\Communication\Message;
+use App\Models\Communication\Review;
+use App\Models\Customer\UserFavorite;
+use App\Models\Transaction\Transaction;
 use App\Models\User;
 use App\Models\Vendor\Vendor;
 use Database\Factories\VehicleFactory;
@@ -160,7 +164,7 @@ class Vehicle extends BaseModel
 
     public function features(): BelongsToMany
     {
-        return $this->belongsToMany(VehicleFeature::class, 'vehicle_feature_pivot')
+        return $this->belongsToMany(VehicleFeature::class, 'vehicle_feature_pivot', 'vehicle_id', 'feature_id')
             ->withTimestamps();
     }
 

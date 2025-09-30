@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Traits\AuditableTrait;
 use Database\Factories\CartItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CartItem extends BaseModel
@@ -40,4 +41,11 @@ class CartItem extends BaseModel
         'options' => 'array',
         'metadata' => 'array',
     ];
+
+    // RELATIONSHIPS
+
+    public function cart(): BelongsTo
+    {
+        return $this->belongsTo(Cart::class);
+    }
 }

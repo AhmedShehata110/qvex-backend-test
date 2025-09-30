@@ -5,6 +5,7 @@ namespace App\Filament\Resources\SalesAndTransactions\Carts;
 use App\Filament\Resources\SalesAndTransactions\Carts\Pages\CreateCart;
 use App\Filament\Resources\SalesAndTransactions\Carts\Pages\EditCart;
 use App\Filament\Resources\SalesAndTransactions\Carts\Pages\ListCarts;
+use App\Filament\Resources\SalesAndTransactions\Carts\Pages\ViewCart;
 use App\Filament\Resources\SalesAndTransactions\Carts\Schemas\CartForm;
 use App\Filament\Resources\SalesAndTransactions\Carts\Tables\CartsTable;
 use App\Models\SalesAndTransactions\Cart;
@@ -47,6 +48,7 @@ class CartResource extends Resource
         return [
             'index' => ListCarts::route('/'),
             'create' => CreateCart::route('/create'),
+            'view' => ViewCart::route('/{record}'),
             'edit' => EditCart::route('/{record}/edit'),
         ];
     }

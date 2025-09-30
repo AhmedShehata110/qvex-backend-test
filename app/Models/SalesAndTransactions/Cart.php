@@ -3,9 +3,12 @@
 namespace App\Models\SalesAndTransactions;
 
 use App\Models\BaseModel;
+use App\Models\User;
 use App\Traits\AuditableTrait;
 use Database\Factories\CartFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cart extends BaseModel
@@ -37,4 +40,25 @@ class Cart extends BaseModel
         'expires_at' => 'datetime',
         'metadata' => 'array',
     ];
+
+    // Status constants
+    const STATUS_ACTIVE = 'active';
+
+    const STATUS_ABANDONED = 'abandoned';
+
+    const STATUS_CONVERTED = 'converted';
+
+    const STATUS_EXPIRED = 'expired';
+
+    // RELATIONSHIPS
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\BaseModel;
 use App\Traits\AuditableTrait;
 use Database\Factories\OrderItemFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderItem extends BaseModel
@@ -42,4 +43,11 @@ class OrderItem extends BaseModel
         'options' => 'array',
         'metadata' => 'array',
     ];
+
+    // RELATIONSHIPS
+
+    public function order(): BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('transaction_id')->constrained()->onDelete('cascade');
             $table->decimal('discount_amount', 10, 2);
+            $this->addGeneralFields($table);
             $table->timestamps();
             $table->index(['coupon_id', 'user_id']);
             $table->index('transaction_id');

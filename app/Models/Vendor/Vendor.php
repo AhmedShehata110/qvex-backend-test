@@ -69,6 +69,11 @@ class Vendor extends BaseModel
         return $this->belongsTo(User::class);
     }
 
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function vehicles(): HasMany
     {
         return $this->hasMany(Vehicle::class);

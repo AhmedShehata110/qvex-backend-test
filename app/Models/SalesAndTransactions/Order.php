@@ -3,9 +3,12 @@
 namespace App\Models\SalesAndTransactions;
 
 use App\Models\BaseModel;
+use App\Models\User;
 use App\Traits\AuditableTrait;
 use Database\Factories\OrderFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Order extends BaseModel
@@ -45,4 +48,16 @@ class Order extends BaseModel
         'billing_address' => 'array',
         'metadata' => 'array',
     ];
+
+    // RELATIONSHIPS
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

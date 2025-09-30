@@ -47,8 +47,6 @@ class CouponForm
                 TextInput::make('applicable_to'),
                 Toggle::make('is_active')
                     ->required(),
-                Select::make('added_by_id')
-                    ->relationship('addedBy', 'name'),
                 DateTimePicker::make('starts_at')
                     ->required(),
                 DateTimePicker::make('expires_at')

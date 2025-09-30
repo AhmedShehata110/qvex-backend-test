@@ -14,7 +14,7 @@ class VehicleFeaturePivot extends BaseModel
 
     protected $fillable = [
         'vehicle_id',
-        'vehicle_feature_id',
+        'feature_id',
         'value',
         'notes',
     ];
@@ -30,7 +30,7 @@ class VehicleFeaturePivot extends BaseModel
 
     public function feature(): BelongsTo
     {
-        return $this->belongsTo(VehicleFeature::class, 'vehicle_feature_id');
+        return $this->belongsTo(VehicleFeature::class, 'feature_id');
     }
 
     // Scopes
@@ -41,6 +41,6 @@ class VehicleFeaturePivot extends BaseModel
 
     public function scopeByFeature($query, int $featureId)
     {
-        return $query->where('vehicle_feature_id', $featureId);
+        return $query->where('feature_id', $featureId);
     }
 }

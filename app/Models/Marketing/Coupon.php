@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Coupon extends BaseModel
 {
@@ -19,7 +20,7 @@ class Coupon extends BaseModel
         'description',
         'type',
         'discount_type',
-        'discount_value',
+        'value',
         'minimum_amount',
         'maximum_discount',
         'usage_limit',
@@ -38,7 +39,7 @@ class Coupon extends BaseModel
     ];
 
     protected $casts = [
-        'discount_value' => 'decimal:2',
+        'value' => 'decimal:2',
         'minimum_amount' => 'decimal:2',
         'maximum_discount' => 'decimal:2',
         'usage_limit' => 'integer',
@@ -102,6 +103,17 @@ class Coupon extends BaseModel
     const STATUS_EXPIRED = 'expired';
 
     const STATUS_USED_UP = 'used_up';
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($coupon) {
+            if (Auth::check()) {
+                $coupon->created_by = Auth::id();
+            }
+        });
+    }
 
     public function createdBy(): BelongsTo
     {

@@ -9,6 +9,7 @@ use Database\Factories\VendorSubscriptionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class VendorSubscription extends BaseModel
 {
@@ -200,7 +201,7 @@ class VendorSubscription extends BaseModel
             'auto_renewal' => false,
             'metadata' => array_merge($this->metadata ?? [], [
                 'cancellation_reason' => $reason,
-                'cancelled_by' => auth()->id(),
+                'cancelled_by' => Auth::id(),
             ]),
         ]);
     }
@@ -212,7 +213,7 @@ class VendorSubscription extends BaseModel
             'metadata' => array_merge($this->metadata ?? [], [
                 'suspension_reason' => $reason,
                 'suspended_at' => now(),
-                'suspended_by' => auth()->id(),
+                'suspended_by' => Auth::id(),
             ]),
         ]);
     }
@@ -227,7 +228,7 @@ class VendorSubscription extends BaseModel
             'status' => self::STATUS_ACTIVE,
             'metadata' => array_merge($this->metadata ?? [], [
                 'reactivated_at' => now(),
-                'reactivated_by' => auth()->id(),
+                'reactivated_by' => Auth::id(),
             ]),
         ]);
     }

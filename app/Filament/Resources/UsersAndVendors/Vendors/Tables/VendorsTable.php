@@ -20,7 +20,7 @@ class VendorsTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('business_name')
                     ->label('Vendor Name')
                     ->sortable()
                     ->searchable()
@@ -32,13 +32,13 @@ class VendorsTable
                     ->searchable()
                     ->toggleable(),
 
-                TextColumn::make('email')
+                TextColumn::make('owner.email')
                     ->label('Email')
                     ->searchable()
                     ->copyable()
                     ->toggleable(),
 
-                TextColumn::make('phone')
+                TextColumn::make('owner.phone')
                     ->label('Phone')
                     ->searchable()
                     ->copyable()
