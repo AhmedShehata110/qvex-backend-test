@@ -11,125 +11,82 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - php - 8.3.16
 - filament/filament (FILAMENT) - v4
 - laravel/framework (LARAVEL) - v12
-- laravel/prompts (PROMPTS) - v0
-- laravel/sanctum (SANCTUM) - v4
-- livewire/livewire (LIVEWIRE) - v3
-- laravel/mcp (MCP) - v0
-- laravel/pint (PINT) - v1
-- laravel/sail (SAIL) - v1
-- phpunit/phpunit (PHPUNIT) - v11
+# Copilot instructions — qvex-backend (concise)
 
+This is a Laravel 12 backend (PHP 8.3), Filament v4 admin UI and Livewire v3. Keep guidance short and repository-specific.
 
-## Conventions
-- You must follow all existing code conventions used in this application. When creating or editing a file, check sibling files for the correct structure, approach, naming.
-- Use descriptive names for variables and methods. For example, `isRegisteredForDiscounts`, not `discount()`.
-- Check for existing components to reuse before writing a new one.
+- Big picture: backend-only app. Admin UI is Filament resources in `app/Filament/Resources`. Business logic lives in `app/Models`, `app/Http/Controllers`, `app/Traits`, and observers in `app/Observers`. Bootstrap & route wiring live in `bootstrap/app.php` and `bootstrap/providers.php`.
 
-## Verification Scripts
-- Do not create verification scripts or tinker when tests cover that functionality and prove it works. Unit and feature tests are more important.
+- Key integrations: Filament + Livewire + Vite/Tailwind (frontend assets in `resources/`), Spatie MediaLibrary, Spatie Permission, and Sanctum. Default DB file: `database/database.sqlite` (check `.env`).
 
-## Application Structure & Architecture
-- Stick to existing directory structure - don't create new base folders without approval.
-- Do not change the application's dependencies without approval.
+- Important commands (use these exact scripts):
+  - Start dev environment: `composer run dev` (starts server, queue listener, pail, and `npm run dev` via concurrently)
+  - Run tests: `composer run test` or `php artisan test` (use `--filter` to limit runs)
+  - Format code: `vendor/bin/pint --dirty` before finalizing changes
+  - Build assets: `npm run build` if Vite manifest issues appear
 
-## Frontend Bundling
-- If the user doesn't see a frontend change reflected in the UI, it could mean they need to run `npm run build`, `npm run dev`, or `composer run dev`. Ask them.
+- Patterns & locations to check before editing:
+  - Filament resources: `app/Filament/Resources/*` (Schemas/, Tables/, Actions/)
+  - Models & traits: `app/Models`, `app/Traits`, `app/BaseModel.php`
+  - Observers: `app/Observers/*` (registered via providers/bootstrap)
+  - Helpers: `app/Helpers/helpers.php` (composer autoload files)
 
-## Replies
-- Be concise in your explanations - focus on what's important rather than explaining obvious details.
+- Testing & scaffolding rules:
+  - Use PHPUnit (phpunit v11). Tests live in `tests/Feature` and `tests/Unit` and should use factories in `database/factories`.
+  - Use Filament and Livewire test helpers (`Livewire::test()` / `livewire()`), and authenticate when testing Filament UIs.
+  - Prefer `php artisan make:*` generators and pass `--no-interaction` for reproducible scaffolding.
 
-## Documentation Files
-- You must only create documentation files if explicitly requested by the user.
+- Safety rules (must follow):
+  - Do NOT add/upgrade Composer dependencies or change root composer.json without approval.
+  - Keep files under existing directories; follow sibling file structure and naming.
+  - Run the minimal set of related tests and include test output in your change summary.
 
+- Files to read first: `bootstrap/app.php`, `bootstrap/providers.php`, `composer.json`, `package.json`, `routes/web.php`, `app/Filament/Resources`, `app/Models`, `database/migrations`.
 
-=== boost rules ===
+If you want small examples (Filament resource stub, Livewire test snippet, or example migration), say which one and I will add it.
 
-## Laravel Boost
-- Laravel Boost is an MCP server that comes with powerful tools designed specifically for this application. Use them.
+## MCP findings (auto-generated)
 
-## Artisan
-- Use the `list-artisan-commands` tool when you need to call an Artisan command to double check the available parameters.
+- MCP snapshot (ran via Laravel Boost tools): the app exposes ~159 routes — many are Filament dashboard resources under `dashboard/*` (administration, content, ecommerce, locations, marketing, vehicle-management, sales-and-transactions, users-and-vendors, etc.). Examples: `dashboard/vehicle-management/vehicles`, `dashboard/content/blog-posts`, `dashboard/sales-and-transactions/orders` and Filament endpoints like `filament/exports/{export}/download` and `livewire/*` endpoints.
 
-## URLs
-- Whenever you share a project URL with the user you should use the `get-absolute-url` tool to ensure you're using the correct scheme, domain / IP, and port.
-## Quick guide for AI agents (QVEX backend)
+- Artisan commands discovered: full Laravel set plus many Filament and Livewire generators. Notable commands available in this repo:
+  - Filament generators: `filament:make-resource`, `filament:make-panel`, `filament:make-user`, `filament:install`, `filament:optimize` etc.
+  - Livewire tooling: `livewire:make`, `livewire:form`, `livewire:upgrade` (v2→v3 helper), and frontend asset endpoints (`livewire/livewire.js`).
+  - Common helpers: `make:model`, `make:observer`, `make:migration`, `make:factory`, `make:test`, `migrate`, `migrate:fresh`, `queue:listen`, `pail` (tails logs), and MCP commands (`mcp:start`, `mcp:inspector`).
 
-Purpose: concise, actionable rules so an AI coding agent can make correct, low-risk edits in this Laravel 12 + Filament 4 app.
+- DB schema note: the MCP schema tool failed with "SQLSTATE[HY000] [1049] Unknown database 'qvex'" when attempting to read the MySQL schema. The repository also contains `database/database.sqlite` but the runtime configuration appears to use MySQL (check `.env` and `config/database.php`). Before any code that depends on the DB schema, ensure the DB connection in `.env` is correct or ask the user for DB credentials / to run migrations.
 
-- Environment & key packages: PHP 8.3+, Laravel 12, Filament v4, Livewire v3, Spatie medialibrary v11, spatie/permission. See `composer.json` for versions.
+- Recommended MCP workflows for agents working on this repo:
+  1. Use `list-routes` (MCP) or `php artisan route:list` to confirm UI surface and resource slugs before editing Filament resources.
+  2. Use `list-artisan-commands` (MCP) to find the correct Filament/Livewire generator to scaffold new resources; always pass `--no-interaction`.
+  3. Use `tinker` (MCP) or `database-query` for read-only data inspection; avoid destructive commands (`migrate:fresh`, `db:wipe`) unless asked.
+  4. If schema is needed, fix DB connection (or provide credentials) then re-run the MCP `database-schema` tool. Share the exact command and schema output in change summaries.
 
-- Critical commands
-  - Dev: `composer run dev` (composer script runs concurrently: `php artisan serve`, queue listener, pail, and `npm run dev`). See `composer.json` -> `scripts.dev`.
-  - Frontend build: `npm run dev` (dev) and `npm run build` (production, Vite). See `package.json`.
-  - Tests: `php artisan test` (or `php artisan test --filter=TestName`).
-  - Formatter: `vendor/bin/pint --dirty` before merging changes.
+- Quick actionable examples for AI agents:
+  - To find where a Filament resource is routed: inspect `Route::get` entries in `bootstrap/app.php` and search `app/Filament/Resources/*` for the resource class matching the route slug (e.g., `dashboard/vehicle-management/vehicles` → check `app/Filament/Resources/Vehicle/` or similar).
+  - To scaffold a resource: prefer `php artisan filament:make-resource` or `php artisan make:filament-resource` variants (confirm with `list-artisan-commands`).
 
-- Project layout & routing notes
-  - Routes and console commands are wired in `bootstrap/app.php` (not `app/Console/Kernel.php`).
-  - Service providers live in `bootstrap/providers.php` (app-level providers are registered there).
-  - Filament UI resources live under `app/Filament/Resources` and follow Filament v4 structure (Schemas, Tables, Actions directories).
+If you'd like, I can (with your confirmation):
+- fetch the full `route:list` output as a saved text file, or
+- re-run the DB schema after you confirm how to connect (use `.env` or provide credentials), or
+- add a small Filament resource example and a Livewire test snippet to the instructions.
 
-- Conventions and patterns to follow (concrete)
-  - Models inherit `App\Models\BaseModel` which merges `baseFillable` with child `$fillable` and provides media helpers (`storeImages`, `getImage`, etc.). Example: `app/Models/BaseModel.php`.
-  - Use Eloquent relationships and eager loading to avoid N+1 (`Model::query()` preferred over raw `DB::` queries).
-  - Filament components use static `make()` initialization and Filament-specific artisan generators (use `php artisan` help or `list-artisan-commands` if available).
-  - Files in `app/Helpers/helpers.php` are auto-loaded via composer `files` autoload.
+## Brand & Requirements (from repo docs)
 
-- Tests & Filament specifics
-  - Filament pages/components require authentication in tests. Use `Livewire::test()` and `assertSeeLivewire()` where appropriate.
-  - When adding tests, prefer feature tests and factories (`database/factories/`). Run only the affected test during development.
+- Brand colors: primary greens (Emerald `#2ECC71`, Forest `#27AE60`, Lime `#A4D65E`, Spring `#58D68D`) with supporting Warm Cream `#FFE7BB`, Dark Navy `#2C3E50`, Steel Gray `#7F8C8D` and Light Gray `#ECF0F1`. CSS variables are defined in `qvex_brand_colors.md` — prefer those variables (`--primary`, `--primary-hover`, `--accent`, `--premium`) in CSS/Blade views.
+- Accessibility: color combinations meet WCAG 2.1 AA per the brand doc; maintain contrast, provide non-color indicators, and test colorblind scenarios.
+- Design usage: primary green for CTAs and brand elements; warm cream for premium highlights (featured listings, VIP badges); navy/steel for text and professional elements.
+- Product rules (from `qvex_full_requirements.md`): backend is Filament admin for Super Admin only; public-facing features served via API (Sanctum) to vendor/customer dashboards and mobile apps.
+- Must-haves to respect in code changes: RTL/LTR support, bilingual content (Arabic + English), multi-role permissions (Spatie), KYC/document uploads, multi-image uploads for vehicles, and compliance requirements (OWASP, PCI, GDPR where applicable).
+- Non-functional targets to keep in mind: page load <2s, API latency <500ms for critical endpoints, support for 10k concurrent users, caching (Redis), CDN for assets, and queueing for heavy tasks.
 
-- Media, files & uploads
-  - The project uses Spatie Media Library; models call `$this->addMedia(...)->toMediaCollection(...)`. Preserve collection names (commonly `images`, `videos`, `files`). See `BaseModel` for examples.
+For details, refer to `qvex_brand_colors.md` and `qvex_full_requirements.md` in the repo root.
 
-- Safe edit checklist for PRs
-  1. Run `vendor/bin/pint --dirty` and fix formatting issues.
-  2. Run targeted tests: `php artisan test --filter=...` until green.
-  3. If UI changes: run `npm run dev` and `composer run dev` as needed; if assets missing for production, run `npm run build`.
+## External docs & examples
 
-- What not to change or assume
-  - Don't create new top-level directories without approval. Follow existing structure (Models, Filament/Resources, Http/Controllers).
-  - Don't call `env()` outside config files; read config via `config('...')`.
+- Filament 4 docs (version-specific): https://filamentphp.com/docs/4.x — use this first for Filament components, resource patterns, and generator flags. Example: confirm `filament:make-resource` options here before scaffold.
+- Laravel 12 docs: https://laravel.com/docs/12.x — use for framework features, queues, caching, and config conventions.
+- Filament official demo repo: https://github.com/filamentphp/demo — reference implementation for panels, resources, and layouts; search this repo for examples of complex resource setups.
 
-- Docs & specs (authoritative)
-  - The repository `docs/` folder is the single source of project requirements, implementation notes, and Filament admin guidance. Always consult it before proposing design changes.
-  - Key files to check first:
-    - `docs/README.md` — documentation index & templates (use when adding docs or templates).
-    - `docs/PROJECT_OVERVIEW.md` — high-level architecture, important files, and developer notes (includes sqlite/testing config and BaseModel caveats).
-    - `docs/FILAMENT_4_USAGE.md` — Filament install/scaffold guidance and project-specific notes (do NOT run `--scaffold` on an existing project without approval).
-    - `docs/filament/QVEX_Filament_Navigation_Guide.md` — navigation & Filament panel specifics (use when adding resources or widgets).
-    - `docs/requirements/qvex_full_requirements.md` — product requirements and acceptance criteria (reference for feature work).
-  - Usage guidance:
-    - Reference the appropriate docs file in your PR description and link specific sections (e.g., "implements requirement X from docs/requirements/qvex_full_requirements.md").
-    - If a doc contradicts code, prefer the code but flag the discrepancy in an issue and ask for clarification.
-    - Use the doc templates in `docs/README.md` when adding or updating documentation.
-
-If anything here is unclear or you want additional examples (common Filament resource patterns, example tests, or a PR checklist), tell me which area to expand.
-
----
-
-## Boost + MySQL (mandatory for agents)
-
-- Before any code changes or database work, call the Boost application-info tool to confirm runtime details (PHP/Laravel versions and the configured DB engine). Use this data to choose the correct DB tools and patterns.
-- Use these MCP Boost tools whenever you need authoritative runtime or codebase metadata:
-  - `application-info` — confirm PHP/Laravel versions and DB engine.
-  - `list-artisan-commands` — check available artisan generators and options (always pass `--no-interaction`).
-  - `list-routes` — confirm existing endpoints and Filament resource routes.
-  - `database-schema` / `database-query` — read-only DB schema and SELECT queries.
-  - `tinker` — execute safe PHP snippets for debugging (prefer read-only operations unless user requests changes).
-  - `get-absolute-url` — produce absolute app URLs for verification.
-
-- Database rule: if `application-info` reports MySQL as the configured engine, prefer the MySQL DB client extension (`dbclient-execute-query` / equivalent) for read-only, parameterized SELECTs and schema introspection. Use `mcp_laravel-boost_database-query` for generic read-only queries when appropriate. Never run data-modifying SQL without explicit user approval.
-
-- Safety guidelines when using DB tools:
-  - Default to read-only SELECT queries. If you must run DDL/DML, ask the user and show the exact SQL that will run.
-  - Avoid running `migrate:fresh`, `migrate:refresh`, or any destructive commands unless asked and the environment is explicitly development.
-  - When returning query results, omit any secrets or sensitive fields (API keys, secrets, tokens) unless the user explicitly requests them and has the rights to access them.
-
-- Examples (illustrative):
-  - Confirm environment then inspect vehicles table:
-    1. Call `application-info`.
-    2. If DB=MySQL, call `dbclient-execute-query` with a parameterized SELECT (read-only) to sample rows: `SELECT id, title, price FROM vehicles LIMIT 5`.
-  - To find a route: call `list-routes` and search for `dashboard/vehicle-management/vehicles`.
-
-- Use Boost first, code second: always consult Boost tools for environment and routing before making edits or running generators. Record Boost outputs (versions/DB engine/route paths) in PR descriptions when relevant.
+Use these external resources to verify idiomatic patterns before making changes; cite specific doc links in PR descriptions when applicable.
+</laravel-boost-guidelines>
