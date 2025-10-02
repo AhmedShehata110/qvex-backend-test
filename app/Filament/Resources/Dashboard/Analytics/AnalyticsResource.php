@@ -23,7 +23,7 @@ class AnalyticsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'metric';
 
     public static function form(Schema $schema): Schema
     {

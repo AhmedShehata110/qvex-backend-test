@@ -1,92 +1,286 @@
-<laravel-boost-guidelines>
-=== foundation rules ===
+# QVEX Backend - AI Coding Agent Instructions
 
-# Laravel Boost Guidelines
+## Foundation Rules
 
-The Laravel Boost guidelines are specifically curated by Laravel maintainers for this application. These guidelines should be followed closely to enhance the user's satisfaction building Laravel applications.
+**Laravel Boost Guidelines** - These guidelines are specifically curated by Laravel maintainers for this application and should be followed closely.
 
-## Foundational Context
-This application is a Laravel application and its main Laravel ecosystems package & versions are below. You are an expert with them all. Ensure you abide by these specific packages & versions.
+- **PHP Version:** 8.3.16
+- **Laravel Version:** v12
+- **Filament Version:** v4
+- **Livewire Version:** v3
 
-- php - 8.3.16
-- filament/filament (FILAMENT) - v4
-- laravel/framework (LARAVEL) - v12
-# Copilot instructions — qvex-backend (concise)
+## Big Picture Architecture
 
-This is a Laravel 12 backend (PHP 8.3), Filament v4 admin UI and Livewire v3. Keep guidance short and repository-specific.
+QVEX is a **backend-only Laravel application** serving a multi-vendor car marketplace platform. The architecture separates administrative functions from user-facing features:
 
-- Big picture: backend-only app. Admin UI is Filament resources in `app/Filament/Resources`. Business logic lives in `app/Models`, `app/Http/Controllers`, `app/Traits`, and observers in `app/Observers`. Bootstrap & route wiring live in `bootstrap/app.php` and `bootstrap/providers.php`.
+- **Admin Panel:** Filament v4 interface for Super Admin only (`/dashboard/*` routes)
+- **API Layer:** Laravel Sanctum-powered RESTful APIs serving external vendor/customer dashboards and mobile apps
+- **Data Flow:** Admin panel manages content → APIs serve data to frontend applications
+- **Database:** SQLite for development (default), MySQL for production
 
-- Key integrations: Filament + Livewire + Vite/Tailwind (frontend assets in `resources/`), Spatie MediaLibrary, Spatie Permission, and Sanctum. Default DB file: `database/database.sqlite` (check `.env`).
+**Key Architectural Decisions:**
+- Domain-driven organization: Resources grouped by business domains (VehicleManagement, SalesAndTransactions, etc.)
+- BaseModel pattern: All models extend `BaseModel` with common traits and fillable fields
+- Audit logging: Comprehensive audit trails via observers with custom tagging
+- Multi-tenancy: Vendor isolation with staff management and permissions
 
-- Important commands (use these exact scripts):
-  - Start dev environment: `composer run dev` (starts server, queue listener, pail, and `npm run dev` via concurrently)
-  - Run tests: `composer run test` or `php artisan test` (use `--filter` to limit runs)
-  - Format code: `vendor/bin/pint --dirty` before finalizing changes
-  - Build assets: `npm run build` if Vite manifest issues appear
+## Critical Developer Workflows
 
-- Patterns & locations to check before editing:
-  - Filament resources: `app/Filament/Resources/*` (Schemas/, Tables/, Actions/)
-  - Models & traits: `app/Models`, `app/Traits`, `app/BaseModel.php`
-  - Observers: `app/Observers/*` (registered via providers/bootstrap)
-  - Helpers: `app/Helpers/helpers.php` (composer autoload files)
+### Development Environment
+```bash
+# Start complete dev environment (server + queue + logs + vite)
+composer run dev
 
-- Testing & scaffolding rules:
-  - Use PHPUnit (phpunit v11). Tests live in `tests/Feature` and `tests/Unit` and should use factories in `database/factories`.
-  - Use Filament and Livewire test helpers (`Livewire::test()` / `livewire()`), and authenticate when testing Filament UIs.
-  - Prefer `php artisan make:*` generators and pass `--no-interaction` for reproducible scaffolding.
+# Individual services
+php artisan serve              # Laravel server
+php artisan queue:listen       # Queue worker
+php artisan pail               # Log tailing
+npm run dev                    # Vite frontend assets
+```
 
-- Safety rules (must follow):
-  - Do NOT add/upgrade Composer dependencies or change root composer.json without approval.
-  - Keep files under existing directories; follow sibling file structure and naming.
-  - Run the minimal set of related tests and include test output in your change summary.
+### Testing & Quality
+```bash
+# Run all tests
+composer run test
+# or
+php artisan test --filter=TestName
 
-- Files to read first: `bootstrap/app.php`, `bootstrap/providers.php`, `composer.json`, `package.json`, `routes/web.php`, `app/Filament/Resources`, `app/Models`, `database/migrations`.
+# Format code (Laravel Pint)
+vendor/bin/pint --dirty
 
-If you want small examples (Filament resource stub, Livewire test snippet, or example migration), say which one and I will add it.
+# Build production assets
+npm run build
+```
 
-## MCP findings (auto-generated)
+### Database Operations
+```bash
+# Fresh database with seeders
+php artisan migrate:fresh --seed
 
-- MCP snapshot (ran via Laravel Boost tools): the app exposes ~159 routes — many are Filament dashboard resources under `dashboard/*` (administration, content, ecommerce, locations, marketing, vehicle-management, sales-and-transactions, users-and-vendors, etc.). Examples: `dashboard/vehicle-management/vehicles`, `dashboard/content/blog-posts`, `dashboard/sales-and-transactions/orders` and Filament endpoints like `filament/exports/{export}/download` and `livewire/*` endpoints.
+# Check database status
+php artisan migrate:status
+```
 
-- Artisan commands discovered: full Laravel set plus many Filament and Livewire generators. Notable commands available in this repo:
-  - Filament generators: `filament:make-resource`, `filament:make-panel`, `filament:make-user`, `filament:install`, `filament:optimize` etc.
-  - Livewire tooling: `livewire:make`, `livewire:form`, `livewire:upgrade` (v2→v3 helper), and frontend asset endpoints (`livewire/livewire.js`).
-  - Common helpers: `make:model`, `make:observer`, `make:migration`, `make:factory`, `make:test`, `migrate`, `migrate:fresh`, `queue:listen`, `pail` (tails logs), and MCP commands (`mcp:start`, `mcp:inspector`).
+## Project-Specific Patterns & Conventions
 
-- DB schema note: the MCP schema tool failed with "SQLSTATE[HY000] [1049] Unknown database 'qvex'" when attempting to read the MySQL schema. The repository also contains `database/database.sqlite` but the runtime configuration appears to use MySQL (check `.env` and `config/database.php`). Before any code that depends on the DB schema, ensure the DB connection in `.env` is correct or ask the user for DB credentials / to run migrations.
+### Filament Resource Structure
+**Pattern:** Each resource follows a consistent structure in `app/Filament/Resources/{Domain}/{Resource}/`:
 
-- Recommended MCP workflows for agents working on this repo:
-  1. Use `list-routes` (MCP) or `php artisan route:list` to confirm UI surface and resource slugs before editing Filament resources.
-  2. Use `list-artisan-commands` (MCP) to find the correct Filament/Livewire generator to scaffold new resources; always pass `--no-interaction`.
-  3. Use `tinker` (MCP) or `database-query` for read-only data inspection; avoid destructive commands (`migrate:fresh`, `db:wipe`) unless asked.
-  4. If schema is needed, fix DB connection (or provide credentials) then re-run the MCP `database-schema` tool. Share the exact command and schema output in change summaries.
+```
+VehicleResource.php          # Main resource class
+├── Pages/                   # CRUD pages
+│   ├── ListVehicles.php
+│   ├── CreateVehicle.php
+│   ├── EditVehicle.php
+│   └── ViewVehicle.php
+├── Schemas/                 # Form and infolist schemas
+│   ├── VehicleForm.php
+│   └── VehicleInfolist.php
+└── Tables/                  # Table configuration
+    └── VehiclesTable.php
+```
 
-- Quick actionable examples for AI agents:
-  - To find where a Filament resource is routed: inspect `Route::get` entries in `bootstrap/app.php` and search `app/Filament/Resources/*` for the resource class matching the route slug (e.g., `dashboard/vehicle-management/vehicles` → check `app/Filament/Resources/Vehicle/` or similar).
-  - To scaffold a resource: prefer `php artisan filament:make-resource` or `php artisan make:filament-resource` variants (confirm with `list-artisan-commands`).
+**Example Resource Structure:**
+```php
+class VehicleResource extends Resource
+{
+    protected static ?string $model = Vehicle::class;
+    protected static string $navigationGroup = 'Vehicle Management';
 
-If you'd like, I can (with your confirmation):
-- fetch the full `route:list` output as a saved text file, or
-- re-run the DB schema after you confirm how to connect (use `.env` or provide credentials), or
-- add a small Filament resource example and a Livewire test snippet to the instructions.
+    public static function form(Schema $schema): Schema
+    {
+        return VehicleForm::configure($schema);  // Separate schema class
+    }
 
-## Brand & Requirements (from repo docs)
+    public static function table(Table $table): Table
+    {
+        return VehiclesTable::configure($table); // Separate table class
+    }
+}
+```
 
-- Brand colors: primary greens (Emerald `#2ECC71`, Forest `#27AE60`, Lime `#A4D65E`, Spring `#58D68D`) with supporting Warm Cream `#FFE7BB`, Dark Navy `#2C3E50`, Steel Gray `#7F8C8D` and Light Gray `#ECF0F1`. CSS variables are defined in `qvex_brand_colors.md` — prefer those variables (`--primary`, `--primary-hover`, `--accent`, `--premium`) in CSS/Blade views.
-- Accessibility: color combinations meet WCAG 2.1 AA per the brand doc; maintain contrast, provide non-color indicators, and test colorblind scenarios.
-- Design usage: primary green for CTAs and brand elements; warm cream for premium highlights (featured listings, VIP badges); navy/steel for text and professional elements.
-- Product rules (from `qvex_full_requirements.md`): backend is Filament admin for Super Admin only; public-facing features served via API (Sanctum) to vendor/customer dashboards and mobile apps.
-- Must-haves to respect in code changes: RTL/LTR support, bilingual content (Arabic + English), multi-role permissions (Spatie), KYC/document uploads, multi-image uploads for vehicles, and compliance requirements (OWASP, PCI, GDPR where applicable).
-- Non-functional targets to keep in mind: page load <2s, API latency <500ms for critical endpoints, support for 10k concurrent users, caching (Redis), CDN for assets, and queueing for heavy tasks.
+### Model Architecture
+**All models extend BaseModel** (`app/Models/BaseModel.php`) which provides:
 
-For details, refer to `qvex_brand_colors.md` and `qvex_full_requirements.md` in the repo root.
+- **Common Traits:** `HasActivation`, `HasTranslations`, `InteractsWithMedia`, `SoftDeletes`
+- **Base Fillable:** `['is_active', 'added_by_id']` (auto-merged with child fillable)
+- **Common Methods:** `isActive()`, `active()`, `inActive()`, `toggleActivation()`
 
-## External docs & examples
+**Example Model:**
+```php
+class Vehicle extends BaseModel
+{
+    use Filterable; // Additional trait for this model
 
-- Filament 4 docs (version-specific): https://filamentphp.com/docs/4.x — use this first for Filament components, resource patterns, and generator flags. Example: confirm `filament:make-resource` options here before scaffold.
-- Laravel 12 docs: https://laravel.com/docs/12.x — use for framework features, queues, caching, and config conventions.
-- Filament official demo repo: https://github.com/filamentphp/demo — reference implementation for panels, resources, and layouts; search this repo for examples of complex resource setups.
+    protected $fillable = [
+        'title', 'price', 'description',
+        // 'is_active', 'added_by_id' automatically included from BaseModel
+    ];
 
-Use these external resources to verify idiomatic patterns before making changes; cite specific doc links in PR descriptions when applicable.
-</laravel-boost-guidelines>
+    protected $casts = [
+        'price' => 'decimal:2',
+        'features' => 'array',
+    ];
+}
+```
+
+### Audit Logging Pattern
+**Comprehensive audit trails** via observers (`app/Observers/`) with custom tagging:
+
+```php
+class UserObserver
+{
+    use BaseAuditObserver;
+
+    protected function getCustomAuditTags($model, string $event): array
+    {
+        return [
+            'user_type_' . $model->user_type->value,
+            $model->is_active ? 'active_user' : 'inactive_user',
+        ];
+    }
+}
+```
+
+### Helper Functions
+**Global helpers** in `app/Helpers/helpers.php` (auto-loaded via composer):
+
+```php
+// Convert various inputs to arrays
+convertToArray($value) // string, array, Collection → array
+
+// Generate UUIDs
+uuid() // Returns string UUID
+```
+
+## Integration Points & Dependencies
+
+### Core Integrations
+- **Filament v4 + Livewire v3:** Admin panel with reactive components
+- **Spatie MediaLibrary:** File uploads and media management
+- **Spatie Permission:** Role-based access control (RBAC)
+- **Spatie Translatable:** Multi-language content (Arabic/English)
+- **Laravel Sanctum:** API authentication for external apps
+
+### Frontend Assets
+- **Vite + Tailwind CSS:** Modern build system
+- **Custom Brand Colors:** Defined in `Filament\DashboardPanelProvider`
+- **RTL/LTR Support:** Built-in for Arabic/English locales
+
+### External Service Integration Points
+- **Queue System:** For heavy tasks (email, notifications, processing)
+- **Cache/Redis:** For performance optimization
+- **CDN:** For asset delivery (planned)
+- **Payment Gateways:** Integration points for transactions
+
+## Business Logic Patterns
+
+### Activation Pattern
+**All entities use activation status** instead of soft deletes for business logic:
+
+```php
+// Check status
+$vehicle->isActive()      // boolean
+$vehicle->isInActive()    // boolean
+
+// Toggle status
+$vehicle->active()        // activate
+$vehicle->inActive()      // deactivate
+$vehicle->toggleActivation() // toggle
+```
+
+### Translation Pattern
+**Multi-language support** for Arabic/English content:
+
+```php
+// In migrations
+$table->json('name');     // Stores translations as JSON
+$table->json('description');
+
+// In models
+use HasTranslations;
+
+protected $translatable = ['name', 'description'];
+
+// Usage
+$vehicle->setTranslation('name', 'ar', 'الاسم العربي');
+$vehicle->getTranslation('name', 'ar');
+```
+
+### Media Upload Pattern
+**Spatie MediaLibrary integration** for file management:
+
+```php
+// In models
+use InteractsWithMedia;
+
+public function registerMediaCollections(): void
+{
+    $this->addMediaCollection('images')->acceptsMimeTypes(['image/*']);
+    $this->addMediaCollection('documents')->acceptsMimeTypes(['application/pdf']);
+}
+```
+
+## Files to Read First
+
+**Essential understanding files:**
+1. `bootstrap/app.php` - Application structure and routing
+2. `bootstrap/providers.php` - Service providers registration
+3. `app/Providers/Filament/DashboardPanelProvider.php` - Admin panel configuration
+4. `app/Models/BaseModel.php` - Base model with common functionality
+5. `composer.json` - Dependencies and scripts
+6. `qvex_brand_colors.md` - Brand color specifications
+7. `qvex_full_requirements.md` - Business requirements and architecture
+
+## Testing Patterns
+
+### Test Structure
+- **PHPUnit v11** with Laravel test helpers
+- **Feature Tests:** `tests/Feature/` for integration tests
+- **Unit Tests:** `tests/Unit/` for isolated testing
+- **Filament Testing:** Use `Livewire::test()` for admin panel tests
+
+### Test Example
+```php
+use Livewire\Livewire;
+
+class VehicleResourceTest extends TestCase
+{
+    public function test_can_create_vehicle()
+    {
+        Livewire::test(CreateVehicle::class)
+            ->fillForm([
+                'title' => 'Test Vehicle',
+                'price' => 10000,
+            ])
+            ->call('create')
+            ->assertHasNoFormErrors();
+    }
+}
+```
+
+## Safety Rules
+
+- **DO NOT** add/upgrade Composer dependencies without approval
+- **Keep files** under existing directory structure
+- **Run tests** after changes: `composer run test`
+- **Format code** before committing: `vendor/bin/pint --dirty`
+- **Database:** Use SQLite for dev, verify MySQL config for production
+
+## Common Gotchas
+
+- **Database Connection:** MCP schema tool may fail - check `.env` for correct DB credentials
+- **Media Library:** Files stored via Spatie MediaLibrary, not direct filesystem
+- **Translations:** Use `HasTranslations` trait, not Laravel's built-in translation
+- **Permissions:** Use Spatie Permission package for RBAC
+- **Routes:** All admin routes under `/dashboard/*`, API routes separate
+
+## External Resources
+
+- **Filament v4 Docs:** https://filamentphp.com/docs/4.x
+- **Laravel 12 Docs:** https://laravel.com/docs/12.x
+- **Spatie Packages:** Check individual package docs for advanced usage
+
+---
+
+*Last updated: October 2025 - Based on Laravel 12, Filament v4, Livewire v3 ecosystem*

@@ -108,7 +108,8 @@ class VendorStaffForm
                                     ->label('Work Phone')
                                     ->tel()
                                     ->maxLength(20)
-                                    ->helperText('Work phone number'),
+                                    ->regex('/^\+?[\d\s\-\(\)]+$/')
+                                    ->helperText('Work phone number (e.g., +1 (274) 528-5041)'),
                             ]),
 
                         Textarea::make('address')
@@ -128,7 +129,8 @@ class VendorStaffForm
                                     ->label('Emergency Contact Phone')
                                     ->tel()
                                     ->maxLength(20)
-                                    ->helperText('Emergency contact phone number'),
+                                    ->regex('/^\+?[\d\s\-\(\)]+$/')
+                                    ->helperText('Emergency contact phone number (e.g., +1 (549) 944-3853)'),
                             ]),
                     ]),
 

@@ -104,14 +104,19 @@ class VehicleForm
                                 Section::make('Listing Information')
                                     ->description('Title, description, and listing details')
                                     ->schema([
-                                        TextInput::make('title')
-                                            ->label('Vehicle Title')
+                                        TextInput::make('title.en')
+                                            ->label('Vehicle Title (English)')
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
                                             ->afterStateUpdated(function (Set $set, ?string $state) {
                                                 $set('slug', Str::slug($state));
                                             })
+                                            ->columnSpanFull(),
+
+                                        TextInput::make('title.ar')
+                                            ->label('Vehicle Title (Arabic)')
+                                            ->maxLength(255)
                                             ->columnSpanFull(),
 
                                         TextInput::make('slug')
@@ -122,8 +127,14 @@ class VehicleForm
                                             ->rules(['alpha_dash'])
                                             ->columnSpanFull(),
 
-                                        Textarea::make('description')
-                                            ->label('Description')
+                                        Textarea::make('description.en')
+                                            ->label('Description (English)')
+                                            ->rows(4)
+                                            ->maxLength(2000)
+                                            ->columnSpanFull(),
+
+                                        Textarea::make('description.ar')
+                                            ->label('Description (Arabic)')
                                             ->rows(4)
                                             ->maxLength(2000)
                                             ->columnSpanFull(),

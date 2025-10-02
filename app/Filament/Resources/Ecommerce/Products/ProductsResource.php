@@ -27,7 +27,7 @@ class ProductsResource extends Resource
 
     protected static ?string $navigationLabel = 'Products (Vehicles)';
 
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Schema $schema): Schema
     {
