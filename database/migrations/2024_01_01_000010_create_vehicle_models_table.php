@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
             $table->foreignId('make_id')->constrained('vehicle_makes')->onDelete('cascade');
-            $table->string('name');
-            $table->string('name_ar')->nullable();
+            $table->json('name'); // Translatable field
             $table->string('slug');
             $table->integer('year_start');
             $table->integer('year_end')->nullable();

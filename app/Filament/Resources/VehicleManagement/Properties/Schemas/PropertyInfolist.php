@@ -4,7 +4,7 @@ namespace App\Filament\Resources\VehicleManagement\Properties\Schemas;
 
 use App\Models\Vehicle\VehicleFeature;
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -87,13 +87,10 @@ class PropertyInfolist
 
                 Section::make('Feature Icon')
                     ->schema([
-                        ImageEntry::make('icon')
+                        SpatieMediaLibraryImageEntry::make('icon')
                             ->hiddenLabel()
                             ->size(100)
-                            ->defaultImageUrl(function ($record) {
-                                return 'https://ui-avatars.com/api/?name='.urlencode($record->name).
-                                       '&size=100&background=3B82F6&color=ffffff';
-                            }),
+                            ->collection('icons'),
                     ])
                     ->grow(false),
 

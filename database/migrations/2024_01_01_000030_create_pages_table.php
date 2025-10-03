@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('title_ar')->nullable();
+            $table->json('title'); // Translatable field
             $table->string('slug')->unique();
-            $table->longText('content');
-            $table->longText('content_ar')->nullable();
-            $table->text('excerpt')->nullable();
-            $table->text('excerpt_ar')->nullable();
+            $table->json('content'); // Translatable field
+            $table->json('excerpt')->nullable(); // Translatable field
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->json('meta_keywords')->nullable();

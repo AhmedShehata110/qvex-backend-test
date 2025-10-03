@@ -25,7 +25,7 @@ class City extends BaseModel
         'longitude' => 'decimal:8',
     ];
 
-    public array $translatable = ['name'];
+    protected $translatable = ['name'];
 
     public function country(): BelongsTo
     {

@@ -8,7 +8,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -20,14 +20,11 @@ class PropertiesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('icon')
+                SpatieMediaLibraryImageColumn::make('icon')
                     ->label('Icon')
                     ->circular()
                     ->size(40)
-                    ->defaultImageUrl(function ($record) {
-                        return 'https://ui-avatars.com/api/?name='.urlencode($record->name).
-                               '&size=40&background=3B82F6&color=ffffff';
-                    }),
+                    ->collection('icons'),
 
                 TextColumn::make('name')
                     ->label('Feature Name')

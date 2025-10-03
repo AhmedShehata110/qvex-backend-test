@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('vehicle_makes', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('name_ar')->nullable();
+            $table->json('name'); // Translatable field
             $table->string('slug')->unique();
-            $table->string('logo')->nullable();
             $table->string('country_origin', 2)->nullable();
 
             // General fields

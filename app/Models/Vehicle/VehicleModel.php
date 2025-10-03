@@ -24,7 +24,6 @@ class VehicleModel extends BaseModel
     protected $fillable = [
         'make_id',
         'name',
-        'name_ar',
         'slug',
         'year_start',
         'year_end',

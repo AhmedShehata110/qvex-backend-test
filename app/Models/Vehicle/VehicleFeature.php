@@ -22,7 +22,6 @@ class VehicleFeature extends BaseModel
 
     protected $fillable = [
         'name',
-        'name_ar',
         'slug',
         'category',
         'icon',
@@ -36,6 +35,16 @@ class VehicleFeature extends BaseModel
     ];
 
     protected $translatable = ['name'];
+
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'icons' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'single' => true,
+        ],
+    ];
 
     // Category constants
     const CATEGORY_SAFETY = 'safety';

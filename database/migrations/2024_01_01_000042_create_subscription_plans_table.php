@@ -13,11 +13,9 @@ return new class extends Migration
     {
         Schema::create('subscription_plans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('name_ar')->nullable();
+            $table->json('name'); // Translatable field
             $table->string('slug')->unique();
-            $table->text('description');
-            $table->text('description_ar')->nullable();
+            $table->json('description'); // Translatable field
             $table->decimal('price', 10, 2);
             $table->enum('billing_cycle', ['monthly', 'yearly']);
             $table->integer('max_listings')->nullable();

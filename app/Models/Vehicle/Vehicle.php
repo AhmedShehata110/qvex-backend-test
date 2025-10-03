@@ -36,9 +36,7 @@ class Vehicle extends BaseModel
         'vin',
         'year',
         'title',
-        'title_ar',
         'description',
-        'description_ar',
         'condition',
         'availability_type',
         'status',
@@ -111,6 +109,27 @@ class Vehicle extends BaseModel
     ];
 
     protected $translatable = ['title', 'description'];
+
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'exterior' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+        ],
+        'interior' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+        ],
+        'engine' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+        ],
+        'documents' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+        ],
+        'featured-images' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+        ],
+    ];
 
     // Status constants
     const STATUS_DRAFT = 'draft';

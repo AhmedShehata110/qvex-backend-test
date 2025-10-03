@@ -8,7 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -25,7 +25,8 @@ class BlogPostsTable
                     ->searchable(),
                 TextColumn::make('slug')
                     ->searchable(),
-                ImageColumn::make('featured_image'),
+                SpatieMediaLibraryImageColumn::make('featured_image')
+                    ->collection('featured-images'),
                 TextColumn::make('meta_title')
                     ->searchable(),
                 TextColumn::make('view_count')

@@ -8,7 +8,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
@@ -23,8 +23,10 @@ class BannersTable
                     ->searchable(),
                 TextColumn::make('title_ar')
                     ->searchable(),
-                ImageColumn::make('image'),
-                ImageColumn::make('image_mobile'),
+                SpatieMediaLibraryImageColumn::make('image')
+                    ->collection('banners'),
+                SpatieMediaLibraryImageColumn::make('image_mobile')
+                    ->collection('banners-mobile'),
                 TextColumn::make('link_url')
                     ->searchable(),
                 TextColumn::make('link_text')

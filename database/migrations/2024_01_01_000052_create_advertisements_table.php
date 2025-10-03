@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('type');
             $table->string('position');
             $table->string('target_url')->nullable();
-            $table->string('image_url')->nullable();
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
             $table->boolean('is_active')->default(true);

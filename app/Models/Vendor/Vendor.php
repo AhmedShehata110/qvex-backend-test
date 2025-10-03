@@ -26,15 +26,11 @@ class Vendor extends BaseModel
     protected $fillable = [
         'user_id',
         'business_name',
-        'business_name_ar',
         'slug',
         'description',
-        'description_ar',
         'registration_number',
         'tax_id',
         'trade_license',
-        'logo',
-        'cover_image',
         'vendor_type',
         'status',
         'business_hours',
@@ -50,6 +46,11 @@ class Vendor extends BaseModel
         'verified_at',
         'verified_by',
         'subscription_expires_at',
+    ];
+
+    protected $translatable = [
+        'business_name',
+        'description',
     ];
 
     protected $casts = [
@@ -83,4 +84,21 @@ class Vendor extends BaseModel
     {
         return $this->belongsTo(User::class, 'verified_by');
     }
+
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'business_license' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+            'single' => true,
+        ],
+        'tax_certificate' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+            'single' => true,
+        ],
+        'certificates' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+        ],
+    ];
 }

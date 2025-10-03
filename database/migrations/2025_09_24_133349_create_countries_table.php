@@ -18,7 +18,6 @@ return new class extends Migration
             $table->id();
             $table->json('name'); // Translatable field
             $table->string('code', 2)->unique(); // ISO country code
-            $table->string('flag_url')->nullable();
             $table->string('currency_code', 3)->nullable();
             $table->string('phone_code', 5)->nullable();
             $table->boolean('is_active')->default(true);

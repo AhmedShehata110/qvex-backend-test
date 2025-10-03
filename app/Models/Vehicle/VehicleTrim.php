@@ -23,7 +23,6 @@ class VehicleTrim extends BaseModel
     protected $fillable = [
         'model_id',
         'name',
-        'name_ar',
         'year',
         'engine_size',
         'fuel_type',

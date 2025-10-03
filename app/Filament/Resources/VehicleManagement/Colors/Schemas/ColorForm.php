@@ -20,9 +20,14 @@ class ColorForm
                     ->schema([
                         Grid::make(2)
                             ->schema([
-                                TextInput::make('name')
-                                    ->label('Color Name')
+                                TextInput::make('name.en')
+                                    ->label('Color Name (English)')
                                     ->required()
+                                    ->maxLength(255)
+                                    ->columnSpan(1),
+
+                                TextInput::make('name.ar')
+                                    ->label('Color Name (Arabic)')
                                     ->maxLength(255)
                                     ->columnSpan(1),
 

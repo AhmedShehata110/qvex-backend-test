@@ -41,8 +41,7 @@ class UserFactory extends Factory
             'password' => static::$password ??= Hash::make('password'),
             'locale' => fake()->randomElement(['en', 'ar']),
             'timezone' => fake()->timezone(),
-            'avatar' => fake()->optional(0.3)->imageUrl(300, 300, 'people'),
-            'birth_date' => fake()->optional(0.6)->date('Y-m-d', '-18 years'),
+            'birth_date' => fake()->optional(0.7)->date(),
             'gender' => fake()->randomElement(['male', 'female']),
             'user_type' => fake()->randomElement(UserTypeEnum::cases()),
             'two_factor_enabled' => fake()->boolean(20), // 20% chance

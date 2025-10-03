@@ -43,7 +43,6 @@ class User extends Authenticatable implements HasMedia
         'password',
         'locale',
         'timezone',
-        'avatar',
         'birth_date',
         'gender',
         'user_type',
@@ -727,16 +726,20 @@ class User extends Authenticatable implements HasMedia
 
     // MEDIA COLLECTIONS
 
-    public function registerMediaCollections(): void
-    {
-        $this->addMediaCollection('avatars')
-            ->singleFile()
-            ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp']);
-
-        $this->addMediaCollection('documents')
-            ->acceptsMimeTypes([
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'avatars' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+            'single' => true,
+        ],
+        'documents' => [
+            'mimes' => [
                 'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-                'application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            ]);
-    }
+                'application/pdf', 'application/msword', 
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            ],
+        ],
+    ];
 }

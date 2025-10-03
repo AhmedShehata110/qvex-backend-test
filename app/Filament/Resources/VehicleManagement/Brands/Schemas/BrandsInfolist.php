@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\VehicleManagement\Brands\Schemas;
 
-use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -99,13 +99,10 @@ class BrandsInfolist
                                         ->color('warning'),
                 ]),                    Section::make('Brand Logo')
                         ->schema([
-                            ImageEntry::make('logo')
+                            SpatieMediaLibraryImageEntry::make('logo')
                                 ->hiddenLabel()
                                 ->size(200)
-                                ->defaultImageUrl(function ($record) {
-                                    return 'https://ui-avatars.com/api/?name='.urlencode($record->name).
-                                           '&size=200&background=3B82F6&color=ffffff';
-                                }),
+                                ->collection('logos'),
                         ])
                         ->grow(false),
                 ]),

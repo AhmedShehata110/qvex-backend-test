@@ -21,9 +21,8 @@ class AdvertisementFactory extends Factory
             'title' => fake()->sentence(3),
             'description' => fake()->optional(0.8)->paragraph(),
             'type' => fake()->randomElement(['banner', 'sidebar', 'popup', 'email', 'social_media']),
-            'position' => fake()->randomElement(['header', 'sidebar', 'footer', 'homepage', 'search_results']),
-            'target_url' => fake()->url(),
-            'image_url' => fake()->imageUrl(800, 600, 'advertisement'),
+            'position' => fake()->randomElement(['header', 'sidebar', 'footer', 'homepage']),
+            'target_url' => fake()->optional(0.8)->url(),
             'start_date' => $startDate,
             'end_date' => $endDate,
             'is_active' => fake()->boolean(80), // 80% active

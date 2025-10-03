@@ -48,8 +48,8 @@ class CategoriesForm
                                             ])
                                             ->columnSpanFull(),
 
-                                        TextInput::make('name')
-                                            ->label('Model Name')
+                                        TextInput::make('name.en')
+                                            ->label('Model Name (English)')
                                             ->required()
                                             ->maxLength(255)
                                             ->live(onBlur: true)
@@ -57,8 +57,8 @@ class CategoriesForm
                                                 $set('slug', \Illuminate\Support\Str::slug($state));
                                             }),
 
-                                        TextInput::make('name_ar')
-                                            ->label('Arabic Name')
+                                        TextInput::make('name.ar')
+                                            ->label('Model Name (Arabic)')
                                             ->maxLength(255),
                                     ]),
 

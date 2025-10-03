@@ -14,16 +14,12 @@ return new class extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('business_name');
-            $table->string('business_name_ar')->nullable();
+            $table->json('business_name'); // Translatable field
             $table->string('slug')->unique();
-            $table->text('description')->nullable();
-            $table->text('description_ar')->nullable();
+            $table->json('description')->nullable(); // Translatable field
             $table->string('registration_number')->unique();
             $table->string('tax_id')->unique()->nullable();
             $table->string('trade_license')->nullable();
-            $table->string('logo')->nullable();
-            $table->string('cover_image')->nullable();
             $table->enum('vendor_type', ['dealership', 'rental_company', 'individual', 'service_center']);
             $table->enum('status', ['pending', 'active', 'suspended', 'rejected'])->default('pending');
             $table->json('business_hours')->nullable();

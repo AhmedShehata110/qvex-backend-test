@@ -61,6 +61,18 @@ class Banner extends BaseModel
         'title',
         'description',
         'button_text',
+        'link_text',
+    ];
+
+    protected array $customMediaCollections = [
+        'banners' => [
+            'mimes' => ['image/*'],
+            'single' => true,
+        ],
+        'banners-mobile' => [
+            'mimes' => ['image/*'],
+            'single' => true,
+        ],
     ];
 
     // Position constants
@@ -462,5 +474,31 @@ class Banner extends BaseModel
                 ->where('click_count', 0)
                 ->orWhereRaw('ends_at < DATE_ADD(NOW(), INTERVAL 7 DAY)');
         });
+    }
+
+    /**
+     * Register media conversions for banner images
+     */
+    public function registerMediaConversions(?\Spatie\MediaLibrary\MediaCollections\Models\Media $media = null): void
+    {
+        parent::registerMediaConversions($media);
+
+        $this->addMediaConversion('banner_desktop')
+            ->width(1920)
+            ->height(600)
+            ->sharpen(5)
+            ->performOnCollections($this->imagesCollection);
+
+        $this->addMediaConversion('banner_mobile')
+            ->width(768)
+            ->height(400)
+            ->sharpen(5)
+            ->performOnCollections($this->imagesCollection);
+
+        $this->addMediaConversion('banner_tablet')
+            ->width(1024)
+            ->height(500)
+            ->sharpen(5)
+            ->performOnCollections($this->imagesCollection);
     }
 }

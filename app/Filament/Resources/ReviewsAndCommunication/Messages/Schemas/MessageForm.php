@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ReviewsAndCommunication\Messages\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -52,7 +52,7 @@ class MessageForm
                         'read' => 'Read',
                         'failed' => 'Failed',
                     ]),
-                FileUpload::make('attachments'),
+                SpatieMediaLibraryFileUpload::make('attachments'),
                 KeyValue::make('metadata'),
                 Toggle::make('is_read'),
                 Toggle::make('is_starred'),

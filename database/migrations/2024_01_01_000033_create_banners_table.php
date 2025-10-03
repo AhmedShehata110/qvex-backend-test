@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('banners', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('title_ar')->nullable();
-            $table->text('description')->nullable();
-            $table->text('description_ar')->nullable();
+            $table->json('title'); // Translatable field
+            $table->json('description')->nullable(); // Translatable field
             $table->string('image');
             $table->string('image_mobile')->nullable();
             $table->string('link_url')->nullable();
-            $table->string('link_text')->nullable();
-            $table->string('link_text_ar')->nullable();
+            $table->json('link_text')->nullable(); // Translatable field
             $table->enum('position', ['hero', 'sidebar', 'footer', 'popup', 'in_content']);
             $table->enum('type', ['promotional', 'informational', 'vendor_ad']);
             $table->json('targeting')->nullable();

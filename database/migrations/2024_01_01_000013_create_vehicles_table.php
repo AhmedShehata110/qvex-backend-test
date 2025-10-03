@@ -19,10 +19,8 @@ return new class extends Migration
             $table->foreignId('trim_id')->nullable()->constrained('vehicle_trims');
             $table->string('vin', 17)->unique()->nullable();
             $table->integer('year');
-            $table->string('title');
-            $table->string('title_ar')->nullable();
-            $table->text('description')->nullable();
-            $table->text('description_ar')->nullable();
+            $table->json('title'); // Translatable field
+            $table->json('description')->nullable(); // Translatable field
             $table->enum('condition', ['new', 'used', 'certified_preowned', 'salvage']);
             $table->enum('availability_type', ['sale', 'rent', 'both']);
             $table->enum('status', ['draft', 'active', 'sold', 'rented', 'inactive', 'pending_approval']);

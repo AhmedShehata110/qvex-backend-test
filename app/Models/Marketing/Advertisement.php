@@ -26,7 +26,6 @@ class Advertisement extends BaseModel
         'type',
         'position',
         'target_url',
-        'image_url',
         'start_date',
         'end_date',
         'is_active',

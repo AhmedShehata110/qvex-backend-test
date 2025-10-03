@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Marketing\Banners\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -23,11 +23,13 @@ class BannerForm
                     ->columnSpanFull(),
                 Textarea::make('description_ar')
                     ->columnSpanFull(),
-                FileUpload::make('image')
+                SpatieMediaLibraryFileUpload::make('image')
                     ->image()
-                    ->required(),
-                FileUpload::make('image_mobile')
-                    ->image(),
+                    ->required()
+                    ->collection('banners'),
+                SpatieMediaLibraryFileUpload::make('image_mobile')
+                    ->image()
+                    ->collection('banners-mobile'),
                 TextInput::make('link_url'),
                 TextInput::make('link_text'),
                 TextInput::make('link_text_ar'),

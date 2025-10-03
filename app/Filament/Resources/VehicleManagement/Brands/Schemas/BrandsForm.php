@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\VehicleManagement\Brands\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
 use Filament\Forms\Components\Select;
@@ -23,23 +23,20 @@ class BrandsForm
                     ->schema([
                         Grid::make(2)
                             ->schema([
-                                TextInput::make('name')
+                                TextInput::make('name.en')
+                                    ->label('Brand Name (English)*')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function (Set $set, ?string $state) {
                                         $set('slug', Str::slug($state));
-                                    })
-                                    ->label('Brand Name'),
+                                    }),
 
-                                TextInput::make('name_ar')
-                                    ->maxLength(255)
+                                TextInput::make('name.ar')
                                     ->label('Arabic Name')
+                                    ->maxLength(255)
                                     ->helperText('Brand name in Arabic'),
-                            ]),
 
-                        Grid::make(2)
-                            ->schema([
                                 TextInput::make('slug')
                                     ->required()
                                     ->maxLength(255)
@@ -81,7 +78,7 @@ class BrandsForm
                 Section::make('Brand Media')
                     ->description('Upload brand logo and images.')
                     ->schema([
-                        FileUpload::make('logo')
+                        SpatieMediaLibraryFileUpload::make('logo')
                             ->label('Brand Logo')
                             ->image()
                             ->imageEditor()
@@ -92,8 +89,7 @@ class BrandsForm
                             ])
                             ->imageResizeTargetWidth(50)
                             ->imageResizeTargetHeight(50)
-                            ->directory('brands/logos')
-                            ->visibility('public')
+                            ->collection('logos')
                             ->downloadable()
                             ->openable()
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])

@@ -13,10 +13,8 @@ return new class extends Migration
     {
         Schema::create('faqs', function (Blueprint $table) {
             $table->id();
-            $table->string('question');
-            $table->string('question_ar')->nullable();
-            $table->text('answer');
-            $table->text('answer_ar')->nullable();
+            $table->json('question'); // Translatable field
+            $table->json('answer'); // Translatable field
             $table->string('category')->default('general');
 
             // General fields

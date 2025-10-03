@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('password');
             $table->string('locale', 5)->default('en');
             $table->string('timezone', 50)->default('UTC');
-            $table->string('avatar')->nullable();
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female', 'other'])->nullable();
             $table->enum('user_type', ['admin', 'user'])->default('user');

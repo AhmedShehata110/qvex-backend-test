@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\VehicleManagement\Properties\Schemas;
 
 use App\Models\Vehicle\VehicleFeature;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -24,18 +24,18 @@ class PropertyForm
                     ->schema([
                         Grid::make(2)
                             ->schema([
-                                TextInput::make('name')
+                                TextInput::make('name.en')
+                                    ->label('Feature Name (English)')
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
                                     ->afterStateUpdated(function (Set $set, ?string $state) {
                                         $set('slug', Str::slug($state));
-                                    })
-                                    ->label('Feature Name'),
+                                    }),
 
-                                TextInput::make('name_ar')
+                                TextInput::make('name.ar')
+                                    ->label('Feature Name (Arabic)')
                                     ->maxLength(255)
-                                    ->label('Arabic Name')
                                     ->helperText('Feature name in Arabic'),
                             ]),
 
@@ -73,7 +73,7 @@ class PropertyForm
                 Section::make('Feature Media')
                     ->description('Upload feature icon and images.')
                     ->schema([
-                        FileUpload::make('icon')
+                        SpatieMediaLibraryFileUpload::make('icon')
                             ->label('Feature Icon')
                             ->image()
                             ->imageEditor()
@@ -82,8 +82,7 @@ class PropertyForm
                             ])
                             ->imageResizeTargetWidth(64)
                             ->imageResizeTargetHeight(64)
-                            ->directory('features/icons')
-                            ->visibility('public')
+                            ->collection('icons')
                             ->downloadable()
                             ->openable()
                             ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])

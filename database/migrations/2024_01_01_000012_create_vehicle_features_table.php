@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicle_features', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('name_ar')->nullable();
+            $table->json('name'); // Translatable field
             $table->string('slug')->unique();
             $table->enum('category', [
                 'safety', 'technology', 'comfort', 'performance',

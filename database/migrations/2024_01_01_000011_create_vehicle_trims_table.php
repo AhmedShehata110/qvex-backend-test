@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('vehicle_trims', function (Blueprint $table) {
             $table->id();
             $table->foreignId('model_id')->constrained('vehicle_models')->onDelete('cascade');
-            $table->string('name');
-            $table->string('name_ar')->nullable();
+            $table->json('name'); // Translatable field
             $table->integer('year');
             $table->string('engine_size')->nullable();
             $table->enum('fuel_type', ['gasoline', 'diesel', 'hybrid', 'electric', 'cng', 'lpg']);

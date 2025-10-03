@@ -7,7 +7,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
@@ -41,10 +41,11 @@ class CountriesTable
                     ->badge()
                     ->color('success'),
 
-                ImageColumn::make('flag_url')
+                SpatieMediaLibraryImageColumn::make('flags')
                     ->label('Flag')
                     ->width(40)
-                    ->height(30),
+                    ->height(30)
+                    ->collection('flags'),
 
                 TextColumn::make('cities_count')
                     ->label('Cities')

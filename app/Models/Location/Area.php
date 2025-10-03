@@ -23,7 +23,7 @@ class Area extends BaseModel
         'is_active' => 'boolean',
     ];
 
-    public array $translatable = ['name', 'description'];
+    protected $translatable = ['name', 'description'];
 
     public function city(): BelongsTo
     {

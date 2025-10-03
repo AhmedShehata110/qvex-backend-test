@@ -26,9 +26,7 @@ class FAQ extends BaseModel
 
     protected $fillable = [
         'question',
-        'question_ar',
         'answer',
-        'answer_ar',
         'category',
         'sort_order',
         'view_count',

@@ -22,14 +22,22 @@ class VehicleMake extends BaseModel
 
     protected $fillable = [
         'name',
-        'name_ar',
         'slug',
-        'logo',
         'country_origin',
         'sort_order',
     ];
 
     protected $translatable = ['name'];
+
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'logos' => [
+            'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'single' => true,
+        ],
+    ];
 
     public function vehicleModels(): HasMany
     {

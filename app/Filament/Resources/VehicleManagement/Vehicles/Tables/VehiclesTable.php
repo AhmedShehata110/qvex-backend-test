@@ -9,7 +9,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -23,11 +23,11 @@ class VehiclesTable
     {
         return $table
             ->columns([
-                ImageColumn::make('featured_image')
+                SpatieMediaLibraryImageColumn::make('featured_image')
                     ->label('')
                     ->circular()
-                    ->defaultImageUrl('/images/default-vehicle.png')
-                    ->size(60),
+                    ->size(60)
+                    ->collection('featured-images'),
 
                 TextColumn::make('title')
                     ->label('Vehicle Title')

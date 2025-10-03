@@ -13,7 +13,6 @@ class Country extends BaseModel
     protected $fillable = [
         'name',
         'code',
-        'flag_url',
         'currency_code',
         'phone_code',
         'is_active',
@@ -23,7 +22,16 @@ class Country extends BaseModel
         'is_active' => 'boolean',
     ];
 
-    public array $translatable = ['name'];
+    protected $translatable = ['name'];
+
+    /**
+     * Media collections configuration
+     */
+    protected array $customMediaCollections = [
+        'flags' => [
+            'mimes' => ['image/*'],
+        ],
+    ];
 
     public function cities(): HasMany
     {

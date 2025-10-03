@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('key')->unique();
             $table->string('name');
-            $table->string('subject');
-            $table->string('subject_ar')->nullable();
-            $table->longText('body');
-            $table->longText('body_ar')->nullable();
+            $table->json('subject');
+            $table->json('html_content');
+            $table->json('text_content');
             $table->json('variables')->nullable();
 
             // General fields

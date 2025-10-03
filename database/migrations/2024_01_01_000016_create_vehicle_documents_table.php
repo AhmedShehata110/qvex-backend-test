@@ -18,8 +18,7 @@ return new class extends Migration
                 'registration', 'insurance', 'inspection', 'service_record',
                 'ownership_transfer', 'loan_clearance', 'other',
             ]);
-            $table->string('title');
-            $table->string('title_ar')->nullable();
+            $table->json('title'); // Translatable field
             $table->string('file_path');
             $table->string('original_name');
             $table->string('mime_type');

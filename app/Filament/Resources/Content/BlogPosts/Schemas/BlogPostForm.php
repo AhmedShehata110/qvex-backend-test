@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Content\BlogPosts\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -31,8 +31,9 @@ class BlogPostForm
                     ->columnSpanFull(),
                 Textarea::make('content_ar')
                     ->columnSpanFull(),
-                FileUpload::make('featured_image')
-                    ->image(),
+                SpatieMediaLibraryFileUpload::make('featured_image')
+                    ->image()
+                    ->collection('featured-images'),
                 TextInput::make('meta_title'),
                 Textarea::make('meta_description')
                     ->columnSpanFull(),

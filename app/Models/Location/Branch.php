@@ -36,7 +36,7 @@ class Branch extends BaseModel
         'working_hours' => 'array',
     ];
 
-    public array $translatable = ['name', 'description', 'address'];
+    protected $translatable = ['name', 'description', 'address'];
 
     public function vendor(): BelongsTo
     {

@@ -50,6 +50,12 @@ class BlogPost extends BaseModel
         'category',
     ];
 
+    protected array $customMediaCollections = [
+        'featured-images' => [
+            'mimes' => ['image/*'],
+        ],
+    ];
+
     // Status constants
     const STATUS_DRAFT = 'draft';
 

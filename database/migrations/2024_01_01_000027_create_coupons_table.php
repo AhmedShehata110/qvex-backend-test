@@ -14,10 +14,8 @@ return new class extends Migration
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
-            $table->string('name');
-            $table->string('name_ar')->nullable();
-            $table->text('description')->nullable();
-            $table->text('description_ar')->nullable();
+            $table->json('name'); // Translatable field
+            $table->json('description')->nullable(); // Translatable field
             $table->enum('type', ['percentage', 'fixed_amount']);
             $table->decimal('value', 10, 2);
             $table->decimal('minimum_amount', 10, 2)->nullable();

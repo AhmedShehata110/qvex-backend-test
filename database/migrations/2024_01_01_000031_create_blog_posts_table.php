@@ -13,13 +13,10 @@ return new class extends Migration
     {
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('title_ar')->nullable();
+            $table->json('title'); // Translatable field
             $table->string('slug')->unique();
-            $table->text('excerpt');
-            $table->text('excerpt_ar')->nullable();
-            $table->longText('content');
-            $table->longText('content_ar')->nullable();
+            $table->json('excerpt'); // Translatable field
+            $table->json('content'); // Translatable field
             $table->string('featured_image')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();

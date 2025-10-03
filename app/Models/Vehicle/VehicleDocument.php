@@ -2,6 +2,7 @@
 
 namespace App\Models\Vehicle;
 
+use App\Models\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -13,7 +14,6 @@ class VehicleDocument extends BaseModel
         'vehicle_id',
         'document_type',
         'title',
-        'title_ar',
         'file_path',
         'original_name',
         'mime_type',

@@ -65,9 +65,8 @@ class VehicleMakeFactory extends Factory
         return [
             'name' => $name,
             'name_ar' => $arabicNames[$name] ?? fake()->optional(0.6)->company(),
-            'slug' => Str::slug($name),
-            'logo' => fake()->optional(0.7)->imageUrl(200, 100, 'transport'),
-            'country_origin' => $countries[$name] ?? fake()->countryCode(),
+                        'slug' => Str::slug($name),
+            'country_origin' => fake()->optional(0.7)->countryCode(),
             'is_active' => fake()->boolean(95), // 95% chance of being active
             'added_by_id' => null,
             'deleted_at' => null,
