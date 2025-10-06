@@ -21,11 +21,17 @@ class PaymentResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCreditCard;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Sales & Transactions';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.sales_transactions');
+    }
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationLabel = 'Payments';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.payments');
+    }
 
     protected static ?string $recordTitleAttribute = 'payment_reference';
 

@@ -23,7 +23,7 @@ class PaymentForm
                 Section::make('Payment Information')
                     ->schema([
                         Select::make('transaction_id')
-                            ->label('Transaction')
+                            ->label(__('keys.transaction'))
                             ->relationship('transaction', 'transaction_number')
                             ->searchable()
                             ->preload()
@@ -31,7 +31,7 @@ class PaymentForm
                             ->helperText('The transaction this payment is associated with'),
 
                         Select::make('user_id')
-                            ->label('User')
+                            ->label(__('keys.user'))
                             ->relationship('user', 'name')
                             ->searchable()
                             ->preload()
@@ -39,19 +39,19 @@ class PaymentForm
                             ->helperText('The user making this payment'),
 
                         Select::make('payment_method')
-                            ->label('Payment Method')
+                            ->label(__('keys.payment_method'))
                             ->options(Payment::getMethods())
                             ->required()
                             ->helperText('The method used for payment'),
 
                         Select::make('payment_gateway')
-                            ->label('Payment Gateway')
+                            ->label(__('keys.payment_gateway'))
                             ->options(Payment::getGateways())
                             ->required()
                             ->helperText('The payment gateway used to process this payment'),
 
                         Select::make('status')
-                            ->label('Status')
+                            ->label(__('keys.status'))
                             ->options(Payment::getStatuses())
                             ->default(Payment::STATUS_PENDING)
                             ->required()
@@ -62,23 +62,23 @@ class PaymentForm
                 Section::make('Gateway Details')
                     ->schema([
                         TextInput::make('gateway_transaction_id')
-                            ->label('Gateway Transaction ID')
+                            ->label(__('keys.id'))
                             ->maxLength(255)
                             ->helperText('Transaction ID from the payment gateway'),
 
                         TextInput::make('gateway_payment_id')
-                            ->label('Gateway Payment ID')
+                            ->label(__('keys.id'))
                             ->maxLength(255)
                             ->helperText('Payment ID from the payment gateway'),
 
                         Textarea::make('gateway_response')
-                            ->label('Gateway Response')
+                            ->label(__('keys.gateway_response'))
                             ->rows(4)
                             ->columnSpanFull()
                             ->helperText('Raw response data from the payment gateway (JSON format)'),
 
                         Textarea::make('failure_reason')
-                            ->label('Failure Reason')
+                            ->label(__('keys.failure_reason'))
                             ->rows(3)
                             ->columnSpanFull()
                             ->helperText('Reason for payment failure (if applicable)'),
@@ -88,7 +88,7 @@ class PaymentForm
                 Section::make('Amount & Currency')
                     ->schema([
                         TextInput::make('amount')
-                            ->label('Amount')
+                            ->label(__('keys.amount'))
                             ->numeric()
                             ->required()
                             ->minValue(0)
@@ -96,14 +96,14 @@ class PaymentForm
                             ->helperText('Payment amount'),
 
                         TextInput::make('currency')
-                            ->label('Currency')
+                            ->label(__('keys.currency'))
                             ->default('USD')
                             ->required()
                             ->maxLength(3)
                             ->helperText('Currency code (e.g., USD, EUR)'),
 
                         TextInput::make('refunded_amount')
-                            ->label('Refunded Amount')
+                            ->label(__('keys.refunded_amount'))
                             ->numeric()
                             ->minValue(0)
                             ->step(0.01)
@@ -114,11 +114,11 @@ class PaymentForm
                 Section::make('Timestamps')
                     ->schema([
                         DateTimePicker::make('processed_at')
-                            ->label('Processed At')
+                            ->label(__('keys.processed_at'))
                             ->helperText('When the payment was processed'),
 
                         DateTimePicker::make('refunded_at')
-                            ->label('Refunded At')
+                            ->label(__('keys.refunded_at'))
                             ->helperText('When the refund was processed'),
                     ])
                     ->columns(2),
@@ -126,13 +126,13 @@ class PaymentForm
                 Section::make('Additional Data')
                     ->schema([
                         Textarea::make('notes')
-                            ->label('Notes')
+                            ->label(__('keys.notes'))
                             ->rows(3)
                             ->columnSpanFull()
                             ->helperText('Additional notes about this payment'),
 
                         KeyValue::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('keys.metadata'))
                             ->columnSpanFull()
                             ->helperText('Additional metadata in key-value format'),
                     ])

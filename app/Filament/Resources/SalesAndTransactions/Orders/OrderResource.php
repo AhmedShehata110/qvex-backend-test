@@ -21,9 +21,17 @@ class OrderResource extends Resource
 {
     protected static ?string $model = Order::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Sales & Transactions';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.sales_transactions');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.orders');
+    }
 
     protected static ?string $recordTitleAttribute = 'order_number';
 

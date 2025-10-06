@@ -30,7 +30,7 @@ return new class extends Migration
             $table->json('working_hours')->nullable(); // Store as JSON: {"monday": "09:00-17:00", etc.}
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-
+            $this->addGeneralFields($table);
             $table->index(['vendor_id', 'is_active']);
             $table->index(['country_id', 'city_id']);
             $table->index(['latitude', 'longitude']);

@@ -16,30 +16,30 @@ class CartsTable
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('User')
+                    ->label(__('keys.user'))
                     ->searchable()
                     ->sortable()
                     ->placeholder('Guest Cart'),
 
                 TextColumn::make('session_id')
-                    ->label('Session ID')
+                    ->label(__('keys.session_id'))
                     ->searchable()
                     ->limit(20)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('total_items')
-                    ->label('Items')
+                    ->label(__('keys.items'))
                     ->numeric()
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('total_amount')
-                    ->label('Total')
+                    ->label(__('keys.total'))
                     ->money('USD')
                     ->sortable(),
 
                 TextColumn::make('currency')
-                    ->label('Currency')
+                    ->label(__('keys.currency'))
                     ->badge()
                     ->color('success'),
 
@@ -55,19 +55,19 @@ class CartsTable
                     ->formatStateUsing(fn (string $state): string => ucfirst($state)),
 
                 TextColumn::make('expires_at')
-                    ->label('Expires')
+                    ->label(__('keys.expires'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Never'),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

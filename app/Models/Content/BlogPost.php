@@ -53,6 +53,7 @@ class BlogPost extends BaseModel
     protected array $customMediaCollections = [
         'featured-images' => [
             'mimes' => ['image/*'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 

@@ -8,4 +8,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateVendorStaff extends CreateRecord
 {
     protected static string $resource = VendorStaffResource::class;
+
+    protected function afterCreate(): void
+    {
+        echo "Vendor staff record created successfully!";
+    }
 }

@@ -22,7 +22,7 @@ class AdminsTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label(__('keys.email_address'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('phone')
@@ -32,40 +32,40 @@ class AdminsTable
                     ->badge()
                     ->color('success'),
                 IconColumn::make('email_verified_at')
-                    ->label('Email Verified')
+                    ->label(__('keys.email_verified'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
                 IconColumn::make('phone_verified_at')
-                    ->label('Phone Verified')
+                    ->label(__('keys.phone_verified'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
                 TextColumn::make('last_login_at')
-                    ->label('Last Login')
+                    ->label(__('keys.last_login'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Never'),
                 IconColumn::make('two_factor_enabled')
-                    ->label('2FA')
+                    ->label(__('keys.2fa'))
                     ->boolean()
                     ->trueIcon('heroicon-o-shield-check')
                     ->falseIcon('heroicon-o-shield-exclamation')
                     ->trueColor('success')
                     ->falseColor('warning'),
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('keys.active'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

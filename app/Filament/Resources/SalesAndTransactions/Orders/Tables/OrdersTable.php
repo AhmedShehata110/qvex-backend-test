@@ -21,7 +21,7 @@ class OrdersTable
         return $table
             ->columns([
                 TextColumn::make('order_number')
-                    ->label('Order #')
+                    ->label(__('keys.order'))
                     ->searchable()
                     ->sortable()
                     ->copyable()
@@ -29,20 +29,20 @@ class OrdersTable
                     ->color('primary'),
 
                 TextColumn::make('user.name')
-                    ->label('Customer')
+                    ->label(__('keys.customer'))
                     ->searchable()
                     ->sortable()
                     ->limit(30),
 
                 TextColumn::make('total_amount')
-                    ->label('Total')
+                    ->label(__('keys.total'))
                     ->money('USD')
                     ->sortable()
                     ->weight('bold')
                     ->color('success'),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
@@ -55,7 +55,7 @@ class OrdersTable
                     ->sortable(),
 
                 TextColumn::make('payment_status')
-                    ->label('Payment')
+                    ->label(__('keys.payment'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
@@ -67,40 +67,40 @@ class OrdersTable
                     ->sortable(),
 
                 TextColumn::make('order_date')
-                    ->label('Order Date')
+                    ->label(__('keys.order_date'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('shipped_at')
-                    ->label('Shipped')
+                    ->label(__('keys.shipped'))
                     ->dateTime()
-                    ->placeholder('Not shipped')
+                    ->placeholder(__('keys.not_shipped'))
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('delivered_at')
-                    ->label('Delivered')
+                    ->label(__('keys.delivered'))
                     ->dateTime()
-                    ->placeholder('Not delivered')
+                    ->placeholder(__('keys.not_delivered'))
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Order Status')
+                    ->label(__('keys.status'))
                     ->options([
                         'pending' => 'Pending',
                         'processing' => 'Processing',
@@ -112,7 +112,7 @@ class OrdersTable
                     ->multiple(),
 
                 SelectFilter::make('payment_status')
-                    ->label('Payment Status')
+                    ->label(__('keys.status'))
                     ->options([
                         'pending' => 'Pending',
                         'paid' => 'Paid',
@@ -123,17 +123,17 @@ class OrdersTable
                     ->multiple(),
 
                 Filter::make('recent_orders')
-                    ->label('Recent Orders (Last 7 days)')
+                    ->label(__('keys.recent_orders'))
                     ->query(fn (Builder $query): Builder => $query->where('created_at', '>=', now()->subDays(7)))
                     ->toggle(),
 
                 Filter::make('high_value_orders')
-                    ->label('High Value Orders ($100+)')
+                    ->label(__('keys.high_value_orders'))
                     ->query(fn (Builder $query): Builder => $query->where('total_amount', '>=', 100))
                     ->toggle(),
 
                 TernaryFilter::make('has_shipping_address')
-                    ->label('Has Shipping Address')
+                    ->label(__('keys.has_shipping_address'))
                     ->query(function ($query, $data) {
                         if ($data['value'] === '1') {
                             return $query->whereNotNull('shipping_address');
@@ -144,7 +144,7 @@ class OrdersTable
                     }),
 
                 SelectFilter::make('user')
-                    ->label('Customer')
+                    ->label(__('keys.customer'))
                     ->relationship('user', 'name')
                     ->searchable()
                     ->preload(),

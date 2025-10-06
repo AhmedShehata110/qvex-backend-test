@@ -18,18 +18,18 @@ class SubscriptionPlanForm
         return $schema
             ->components([
                 Section::make('Basic Information')
-                    ->description('Core plan details')
+                    ->description(__('keys.core_plan_details'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('Plan Name')
+                                    ->label(__('keys.plan_name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->helperText('Display name for the subscription plan'),
 
                                 TextInput::make('slug')
-                                    ->label('Slug')
+                                    ->label(__('keys.slug'))
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->maxLength(255)
@@ -37,7 +37,7 @@ class SubscriptionPlanForm
                             ]),
 
                         Textarea::make('description')
-                            ->label('Description')
+                            ->label(__('keys.description'))
                             ->rows(3)
                             ->maxLength(1000)
                             ->helperText('Detailed description of the plan'),
@@ -45,7 +45,7 @@ class SubscriptionPlanForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('billing_cycle')
-                                    ->label('Billing Cycle')
+                                    ->label(__('keys.billing_cycle'))
                                     ->options([
                                         'monthly' => 'Monthly',
                                         'yearly' => 'Yearly',
@@ -56,7 +56,7 @@ class SubscriptionPlanForm
                                     ->helperText('How often customers are billed'),
 
                                 TextInput::make('trial_days')
-                                    ->label('Trial Period (Days)')
+                                    ->label(__('keys.trial_period'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(0)
@@ -65,12 +65,12 @@ class SubscriptionPlanForm
                     ]),
 
                 Section::make('Pricing')
-                    ->description('Plan pricing and fees')
+                    ->description(__('keys.plan_pricing_and_fees'))
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 TextInput::make('price_monthly')
-                                    ->label('Monthly Price')
+                                    ->label(__('keys.price'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -79,7 +79,7 @@ class SubscriptionPlanForm
                                     ->helperText('Monthly subscription price'),
 
                                 TextInput::make('price_yearly')
-                                    ->label('Yearly Price')
+                                    ->label(__('keys.price'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -87,7 +87,7 @@ class SubscriptionPlanForm
                                     ->helperText('Annual subscription price'),
 
                                 TextInput::make('setup_fee')
-                                    ->label('Setup Fee')
+                                    ->label(__('keys.setup_fee'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -99,7 +99,7 @@ class SubscriptionPlanForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('commission_rate')
-                                    ->label('Commission Rate (%)')
+                                    ->label(__('keys.commission'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(100)
@@ -110,18 +110,18 @@ class SubscriptionPlanForm
                     ]),
 
                 Section::make('Limits & Quotas')
-                    ->description('Usage limits for the plan')
+                    ->description(__('keys.usage_limits_for_the_plan'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('vehicle_listing_limit')
-                                    ->label('Vehicle Listing Limit')
+                                    ->label(__('keys.vehicle_listing_limit'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->helperText('Maximum number of vehicle listings (0 = unlimited)'),
 
                                 TextInput::make('photo_limit_per_vehicle')
-                                    ->label('Photos per Vehicle')
+                                    ->label(__('keys.photos_per_vehicle'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(10)
@@ -131,13 +131,13 @@ class SubscriptionPlanForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('featured_listing_limit')
-                                    ->label('Featured Listings')
+                                    ->label(__('keys.featured_listings'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->helperText('Maximum featured listings allowed'),
 
                                 TextInput::make('staff_account_limit')
-                                    ->label('Staff Accounts')
+                                    ->label(__('keys.staff_accounts'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->helperText('Maximum staff accounts allowed'),
@@ -145,10 +145,10 @@ class SubscriptionPlanForm
                     ]),
 
                 Section::make('Features & Capabilities')
-                    ->description('Plan features and capabilities')
+                    ->description(__('keys.plan_features_and_capabilities'))
                     ->schema([
                         CheckboxList::make('features')
-                            ->label('Available Features')
+                            ->label(__('keys.available_features'))
                             ->options([
                                 'unlimited_listings' => 'Unlimited Vehicle Listings',
                                 'premium_support' => '24/7 Premium Support',
@@ -167,44 +167,44 @@ class SubscriptionPlanForm
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('analytics_access')
-                                    ->label('Analytics Access')
+                                    ->label(__('keys.analytics_access'))
                                     ->default(false)
                                     ->helperText('Access to detailed analytics'),
 
                                 Toggle::make('priority_support')
-                                    ->label('Priority Support')
+                                    ->label(__('keys.support'))
                                     ->default(false)
                                     ->helperText('Priority customer support'),
 
                                 Toggle::make('custom_branding')
-                                    ->label('Custom Branding')
+                                    ->label(__('keys.custom_branding'))
                                     ->default(false)
                                     ->helperText('Custom branding options'),
 
                                 Toggle::make('api_access')
-                                    ->label('API Access')
+                                    ->label(__('keys.api_access'))
                                     ->default(false)
                                     ->helperText('Access to API endpoints'),
                             ]),
                     ]),
 
                 Section::make('Plan Settings')
-                    ->description('Plan visibility and ordering')
+                    ->description(__('keys.plan_visibility_and_ordering'))
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 Toggle::make('is_active')
-                                    ->label('Active')
+                                    ->label(__('keys.active'))
                                     ->default(true)
                                     ->helperText('Plan is available for purchase'),
 
                                 Toggle::make('is_popular')
-                                    ->label('Popular Plan')
+                                    ->label(__('keys.popular_plan'))
                                     ->default(false)
                                     ->helperText('Highlight as a popular choice'),
 
                                 TextInput::make('sort_order')
-                                    ->label('Sort Order')
+                                    ->label(__('keys.sort_order'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(0)

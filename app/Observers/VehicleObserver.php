@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Models\AuditLog;
 use App\Traits\BaseAuditObserver;
+use Illuminate\Support\Facades\Auth;
 
 class VehicleObserver
 {
@@ -54,7 +55,7 @@ class VehicleObserver
             [
                 'owner_id' => $model->user_id,
                 'vendor_id' => $model->vendor_id ?? null,
-                'make' => $model->make,
+                'brand' => $model->brand,
                 'model_name' => $model->model,
                 'year' => $model->year,
                 'price' => $model->price,
@@ -93,7 +94,7 @@ class VehicleObserver
                 [
                     'old_status' => $oldValues['status'],
                     'new_status' => $newValues['status'],
-                    'changed_by' => auth()->id(),
+                    'changed_by' => Auth::id(),
                 ]
             );
 
@@ -122,7 +123,7 @@ class VehicleObserver
                 $model,
                 $event,
                 [
-                    'changed_by' => auth()->id(),
+                    'changed_by' => Auth::id(),
                     'feature_change_date' => now(),
                 ]
             );
@@ -174,7 +175,7 @@ class VehicleObserver
             'vehicle_delisted',
             [
                 'deletion_type' => 'soft_delete',
-                'deleted_by' => auth()->id(),
+                'deleted_by' => Auth::id(),
                 'final_status' => $oldValues['status'] ?? null,
                 'final_price' => $oldValues['price'] ?? null,
                 'listing_duration_days' => $model->created_at ?
@@ -192,7 +193,7 @@ class VehicleObserver
             $model,
             'vehicle_relisted',
             [
-                'restored_by' => auth()->id(),
+                'restored_by' => Auth::id(),
                 'restoration_reason' => request()->get('restoration_reason'),
                 'current_status' => $model->status,
             ]
@@ -225,7 +226,7 @@ class VehicleObserver
             $vehicle,
             'inquiry_received',
             [
-                'inquirer_id' => auth()->id(),
+                'inquirer_id' => Auth::id(),
                 'inquiry_type' => $inquiryData['type'] ?? 'general',
                 'message_length' => isset($inquiryData['message']) ? strlen($inquiryData['message']) : 0,
                 'contact_method' => $inquiryData['contact_method'] ?? 'email',
@@ -276,7 +277,7 @@ class VehicleObserver
                 'photo_count' => count($vehicle->images ?? []),
                 'photo_type' => $photoData['type'] ?? 'standard',
                 'file_size' => $photoData['size'] ?? null,
-                'uploaded_by' => auth()->id(),
+                'uploaded_by' => Auth::id(),
             ]
         );
     }

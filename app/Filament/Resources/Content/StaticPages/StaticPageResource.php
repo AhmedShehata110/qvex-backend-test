@@ -23,6 +23,16 @@ class StaticPageResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.static_pages');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.content');
+    }
+
     protected static ?string $recordTitleAttribute = 'title';
 
     public static function form(Schema $schema): Schema

@@ -23,6 +23,16 @@ class NewsletterSubscriberResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.newsletter_subscribers');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.communication');
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

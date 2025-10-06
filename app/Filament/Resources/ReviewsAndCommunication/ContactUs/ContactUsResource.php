@@ -23,6 +23,16 @@ class ContactUsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.contact_us');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.reviews_communication');
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

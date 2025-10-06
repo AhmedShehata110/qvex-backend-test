@@ -25,6 +25,16 @@ class AreasResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.areas');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.locations');
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

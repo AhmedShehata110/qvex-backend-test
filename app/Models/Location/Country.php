@@ -30,6 +30,7 @@ class Country extends BaseModel
     protected array $customMediaCollections = [
         'flags' => [
             'mimes' => ['image/*'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 

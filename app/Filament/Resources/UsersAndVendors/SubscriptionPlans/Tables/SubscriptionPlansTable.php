@@ -17,24 +17,24 @@ class SubscriptionPlansTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Plan Name')
+                    ->label(__('keys.plan_name'))
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
 
                 TextColumn::make('price_monthly')
-                    ->label('Monthly Price')
+                    ->label(__('keys.price'))
                     ->money('USD')
                     ->sortable(),
 
                 TextColumn::make('price_yearly')
-                    ->label('Yearly Price')
+                    ->label(__('keys.price'))
                     ->money('USD')
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('billing_cycle')
-                    ->label('Billing Cycle')
+                    ->label(__('keys.billing_cycle'))
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -45,33 +45,33 @@ class SubscriptionPlansTable
                     }),
 
                 TextColumn::make('trial_days')
-                    ->label('Trial Days')
+                    ->label(__('keys.trial_days'))
                     ->numeric()
                     ->sortable()
-                    ->placeholder('No trial'),
+                    ->placeholder(__('keys.no_trial')),
 
                 TextColumn::make('vehicle_listing_limit')
-                    ->label('Vehicle Listings')
+                    ->label(__('keys.vehicle_listings'))
                     ->numeric()
                     ->sortable()
-                    ->placeholder('Unlimited'),
+                    ->placeholder(__('keys.unlimited')),
 
                 TextColumn::make('staff_account_limit')
-                    ->label('Staff Accounts')
+                    ->label(__('keys.staff_accounts'))
                     ->numeric()
                     ->sortable()
-                    ->placeholder('Unlimited')
+                    ->placeholder(__('keys.unlimited'))
                     ->toggleable(),
 
                 TextColumn::make('featured_listing_limit')
-                    ->label('Featured Listings')
+                    ->label(__('keys.featured_listings'))
                     ->numeric()
                     ->sortable()
                     ->placeholder('Unlimited')
                     ->toggleable(),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('keys.active'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -79,7 +79,7 @@ class SubscriptionPlansTable
                     ->falseColor('danger'),
 
                 IconColumn::make('is_popular')
-                    ->label('Popular')
+                    ->label(__('keys.popular'))
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-minus')
@@ -88,32 +88,32 @@ class SubscriptionPlansTable
                     ->toggleable(),
 
                 TextColumn::make('subscriptions_count')
-                    ->label('Active Subscriptions')
+                    ->label(__('keys.active_subscriptions'))
                     ->counts('subscriptions')
                     ->sortable(),
 
                 TextColumn::make('sort_order')
-                    ->label('Sort Order')
+                    ->label(__('keys.sort_order'))
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Active Status')
-                    ->placeholder('All plans')
+                    ->label(__('keys.status'))
+                    ->placeholder(__('keys.all_plans'))
                     ->trueLabel('Active only')
                     ->falseLabel('Inactive only'),
 
                 TernaryFilter::make('is_popular')
-                    ->label('Popular Plans')
-                    ->placeholder('All plans')
+                    ->label(__('keys.popular_plan'))
+                    ->placeholder(__('keys.all_plans'))
                     ->trueLabel('Popular only')
                     ->falseLabel('Regular only'),
             ])

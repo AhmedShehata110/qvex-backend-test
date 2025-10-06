@@ -5,6 +5,7 @@ namespace App\Observers;
 use App\Models\AuditLog;
 use App\Models\User;
 use App\Traits\BaseAuditObserver;
+use Illuminate\Support\Facades\Auth;
 
 class UserObserver
 {
@@ -102,7 +103,7 @@ class UserObserver
                 [
                     'old_user_type' => $oldValues['user_type']?->value ?? $oldValues['user_type'],
                     'new_user_type' => $newValues['user_type']?->value ?? $newValues['user_type'],
-                    'changed_by' => auth()->id(),
+                    'changed_by' => Auth::id(),
                 ]
             );
         }
@@ -115,7 +116,7 @@ class UserObserver
                 $model,
                 $event,
                 [
-                    'status_changed_by' => auth()->id(),
+                    'status_changed_by' => Auth::id(),
                     'previous_status' => $oldValues['is_active'],
                 ]
             );
@@ -132,7 +133,7 @@ class UserObserver
             'user_deactivated',
             [
                 'deletion_type' => 'soft_delete',
-                'deleted_by' => auth()->id(),
+                'deleted_by' => Auth::id(),
                 'user_email' => $oldValues['email'] ?? null,
                 'user_type' => $oldValues['user_type']?->value ?? $oldValues['user_type'] ?? null,
             ]
@@ -148,7 +149,7 @@ class UserObserver
             $model,
             'user_restored',
             [
-                'restored_by' => auth()->id(),
+                'restored_by' => Auth::id(),
                 'restoration_reason' => request()->get('restoration_reason'),
             ]
         );

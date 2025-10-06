@@ -21,27 +21,27 @@ class ColorInfolist
                         Section::make('Color Information')
                             ->schema([
                                 TextEntry::make('name')
-                                    ->label('Color Name')
+                                    ->label(__('keys.color_name'))
                                     ->size(TextSize::Large)
                                     ->weight('bold')
                                     ->color('primary'),
 
                                 ColorEntry::make('hex_code')
-                                    ->label('Color Preview'),
+                                    ->label(__('keys.color_preview')),
 
                                 TextEntry::make('hex_code')
-                                    ->label('Hex Code')
+                                    ->label(__('keys.hex_code'))
                                     ->copyable()
                                     ->badge()
                                     ->color('gray'),
 
                                 TextEntry::make('rgb_value')
-                                    ->label('RGB Value')
+                                    ->label(__('keys.rgb_value'))
                                     ->copyable()
-                                    ->placeholder('Not provided'),
+                                    ->placeholder(__('keys.not_provided')),
 
                                 TextEntry::make('type')
-                                    ->label('Type')
+                                    ->label(__('keys.type'))
                                     ->badge()
                                     ->color(fn (string $state): string => match ($state) {
                                         'exterior' => 'success',
@@ -53,7 +53,7 @@ class ColorInfolist
                                 Grid::make(3)
                                     ->schema([
                                         IconEntry::make('is_metallic')
-                                            ->label('Metallic')
+                                            ->label(__('keys.metallic'))
                                             ->boolean()
                                             ->trueIcon('heroicon-o-sparkles')
                                             ->falseIcon('heroicon-o-minus')
@@ -61,7 +61,7 @@ class ColorInfolist
                                             ->falseColor('gray'),
 
                                         IconEntry::make('is_popular')
-                                            ->label('Popular')
+                                            ->label(__('keys.popular'))
                                             ->boolean()
                                             ->trueIcon('heroicon-o-star')
                                             ->falseIcon('heroicon-o-minus')
@@ -69,7 +69,7 @@ class ColorInfolist
                                             ->falseColor('gray'),
 
                                         TextEntry::make('sort_order')
-                                            ->label('Sort Order')
+                                            ->label(__('keys.sort_order'))
                                             ->badge()
                                             ->color('secondary'),
                                     ]),
@@ -78,14 +78,14 @@ class ColorInfolist
                         Section::make('Color Statistics')
                             ->schema([
                                 TextEntry::make('vehicles_count')
-                                    ->label('Total Vehicles')
+                                    ->label(__('keys.total_vehicles'))
                                     ->getStateUsing(fn ($record) => $record->vehicles()->count())
                                     ->badge()
                                     ->color('primary')
                                     ->size(TextSize::Large),
 
                                 TextEntry::make('active_vehicles_count')
-                                    ->label('Active Vehicles')
+                                    ->label(__('keys.active_vehicles'))
                                     ->getStateUsing(fn ($record) => $record->activeVehicles()->count())
                                     ->badge()
                                     ->color('success'),
@@ -97,15 +97,15 @@ class ColorInfolist
                         Grid::make(3)
                             ->schema([
                                 TextEntry::make('created_at')
-                                    ->label('Created At')
+                                    ->label(__('keys.created_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('updated_at')
-                                    ->label('Updated At')
+                                    ->label(__('keys.updated_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('created_at')
-                                    ->label('Days Since Created')
+                                    ->label(__('keys.days_since_created'))
                                     ->getStateUsing(fn ($record) => $record->created_at->diffInDays().' days ago')
                                     ->badge()
                                     ->color('gray'),

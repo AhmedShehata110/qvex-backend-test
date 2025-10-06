@@ -27,6 +27,16 @@ class FAQResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.faqs');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.content');
+    }
+
     protected static ?string $recordTitleAttribute = 'question';
 
     public static function getNavigationBadge(): ?string

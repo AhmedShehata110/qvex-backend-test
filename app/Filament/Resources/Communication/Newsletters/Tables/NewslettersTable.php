@@ -19,7 +19,7 @@ class NewslettersTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label('Title')
+                    ->label(__('keys.title'))
                     ->searchable()
                     ->sortable()
                     ->limit(40)
@@ -33,7 +33,7 @@ class NewslettersTable
                     }),
 
                 TextColumn::make('subject')
-                    ->label('Subject')
+                    ->label(__('keys.email_subject'))
                     ->searchable()
                     ->sortable()
                     ->limit(50)
@@ -47,7 +47,7 @@ class NewslettersTable
                     }),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'published' => 'success',
@@ -59,58 +59,58 @@ class NewslettersTable
                     ->sortable(),
 
                 TextColumn::make('template.title')
-                    ->label('Template')
+                    ->label(__('keys.email_template'))
                     ->searchable()
                     ->sortable()
                     ->placeholder('No template'),
 
                 TextColumn::make('scheduled_at')
-                    ->label('Scheduled')
+                    ->label(__('keys.schedule_send'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Not scheduled'),
 
                 TextColumn::make('sent_at')
-                    ->label('Sent')
+                    ->label(__('keys.sent_at'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Not sent'),
 
                 TextColumn::make('recipient_count')
-                    ->label('Recipients')
+                    ->label(__('keys.recipient_count'))
                     ->numeric()
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('open_rate')
-                    ->label('Open Rate')
+                    ->label(__('keys.open_rate'))
                     ->numeric()
                     ->suffix('%')
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('click_rate')
-                    ->label('Click Rate')
+                    ->label(__('keys.click_rate'))
                     ->numeric()
                     ->suffix('%')
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->options([
                         'draft' => 'Draft',
                         'scheduled' => 'Scheduled',
@@ -120,7 +120,7 @@ class NewslettersTable
                     ->multiple(),
 
                 SelectFilter::make('template_id')
-                    ->label('Template')
+                    ->label(__('keys.template'))
                     ->relationship('template', 'title')
                     ->searchable()
                     ->preload(),
@@ -128,9 +128,9 @@ class NewslettersTable
                 Filter::make('scheduled_date')
                     ->form([
                         DatePicker::make('scheduled_from')
-                            ->label('Scheduled From'),
+                            ->label(__('keys.scheduled_from')),
                         DatePicker::make('scheduled_to')
-                            ->label('Scheduled To'),
+                            ->label(__('keys.scheduled_to')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -147,9 +147,9 @@ class NewslettersTable
                 Filter::make('sent_date')
                     ->form([
                         DatePicker::make('sent_from')
-                            ->label('Sent From'),
+                            ->label(__('keys.sent_from')),
                         DatePicker::make('sent_to')
-                            ->label('Sent To'),
+                            ->label(__('keys.sent_to')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

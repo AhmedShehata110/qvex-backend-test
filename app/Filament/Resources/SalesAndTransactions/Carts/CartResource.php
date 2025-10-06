@@ -24,6 +24,16 @@ class CartResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.carts');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.sales_transactions');
+    }
+
     protected static ?string $recordTitleAttribute = 'id';
 
     public static function form(Schema $schema): Schema

@@ -28,7 +28,7 @@ return new class extends Migration
             $table->boolean('is_verified')->default(false);
             $table->boolean('is_public')->default(false);
             $table->timestamps();
-
+            $this->addGeneralFields($table);
             $table->index(['vehicle_id', 'document_type']);
             $table->index(['is_verified', 'is_public']);
         });

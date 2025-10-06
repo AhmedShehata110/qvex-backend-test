@@ -23,11 +23,17 @@ class PropertyResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedListBullet;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Vehicle Management';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.vehicle_management');
+    }
 
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationLabel = 'Properties & Features';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.properties_features');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 

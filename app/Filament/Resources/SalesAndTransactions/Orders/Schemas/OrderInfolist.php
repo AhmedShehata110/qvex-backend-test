@@ -19,26 +19,26 @@ class OrderInfolist
                         Section::make('Order Information')
                             ->schema([
                                 TextEntry::make('order_number')
-                                    ->label('Order Number')
+                                    ->label(__('keys.order_number'))
                                     ->size(TextSize::Large)
                                     ->weight('bold')
                                     ->color('primary')
                                     ->copyable(),
 
                                 TextEntry::make('user.name')
-                                    ->label('Customer')
+                                    ->label(__('keys.customer'))
                                     ->weight('bold')
                                     ->color('success'),
 
                                 TextEntry::make('total_amount')
-                                    ->label('Total Amount')
+                                    ->label(__('keys.total_amount'))
                                     ->money('USD')
                                     ->size(TextSize::Large)
                                     ->weight('bold')
                                     ->color('success'),
 
                                 TextEntry::make('status')
-                                    ->label('Order Status')
+                                    ->label(__('keys.status'))
                                     ->badge()
                                     ->color(fn (string $state): string => match ($state) {
                                         'pending' => 'warning',
@@ -50,7 +50,7 @@ class OrderInfolist
                                     }),
 
                                 TextEntry::make('payment_status')
-                                    ->label('Payment Status')
+                                    ->label(__('keys.status'))
                                     ->badge()
                                     ->color(fn (string $state): string => match ($state) {
                                         'pending' => 'warning',
@@ -61,40 +61,40 @@ class OrderInfolist
                                     }),
 
                                 TextEntry::make('order_date')
-                                    ->label('Order Date')
+                                    ->label(__('keys.order_date'))
                                     ->dateTime(),
                             ]),
 
                         Section::make('Shipping & Delivery')
                             ->schema([
                                 TextEntry::make('shipping_address')
-                                    ->label('Shipping Address')
+                                    ->label(__('keys.shipping_address'))
                                     ->state(fn ($record) => is_array($record->shipping_address)
                                         ? implode(', ', array_filter($record->shipping_address))
                                         : $record->shipping_address)
-                                    ->placeholder('No shipping address'),
+                                    ->placeholder(__('keys.no_shipping_address')),
 
                                 TextEntry::make('billing_address')
-                                    ->label('Billing Address')
+                                    ->label(__('keys.billing_address'))
                                     ->state(fn ($record) => is_array($record->billing_address)
                                         ? implode(', ', array_filter($record->billing_address))
                                         : $record->billing_address)
-                                    ->placeholder('No billing address'),
+                                    ->placeholder(__('keys.no_billing_address')),
 
                                 TextEntry::make('shipped_at')
-                                    ->label('Shipped At')
+                                    ->label(__('keys.shipped_at'))
                                     ->dateTime()
-                                    ->placeholder('Not shipped'),
+                                    ->placeholder(__('keys.not_shipped')),
 
                                 TextEntry::make('delivered_at')
-                                    ->label('Delivered At')
+                                    ->label(__('keys.delivered_at'))
                                     ->dateTime()
-                                    ->placeholder('Not delivered'),
+                                    ->placeholder(__('keys.not_delivered')),
 
                                 TextEntry::make('notes')
-                                    ->label('Notes')
+                                    ->label(__('keys.notes'))
                                     ->columnSpanFull()
-                                    ->placeholder('No notes'),
+                                    ->placeholder(__('keys.no_notes')),
                             ]),
                     ]),
 
@@ -103,15 +103,15 @@ class OrderInfolist
                         Grid::make(3)
                             ->schema([
                                 TextEntry::make('created_at')
-                                    ->label('Created At')
+                                    ->label(__('keys.created_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('updated_at')
-                                    ->label('Updated At')
+                                    ->label(__('keys.updated_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('created_at')
-                                    ->label('Days Since Order')
+                                    ->label(__('keys.days_since_order'))
                                     ->getStateUsing(fn ($record) => $record->created_at->diffInDays().' days ago')
                                     ->badge()
                                     ->color('gray'),

@@ -21,11 +21,17 @@ class AddressesResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHome;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Locations';
-
     protected static ?int $navigationSort = 5;
 
-    protected static ?string $navigationLabel = 'User Addresses';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.user_addresses');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.locations');
+    }
 
     protected static ?string $recordTitleAttribute = 'label';
 

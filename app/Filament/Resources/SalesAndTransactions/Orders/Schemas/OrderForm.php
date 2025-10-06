@@ -19,31 +19,31 @@ class OrderForm
         return $schema
             ->components([
                 Section::make('Order Information')
-                    ->description('Basic order details and customer information')
+                    ->description(__('keys.basic_order_details_and_customer_information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('user_id')
-                                    ->label('Customer')
+                                    ->label(__('keys.customer'))
                                     ->relationship('user', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required()
                                     ->createOptionForm([
                                         TextInput::make('name')
-                                            ->label('Customer Name')
+                                            ->label(__('keys.customer_name'))
                                             ->required(),
                                         TextInput::make('email')
-                                            ->label('Email')
+                                            ->label(__('keys.email'))
                                             ->email()
                                             ->required(),
                                         TextInput::make('phone')
-                                            ->label('Phone')
+                                            ->label(__('keys.phone'))
                                             ->tel(),
                                     ]),
 
                                 TextInput::make('order_number')
-                                    ->label('Order Number')
+                                    ->label(__('keys.order_number'))
                                     ->unique(ignoreRecord: true)
                                     ->disabled()
                                     ->helperText('Auto-generated unique identifier'),
@@ -52,7 +52,7 @@ class OrderForm
                         Grid::make(3)
                             ->schema([
                                 TextInput::make('total_amount')
-                                    ->label('Total Amount')
+                                    ->label(__('keys.total_amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->required()
@@ -60,7 +60,7 @@ class OrderForm
                                     ->step(0.01),
 
                                 Select::make('currency')
-                                    ->label('Currency')
+                                    ->label(__('keys.currency'))
                                     ->options([
                                         'USD' => 'USD',
                                         'EUR' => 'EUR',
@@ -72,7 +72,7 @@ class OrderForm
                                     ->required(),
 
                                 DateTimePicker::make('order_date')
-                                    ->label('Order Date')
+                                    ->label(__('keys.order_date'))
                                     ->default(now())
                                     ->required(),
                             ]),
@@ -80,7 +80,7 @@ class OrderForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('status')
-                                    ->label('Order Status')
+                                    ->label(__('keys.status'))
                                     ->options([
                                         'pending' => 'Pending',
                                         'processing' => 'Processing',
@@ -94,7 +94,7 @@ class OrderForm
                                     ->live(),
 
                                 Select::make('payment_status')
-                                    ->label('Payment Status')
+                                    ->label(__('keys.status'))
                                     ->options([
                                         'pending' => 'Pending',
                                         'paid' => 'Paid',
@@ -108,12 +108,12 @@ class OrderForm
                     ]),
 
                 Section::make('Shipping & Delivery')
-                    ->description('Shipping and delivery information')
+                    ->description(__('keys.shipping_and_delivery_information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 KeyValue::make('shipping_address')
-                                    ->label('Shipping Address')
+                                    ->label(__('keys.shipping_address'))
                                     ->keyLabel('Field')
                                     ->valueLabel('Value')
                                     ->default([
@@ -126,7 +126,7 @@ class OrderForm
                                     ->columnSpanFull(),
 
                                 KeyValue::make('billing_address')
-                                    ->label('Billing Address')
+                                    ->label(__('keys.billing_address'))
                                     ->keyLabel('Field')
                                     ->valueLabel('Value')
                                     ->default([
@@ -142,26 +142,26 @@ class OrderForm
                         Grid::make(2)
                             ->schema([
                                 DateTimePicker::make('shipped_at')
-                                    ->label('Shipped At')
-                                    ->placeholder('Not shipped yet'),
+                                    ->label(__('keys.shipped_at'))
+                                    ->placeholder(__('keys.not_shipped_yet')),
 
                                 DateTimePicker::make('delivered_at')
-                                    ->label('Delivered At')
-                                    ->placeholder('Not delivered yet'),
+                                    ->label(__('keys.delivered_at'))
+                                    ->placeholder(__('keys.not_delivered_yet')),
                             ]),
                     ]),
 
                 Section::make('Additional Information')
-                    ->description('Notes and metadata')
+                    ->description(__('keys.metadata'))
                     ->schema([
                         Textarea::make('notes')
-                            ->label('Order Notes')
+                            ->label(__('keys.order_notes'))
                             ->rows(4)
                             ->columnSpanFull()
-                            ->placeholder('Any additional notes about this order'),
+                            ->placeholder(__('keys.order_notes')),
 
                         KeyValue::make('metadata')
-                            ->label('Additional Metadata')
+                            ->label(__('keys.metadata'))
                             ->keyLabel('Key')
                             ->valueLabel('Value')
                             ->columnSpanFull()

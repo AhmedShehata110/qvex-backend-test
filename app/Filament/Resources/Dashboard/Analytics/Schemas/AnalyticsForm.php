@@ -18,7 +18,7 @@ class AnalyticsForm
                 Section::make('Analytics Information')
                     ->schema([
                         Select::make('type')
-                            ->label('Type')
+                            ->label(__('keys.type'))
                             ->options([
                                 'page_view' => 'Page View',
                                 'user_action' => 'User Action',
@@ -29,35 +29,35 @@ class AnalyticsForm
                             ->native(false),
 
                         TextInput::make('entity_type')
-                            ->label('Entity Type')
+                            ->label(__('keys.type'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('entity_id')
-                            ->label('Entity ID')
+                            ->label(__('keys.id'))
                             ->numeric()
                             ->required()
                             ->minValue(1),
 
                         TextInput::make('metric')
-                            ->label('Metric')
+                            ->label(__('keys.dashboard_analytics_metric'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('value')
-                            ->label('Value')
+                            ->label(__('keys.dashboard_analytics_value'))
                             ->numeric()
                             ->required()
                             ->default(0)
                             ->step(0.01),
 
                         DatePicker::make('date')
-                            ->label('Date')
+                            ->label(__('keys.dashboard_analytics_date'))
                             ->required()
                             ->default(now()),
 
                         KeyValue::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('keys.metadata'))
                             ->keyLabel('Key')
                             ->valueLabel('Value')
                             ->addable()

@@ -133,7 +133,7 @@ class VehicleTrim extends BaseModel
      */
     public function getFullNameAttribute(): string
     {
-        return $this->model->make->name.' '.$this->model->name.' '.$this->name;
+        return $this->model->brand->name.' '.$this->model->name.' '.$this->name;
     }
 
     /**

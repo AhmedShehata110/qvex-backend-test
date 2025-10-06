@@ -23,6 +23,16 @@ class AnalyticsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.analytics');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.dashboard');
+    }
+
     protected static ?string $recordTitleAttribute = 'metric';
 
     public static function form(Schema $schema): Schema

@@ -23,11 +23,17 @@ class RoleResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
-
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationLabel = 'Roles & Permissions';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.roles_permissions');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.administration');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 

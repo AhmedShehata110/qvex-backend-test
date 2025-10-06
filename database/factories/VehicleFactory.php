@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Vehicle\Vehicle;
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 use App\Models\Vehicle\VehicleTrim;
 use App\Models\Vendor\Vendor;
@@ -42,7 +42,7 @@ class VehicleFactory extends Factory
 
         return [
             'vendor_id' => Vendor::factory(),
-            'make_id' => VehicleMake::factory(),
+            'brand_id' => Brand::factory(),
             'model_id' => VehicleModel::factory(),
             'trim_id' => VehicleTrim::factory(),
             'vin' => fake()->optional(0.8)->regexify('[A-HJ-NPR-Z0-9]{17}'),
@@ -108,8 +108,8 @@ class VehicleFactory extends Factory
     {
         return $this->afterMaking(function (Vehicle $vehicle) {
             // Update title to include make/model if they exist
-            if ($vehicle->make && $vehicle->model) {
-                $vehicle->title = $vehicle->year.' '.$vehicle->make->name.' '.$vehicle->model->name;
+            if ($vehicle->brand && $vehicle->model) {
+                $vehicle->title = $vehicle->year.' '.$vehicle->brand->name.' '.$vehicle->model->name;
                 if ($vehicle->trim) {
                     $vehicle->title .= ' '.$vehicle->trim->name;
                 }

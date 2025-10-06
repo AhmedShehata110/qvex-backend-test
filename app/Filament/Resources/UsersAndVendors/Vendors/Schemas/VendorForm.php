@@ -19,12 +19,12 @@ class VendorForm
         return $schema
             ->components([
                 Section::make('Vendor Information')
-                    ->description('Basic vendor details and contact information')
+                    ->description(__('keys.basic_vendor_details_and_contact_information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('business_name')
-                                    ->label('Vendor Name')
+                                    ->label(__('keys.vendor_name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->live(onBlur: true)
@@ -34,7 +34,7 @@ class VendorForm
                                     ->helperText('The official name of the vendor/dealership'),
 
                                 TextInput::make('slug')
-                                    ->label('URL Slug')
+                                    ->label(__('keys.slug'))
                                     ->required()
                                     ->maxLength(255)
                                     ->unique(ignoreRecord: true)
@@ -45,34 +45,34 @@ class VendorForm
                         Grid::make(3)
                             ->schema([
                                 TextInput::make('registration_number')
-                                    ->label('Registration Number')
+                                    ->label(__('keys.registration_number'))
                                     ->maxLength(100)
                                     ->helperText('Business registration number'),
 
                                 TextInput::make('tax_id')
-                                    ->label('Tax ID')
+                                    ->label(__('keys.id'))
                                     ->maxLength(100)
                                     ->helperText('Tax identification number'),
 
                                 TextInput::make('trade_license')
-                                    ->label('Trade License')
+                                    ->label(__('keys.trade_license'))
                                     ->maxLength(100)
                                     ->helperText('Trade license number'),
                             ]),
 
                         TextInput::make('website')
-                            ->label('Website URL')
+                            ->label(__('keys.website_url'))
                             ->url()
                             ->maxLength(255)
                             ->helperText('Vendor\'s official website (optional)'),
 
                         TextInput::make('business_name_ar')
-                            ->label('Business Name (Arabic)')
+                            ->label(__('keys.business_name'))
                             ->maxLength(255)
                             ->helperText('Arabic version of the business name'),
 
                         Select::make('vendor_type')
-                            ->label('Vendor Type')
+                            ->label(__('keys.type'))
                             ->options([
                                 'dealership' => 'Car Dealership',
                                 'rental_company' => 'Rental Company',
@@ -84,25 +84,25 @@ class VendorForm
                             ->helperText('Type of vendor business'),
 
                         Textarea::make('description')
-                            ->label('Description')
+                            ->label(__('keys.description'))
                             ->rows(4)
                             ->maxLength(1000)
                             ->helperText('Brief description of the vendor and services offered'),
 
                         Textarea::make('description_ar')
-                            ->label('Description (Arabic)')
+                            ->label(__('keys.description'))
                             ->rows(4)
                             ->maxLength(1000)
                             ->helperText('Arabic description of the vendor and services offered'),
                     ]),
 
                 Section::make('Vendor Settings')
-                    ->description('Vendor configuration and ownership')
+                    ->description(__('keys.vendor_configuration_and_ownership'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('user_id')
-                                    ->label('Vendor Owner')
+                                    ->label(__('keys.vendor_owner'))
                                     ->relationship('owner', 'name')
                                     ->searchable()
                                     ->preload()
@@ -110,7 +110,7 @@ class VendorForm
                                     ->helperText('User who owns/manages this vendor'),
 
                                 TextInput::make('commission_rate')
-                                    ->label('Commission Rate (%)')
+                                    ->label(__('keys.commission'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->maxValue(100)
@@ -119,12 +119,12 @@ class VendorForm
                                     ->helperText('Commission percentage for this vendor'),
 
                                 Toggle::make('is_featured')
-                                    ->label('Featured Vendor')
+                                    ->label(__('keys.vendor'))
                                     ->default(false)
                                     ->helperText('Display this vendor prominently'),
 
                                 Toggle::make('is_active')
-                                    ->label('Active Status')
+                                    ->label(__('keys.status'))
                                     ->default(true)
                                     ->helperText('Whether this vendor is currently active'),
                             ]),

@@ -24,7 +24,8 @@ return new class extends Migration
             $table->integer('view_count')->default(0);
             $table->timestamps();
             $table->index(['category', 'is_active', 'sort_order']);
-            $table->fullText(['question', 'answer']);
+            // Note: FULLTEXT index removed due to MySQL limitation with JSON columns
+            // $table->fullText(['question', 'answer']);
         });
     }
 

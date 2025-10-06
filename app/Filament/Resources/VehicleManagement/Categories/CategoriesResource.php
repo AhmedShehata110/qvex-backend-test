@@ -21,13 +21,19 @@ class CategoriesResource extends Resource
 {
     protected static ?string $model = VehicleModel::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Vehicle Management';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.vehicle_management');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationLabel = 'Categories';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.categories');
+    }
 
     protected static ?string $modelLabel = 'Category';
 

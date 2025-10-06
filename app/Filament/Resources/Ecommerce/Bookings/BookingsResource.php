@@ -25,6 +25,16 @@ class BookingsResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.bookings');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.ecommerce');
+    }
+
     protected static ?string $recordTitleAttribute = 'id';
 
     public static function form(Schema $schema): Schema

@@ -11,8 +11,6 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
@@ -30,6 +28,11 @@ class DashboardPanelProvider extends PanelProvider
             ->path('dashboard')
             ->login()
             ->brandName('Qvex')
+            ->spa()
+            ->favicon('/images/brand/favicon.ico')
+            ->brandLogo(asset('images/brand/light-logo.png'))
+            ->darkModeBrandLogo(asset('images/brand/dark-logo.png'))
+            ->brandLogoHeight('5rem')
             ->colors([
                 'primary' => [
                     50 => '#f0fdf4',
@@ -93,46 +96,45 @@ class DashboardPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make()
-                    ->label('Dashboard')
+                    ->label(__('keys.dashboard'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Vehicle Management')
+                    ->label(__('keys.vehicle_management'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Users & Vendors')
+                    ->label(__('keys.users_vendors'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Sales & Transactions')
+                    ->label(__('keys.sales_transactions'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Marketing')
+                    ->label(__('keys.marketing'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Content')
+                    ->label(__('keys.content'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Communication')
+                    ->label(__('keys.communication'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Reviews & Communication')
+                    ->label(__('keys.reviews_communication'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('E-commerce')
+                    ->label(__('keys.ecommerce'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Locations')
+                    ->label(__('keys.locations'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Administration')
+                    ->label(__('keys.administration'))
                     ->collapsible(),
                 NavigationGroup::make()
-                    ->label('Utilities')
+                    ->label(__('keys.utilities'))
                     ->collapsible(),
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+                
             ])
             ->middleware([
                 EncryptCookies::class,

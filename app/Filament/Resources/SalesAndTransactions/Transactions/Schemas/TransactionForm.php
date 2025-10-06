@@ -19,18 +19,18 @@ class TransactionForm
         return $schema
             ->components([
                 Section::make('Transaction Details')
-                    ->description('Basic transaction information and participants')
+                    ->description(__('keys.basic_transaction_information_and_participants'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('transaction_number')
-                                    ->label('Transaction Number')
+                                    ->label(__('keys.transaction_number'))
                                     ->unique(ignoreRecord: true)
                                     ->disabled()
                                     ->helperText('Auto-generated unique identifier'),
 
                                 Select::make('type')
-                                    ->label('Transaction Type')
+                                    ->label(__('keys.type'))
                                     ->options([
                                         Transaction::TYPE_SALE => 'Sale',
                                         Transaction::TYPE_RENTAL => 'Rental',
@@ -43,21 +43,21 @@ class TransactionForm
                         Grid::make(3)
                             ->schema([
                                 Select::make('buyer_id')
-                                    ->label('Buyer')
+                                    ->label(__('keys.buyer'))
                                     ->relationship('buyer', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
 
                                 Select::make('seller_id')
-                                    ->label('Seller')
+                                    ->label(__('keys.seller'))
                                     ->relationship('seller', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
 
                                 Select::make('vehicle_id')
-                                    ->label('Vehicle')
+                                    ->label(__('keys.vehicle'))
                                     ->relationship('vehicle', 'title')
                                     ->searchable()
                                     ->preload()
@@ -65,7 +65,7 @@ class TransactionForm
                             ]),
 
                         Select::make('status')
-                            ->label('Status')
+                            ->label(__('keys.status'))
                             ->options([
                                 Transaction::STATUS_PENDING => 'Pending',
                                 Transaction::STATUS_CONFIRMED => 'Confirmed',
@@ -82,21 +82,21 @@ class TransactionForm
                     ]),
 
                 Section::make('Financial Information')
-                    ->description('Transaction amounts and payment details')
+                    ->description(__('keys.transaction_amounts_and_payment_details'))
                     ->schema([
                         Fieldset::make('Amount Breakdown')
                             ->schema([
                                 Grid::make(2)
                                     ->schema([
                                         TextInput::make('subtotal')
-                                            ->label('Subtotal')
+                                            ->label(__('keys.subtotal'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->required()
                                             ->step(0.01),
 
                                         TextInput::make('tax_amount')
-                                            ->label('Tax Amount')
+                                            ->label(__('keys.tax_amount'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->step(0.01),
@@ -105,13 +105,13 @@ class TransactionForm
                                 Grid::make(2)
                                     ->schema([
                                         TextInput::make('commission_amount')
-                                            ->label('Commission')
+                                            ->label(__('keys.commission'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->step(0.01),
 
                                         TextInput::make('total_amount')
-                                            ->label('Total Amount')
+                                            ->label(__('keys.total_amount'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->required()
@@ -124,21 +124,21 @@ class TransactionForm
                                 Grid::make(3)
                                     ->schema([
                                         TextInput::make('paid_amount')
-                                            ->label('Paid Amount')
+                                            ->label(__('keys.paid_amount'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->step(0.01)
                                             ->default(0),
 
                                         TextInput::make('refunded_amount')
-                                            ->label('Refunded Amount')
+                                            ->label(__('keys.refunded_amount'))
                                             ->numeric()
                                             ->prefix('$')
                                             ->step(0.01)
                                             ->default(0),
 
                                         Select::make('currency')
-                                            ->label('Currency')
+                                            ->label(__('keys.currency'))
                                             ->options([
                                                 'USD' => 'USD ($)',
                                                 'EUR' => 'EUR (€)',
@@ -153,35 +153,35 @@ class TransactionForm
                     ]),
 
                 Section::make('Transaction Timeline')
-                    ->description('Important dates and timestamps')
+                    ->description(__('keys.important_dates_and_timestamps'))
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 DateTimePicker::make('confirmed_at')
-                                    ->label('Confirmed At')
+                                    ->label(__('keys.confirmed_at'))
                                     ->nullable(),
 
                                 DateTimePicker::make('completed_at')
-                                    ->label('Completed At')
+                                    ->label(__('keys.completed_at'))
                                     ->nullable(),
 
                                 DateTimePicker::make('cancelled_at')
-                                    ->label('Cancelled At')
+                                    ->label(__('keys.cancelled_at'))
                                     ->nullable(),
                             ]),
                     ]),
 
                 Section::make('Additional Information')
-                    ->description('Notes and cancellation details')
+                    ->description(__('keys.notes_and_cancellation_details'))
                     ->schema([
                         Textarea::make('notes')
-                            ->label('Transaction Notes')
+                            ->label(__('keys.transaction_notes'))
                             ->rows(3)
                             ->maxLength(1000)
                             ->columnSpanFull(),
 
                         Textarea::make('cancellation_reason')
-                            ->label('Cancellation Reason')
+                            ->label(__('keys.cancellation_reason'))
                             ->rows(2)
                             ->maxLength(500)
                             ->visible(fn ($get) => in_array($get('status'), [Transaction::STATUS_CANCELLED, Transaction::STATUS_REFUNDED]))

@@ -20,56 +20,56 @@ class CitiesTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Name')
+                    ->label(__('keys.name'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('country.name')
-                    ->label('Country')
+                    ->label(__('keys.country'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('country.code')
-                    ->label('Country Code')
+                    ->label(__('keys.country_code'))
                     ->badge()
                     ->toggleable(),
 
                 TextColumn::make('branches_count')
-                    ->label('Branches')
+                    ->label(__('keys.branches'))
                     ->counts('branches')
                     ->badge()
                     ->color('info'),
 
                 TextColumn::make('latitude')
-                    ->label('Latitude')
+                    ->label(__('keys.latitude'))
                     ->numeric(6)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('longitude')
-                    ->label('Longitude')
+                    ->label(__('keys.longitude'))
                     ->numeric(6)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('is_active')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->boolean()
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Created At')
+                    ->label(__('keys.created_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('country_id')
-                    ->label('Country')
+                    ->label(__('keys.country'))
                     ->options(Country::where('is_active', true)->pluck('name', 'id'))
                     ->searchable()
                     ->preload(),
 
                 TernaryFilter::make('is_active')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->placeholder('All cities')
                     ->trueLabel('Active cities')
                     ->falseLabel('Inactive cities'),

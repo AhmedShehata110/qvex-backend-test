@@ -21,7 +21,7 @@ class TransactionsTable
         return $table
             ->columns([
                 TextColumn::make('transaction_number')
-                    ->label('Transaction #')
+                    ->label(__('keys.transaction_number'))
                     ->searchable()
                     ->sortable()
                     ->copyable()
@@ -29,7 +29,7 @@ class TransactionsTable
                     ->color('primary'),
 
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->colors([
@@ -39,7 +39,7 @@ class TransactionsTable
                     ]),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
@@ -52,42 +52,42 @@ class TransactionsTable
                     ]),
 
                 TextColumn::make('buyer.name')
-                    ->label('Buyer')
+                    ->label(__('keys.buyer'))
                     ->searchable()
                     ->sortable()
                     ->limit(30)
                     ->tooltip(fn ($record) => $record->buyer?->name),
 
                 TextColumn::make('seller.name')
-                    ->label('Seller')
+                    ->label(__('keys.seller'))
                     ->searchable()
                     ->sortable()
                     ->limit(30)
                     ->tooltip(fn ($record) => $record->seller?->name),
 
                 TextColumn::make('vehicle.title')
-                    ->label('Vehicle')
+                    ->label(__('keys.vehicle'))
                     ->searchable()
                     ->sortable()
                     ->limit(40)
                     ->tooltip(fn ($record) => $record->vehicle?->title),
 
                 TextColumn::make('total_amount')
-                    ->label('Total Amount')
+                    ->label(__('keys.subtotal'))
                     ->money('USD')
                     ->sortable()
                     ->weight('bold')
                     ->color('success'),
 
                 TextColumn::make('paid_amount')
-                    ->label('Paid Amount')
+                    ->label(__('keys.paid_amount'))
                     ->money('USD')
                     ->sortable()
                     ->color('primary')
                     ->toggleable(),
 
                 TextColumn::make('outstanding_amount')
-                    ->label('Outstanding')
+                    ->label(__('keys.outstanding'))
                     ->state(function ($record) {
                         $outstanding = ($record->total_amount ?? 0) - ($record->paid_amount ?? 0);
 
@@ -98,52 +98,52 @@ class TransactionsTable
                     ->weight(fn ($state) => $state > 0 ? 'bold' : 'normal'),
 
                 TextColumn::make('currency')
-                    ->label('Currency')
+                    ->label(__('keys.currency'))
                     ->badge()
                     ->color('gray')
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('commission_amount')
-                    ->label('Commission')
+                    ->label(__('keys.commission'))
                     ->money('USD')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('tax_amount')
-                    ->label('Tax')
+                    ->label(__('keys.tax_amount'))
                     ->money('USD')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('confirmed_at')
-                    ->label('Confirmed')
+                    ->label(__('keys.confirmed'))
                     ->dateTime()
                     ->sortable()
-                    ->placeholder('Not confirmed')
+                    ->placeholder(__('keys.not_confirmed'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('completed_at')
-                    ->label('Completed')
+                    ->label(__('keys.completed'))
                     ->dateTime()
                     ->sortable()
-                    ->placeholder('Not completed')
+                    ->placeholder(__('keys.not_completed'))
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->label('Transaction Type')
+                    ->label(__('keys.type'))
                     ->options([
                         Transaction::TYPE_SALE => 'Sale',
                         Transaction::TYPE_RENTAL => 'Rental',
@@ -151,7 +151,7 @@ class TransactionsTable
                     ]),
 
                 SelectFilter::make('status')
-                    ->label('Transaction Status')
+                    ->label(__('keys.status'))
                     ->options([
                         Transaction::STATUS_PENDING => 'Pending',
                         Transaction::STATUS_CONFIRMED => 'Confirmed',
@@ -188,11 +188,11 @@ class TransactionsTable
                         \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\TextInput::make('amount_from')
-                                    ->label('Amount From')
+                                    ->label(__('keys.amount_from'))
                                     ->numeric()
                                     ->prefix('$'),
                                 \Filament\Forms\Components\TextInput::make('amount_to')
-                                    ->label('Amount To')
+                                    ->label(__('keys.amount_to'))
                                     ->numeric()
                                     ->prefix('$'),
                             ]),
@@ -214,9 +214,9 @@ class TransactionsTable
                         \Filament\Schemas\Components\Grid::make(2)
                             ->schema([
                                 \Filament\Forms\Components\DatePicker::make('created_from')
-                                    ->label('Created From'),
+                                    ->label(__('keys.created_from')),
                                 \Filament\Forms\Components\DatePicker::make('created_to')
-                                    ->label('Created To'),
+                                    ->label(__('keys.created_to')),
                             ]),
                     ])
                     ->query(function (Builder $query, array $data): Builder {

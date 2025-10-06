@@ -21,11 +21,17 @@ class WishlistsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedHeart;
 
-    protected static string|UnitEnum|null $navigationGroup = 'E-commerce';
-
     protected static ?int $navigationSort = 3;
 
-    protected static ?string $navigationLabel = 'Wishlists';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.wishlists');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.ecommerce');
+    }
 
     protected static ?string $recordTitleAttribute = 'id';
 

@@ -20,13 +20,13 @@ class VendorSubscriptionsTable
         return $table
             ->columns([
                 TextColumn::make('vendor.business_name')
-                    ->label('Vendor')
+                    ->label(__('keys.vendor'))
                     ->searchable()
                     ->sortable()
                     ->limit(30),
 
                 TextColumn::make('subscriptionPlan.name')
-                    ->label('Plan')
+                    ->label(__('keys.subscription_plan'))
                     ->searchable()
                     ->sortable()
                     ->limit(25),
@@ -45,35 +45,35 @@ class VendorSubscriptionsTable
                     ->formatStateUsing(fn (string $state): string => ucfirst($state)),
 
                 TextColumn::make('total_amount')
-                    ->label('Amount')
+                    ->label(__('keys.amount_paid'))
                     ->money('USD')
                     ->sortable(),
 
                 TextColumn::make('billing_cycle')
-                    ->label('Cycle')
+                    ->label(__('keys.billing_cycle'))
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->toggleable(),
 
                 TextColumn::make('starts_at')
-                    ->label('Start Date')
+                    ->label(__('keys.start_date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('ends_at')
-                    ->label('End Date')
+                    ->label(__('keys.end_date'))
                     ->date()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('next_billing_date')
-                    ->label('Next Billing')
+                    ->label(__('keys.next_billing'))
                     ->date()
                     ->sortable()
                     ->placeholder('N/A'),
 
                 IconColumn::make('auto_renewal')
-                    ->label('Auto Renew')
+                    ->label(__('keys.auto_renew'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -81,13 +81,13 @@ class VendorSubscriptionsTable
                     ->falseColor('danger'),
 
                 TextColumn::make('listings_used')
-                    ->label('Listings Used')
+                    ->label(__('keys.listings_used'))
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

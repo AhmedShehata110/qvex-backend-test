@@ -30,6 +30,8 @@ return new class extends Migration
             $table->date('expires_at')->nullable();
             $table->timestamps();
 
+            $this->addGeneralFields($table);
+
             $table->index(['user_id', 'document_type']);
             $table->index('verification_status');
         });

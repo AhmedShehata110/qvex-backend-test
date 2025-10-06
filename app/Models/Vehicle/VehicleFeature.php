@@ -43,6 +43,7 @@ class VehicleFeature extends BaseModel
         'icons' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 

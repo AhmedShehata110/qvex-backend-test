@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
@@ -45,7 +45,7 @@ class VehicleModelFactory extends Factory
         $endYear = fake()->optional(0.3)->numberBetween($startYear + 5, 2024);
 
         return [
-            'make_id' => VehicleMake::factory(),
+            'brand_id' => Brand::factory(),
             'name' => $name,
             'name_ar' => fake()->optional(0.6)->words(2, true),
             'slug' => Str::slug($name),

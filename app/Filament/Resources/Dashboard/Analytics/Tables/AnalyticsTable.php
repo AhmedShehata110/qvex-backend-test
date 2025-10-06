@@ -19,7 +19,7 @@ class AnalyticsTable
         return $table
             ->columns([
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'page_view' => 'success',
@@ -31,45 +31,45 @@ class AnalyticsTable
                     ->sortable(),
 
                 TextColumn::make('entity_type')
-                    ->label('Entity Type')
+                    ->label(__('keys.type'))
                     ->badge()
                     ->sortable(),
 
                 TextColumn::make('entity_id')
-                    ->label('Entity ID')
+                    ->label(__('keys.id'))
                     ->numeric()
                     ->sortable(),
 
                 TextColumn::make('metric')
-                    ->label('Metric')
+                    ->label(__('keys.dashboard_analytics_metric'))
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('value')
-                    ->label('Value')
+                    ->label(__('keys.dashboard_analytics_value'))
                     ->numeric()
                     ->sortable(),
 
                 TextColumn::make('date')
-                    ->label('Date')
+                    ->label(__('keys.dashboard_analytics_date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->options([
                         'page_view' => 'Page View',
                         'user_action' => 'User Action',
@@ -79,7 +79,7 @@ class AnalyticsTable
                     ->multiple(),
 
                 SelectFilter::make('entity_type')
-                    ->label('Entity Type')
+                    ->label(__('keys.type'))
                     ->options([
                         'vehicle' => 'Vehicle',
                         'user' => 'User',
@@ -91,9 +91,9 @@ class AnalyticsTable
                 Filter::make('date')
                     ->form([
                         DatePicker::make('date_from')
-                            ->label('Date From'),
+                            ->label(__('keys.dashboard_analytics_date_from')),
                         DatePicker::make('date_to')
-                            ->label('Date To'),
+                            ->label(__('keys.dashboard_analytics_date_to')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

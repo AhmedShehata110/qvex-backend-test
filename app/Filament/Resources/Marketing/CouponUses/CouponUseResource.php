@@ -25,6 +25,16 @@ class CouponUseResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.coupon_uses');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.marketing');
+    }
+
     protected static ?string $recordTitleAttribute = 'id';
 
     public static function form(Schema $schema): Schema

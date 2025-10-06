@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\VehicleManagement\Brands\Tables;
 
+use App\Filament\Tables\Columns\MediaImageColumn;
 use Filament\Actions\ActionGroup;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
@@ -21,32 +21,31 @@ class BrandsTable
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('logo')
-                    ->label('Logo')
+                MediaImageColumn::make('logo')
+                    ->label(__('keys.logo'))
                     ->circular()
                     ->size(40)
                     ->collection('logos'),
-
                 TextColumn::make('name')
-                    ->label('Brand Name')
+                    ->label(__('keys.brand_name'))
                     ->searchable()
                     ->sortable()
                     ->weight('semibold'),
 
                 TextColumn::make('name_ar')
-                    ->label('Arabic Name')
+                    ->label(__('keys.arabic_name'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('keys.slug'))
                     ->searchable()
                     ->sortable()
                     ->copyable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('country_origin')
-                    ->label('Origin')
+                    ->label(__('keys.origin'))
                     ->badge()
                     ->formatStateUsing(function (string $state): string {
                         return match ($state) {
@@ -77,14 +76,14 @@ class BrandsTable
                     ->sortable(),
 
                 TextColumn::make('vehicles_count')
-                    ->label('Vehicles')
+                    ->label(__('keys.vehicles'))
                     ->counts('vehicles')
                     ->badge()
                     ->color('primary')
                     ->sortable(),
 
                 TextColumn::make('vehicle_models_count')
-                    ->label('Models')
+                    ->label(__('keys.models'))
                     ->counts('vehicleModels')
                     ->badge()
                     ->color('secondary')
@@ -92,25 +91,25 @@ class BrandsTable
                     ->toggleable(),
 
                 TextColumn::make('sort_order')
-                    ->label('Sort')
+                    ->label(__('keys.sort'))
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('country_origin')
-                    ->label('Country of Origin')
+                    ->label(__('keys.country_of_origin'))
                     ->options([
                         'germany' => '🇩🇪 Germany',
                         'japan' => '🇯🇵 Japan',
@@ -129,12 +128,12 @@ class BrandsTable
                     ]),
 
                 Filter::make('has_vehicles')
-                    ->label('Has Vehicles')
+                    ->label(__('keys.has_vehicles'))
                     ->query(fn (Builder $query): Builder => $query->whereHas('vehicles'))
                     ->toggle(),
 
                 Filter::make('popular_brands')
-                    ->label('Popular Brands (5+ vehicles)')
+                    ->label(__('keys.popular_brands'))
                     ->query(fn (Builder $query): Builder => $query->whereHas('vehicles', function ($q) {
                         $q->havingRaw('COUNT(*) >= 5');
                     }))

@@ -22,7 +22,7 @@ class NewsletterSubscriberForm
                 TextInput::make('name')
                     ->required(),
                 Toggle::make('is_subscribed')
-                    ->label('Subscribed'),
+                    ->label(__('keys.subscribed')),
                 DateTimePicker::make('subscribed_at'),
                 DateTimePicker::make('unsubscribed_at'),
                 Select::make('subscription_source')
@@ -34,7 +34,7 @@ class NewsletterSubscriberForm
                 KeyValue::make('preferences'),
                 TextInput::make('verification_token'),
                 Toggle::make('is_verified')
-                    ->label('Verified'),
+                    ->label(__('keys.verified')),
                 DateTimePicker::make('verified_at'),
             ]);
     }

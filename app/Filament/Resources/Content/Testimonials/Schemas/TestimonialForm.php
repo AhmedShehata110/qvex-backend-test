@@ -23,12 +23,12 @@ class TestimonialForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('Full Name')
+                                    ->label(__('keys.content_testimonials_full_name'))
                                     ->required()
                                     ->maxLength(255),
 
                                 TextInput::make('email')
-                                    ->label('Email Address')
+                                    ->label(__('keys.content_testimonials_email_address'))
                                     ->email()
                                     ->required()
                                     ->maxLength(255),
@@ -37,11 +37,11 @@ class TestimonialForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('company')
-                                    ->label('Company')
+                                    ->label(__('keys.company'))
                                     ->maxLength(255),
 
                                 TextInput::make('position')
-                                    ->label('Position/Title')
+                                    ->label(__('keys.position_title'))
                                     ->maxLength(255),
                             ]),
                     ]),
@@ -49,14 +49,14 @@ class TestimonialForm
                 Section::make('Testimonial Content')
                     ->schema([
                         Textarea::make('content')
-                            ->label('Testimonial')
+                            ->label(__('keys.testimonial'))
                             ->required()
                             ->maxLength(2000)
                             ->rows(6)
                             ->helperText('Customer\'s testimonial or review'),
 
                         Select::make('rating')
-                            ->label('Rating')
+                            ->label(__('keys.rating'))
                             ->options([
                                 1 => '1 Star',
                                 2 => '2 Stars',
@@ -74,12 +74,12 @@ class TestimonialForm
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('is_featured')
-                                    ->label('Featured Testimonial')
+                                    ->label(__('keys.testimonial'))
                                     ->default(false)
                                     ->helperText('Display prominently on the website'),
 
                                 Toggle::make('is_approved')
-                                    ->label('Approved for Display')
+                                    ->label(__('keys.content_testimonials_approved_for_display'))
                                     ->default(false)
                                     ->live()
                                     ->helperText('Make this testimonial visible to the public'),
@@ -88,13 +88,13 @@ class TestimonialForm
                         Grid::make(2)
                             ->schema([
                                 DatePicker::make('approved_at')
-                                    ->label('Approved Date')
+                                    ->label(__('keys.content_testimonials_approved_date'))
                                     ->placeholder('Set approval date')
                                     ->visible(fn ($get) => $get('is_approved'))
                                     ->default(now()),
 
                                 Select::make('approved_by')
-                                    ->label('Approved By')
+                                    ->label(__('keys.content_testimonials_approved_by'))
                                     ->relationship('approver', 'name')
                                     ->searchable()
                                     ->preload()
@@ -106,7 +106,7 @@ class TestimonialForm
                 Section::make('Additional Information')
                     ->schema([
                         KeyValue::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('keys.metadata'))
                             ->keyLabel('Key')
                             ->valueLabel('Value')
                             ->addable()

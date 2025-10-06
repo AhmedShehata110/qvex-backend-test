@@ -25,6 +25,16 @@ class SubscriptionPlanResource extends Resource
 
     protected static ?int $navigationSort = 4;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.subscription_plans');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.users_vendors');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return SubscriptionPlanForm::configure($schema);

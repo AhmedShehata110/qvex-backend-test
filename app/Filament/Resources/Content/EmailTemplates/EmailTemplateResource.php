@@ -23,6 +23,16 @@ class EmailTemplateResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.email_templates');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.content');
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

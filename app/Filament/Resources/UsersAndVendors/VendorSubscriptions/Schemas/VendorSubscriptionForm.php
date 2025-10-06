@@ -18,12 +18,12 @@ class VendorSubscriptionForm
         return $schema
             ->components([
                 Section::make('Subscription Details')
-                    ->description('Basic subscription information')
+                    ->description(__('keys.basic_subscription_information'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('vendor_id')
-                                    ->label('Vendor')
+                                    ->label(__('keys.vendor'))
                                     ->relationship('vendor', 'business_name')
                                     ->searchable()
                                     ->preload()
@@ -31,7 +31,7 @@ class VendorSubscriptionForm
                                     ->helperText('Select the vendor for this subscription'),
 
                                 Select::make('subscription_plan_id')
-                                    ->label('Subscription Plan')
+                                    ->label(__('keys.subscription_plan'))
                                     ->relationship('subscriptionPlan', 'name')
                                     ->searchable()
                                     ->preload()
@@ -42,7 +42,7 @@ class VendorSubscriptionForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('status')
-                                    ->label('Status')
+                                    ->label(__('keys.status'))
                                     ->options([
                                         'active' => 'Active',
                                         'pending' => 'Pending',
@@ -56,7 +56,7 @@ class VendorSubscriptionForm
                                     ->helperText('Current subscription status'),
 
                                 Select::make('billing_cycle')
-                                    ->label('Billing Cycle')
+                                    ->label(__('keys.billing_cycle'))
                                     ->options([
                                         'monthly' => 'Monthly',
                                         'quarterly' => 'Quarterly',
@@ -71,29 +71,29 @@ class VendorSubscriptionForm
                         Grid::make(3)
                             ->schema([
                                 DatePicker::make('starts_at')
-                                    ->label('Start Date')
+                                    ->label(__('keys.start_date'))
                                     ->default(now())
                                     ->required()
                                     ->helperText('When the subscription begins'),
 
                                 DatePicker::make('ends_at')
-                                    ->label('End Date')
+                                    ->label(__('keys.end_date'))
                                     ->required()
                                     ->helperText('When the subscription expires'),
 
                                 DatePicker::make('next_billing_date')
-                                    ->label('Next Billing Date')
+                                    ->label(__('keys.next_billing_date'))
                                     ->helperText('When the next payment is due'),
                             ]),
                     ]),
 
                 Section::make('Payment Information')
-                    ->description('Payment details and amounts')
+                    ->description(__('keys.payment_details_and_amounts'))
                     ->schema([
                         Grid::make(3)
                             ->schema([
                                 TextInput::make('amount_paid')
-                                    ->label('Amount Paid')
+                                    ->label(__('keys.amount_paid'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -101,7 +101,7 @@ class VendorSubscriptionForm
                                     ->helperText('Amount actually paid'),
 
                                 TextInput::make('total_amount')
-                                    ->label('Total Amount')
+                                    ->label(__('keys.total_amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -109,7 +109,7 @@ class VendorSubscriptionForm
                                     ->helperText('Total subscription amount'),
 
                                 Select::make('currency')
-                                    ->label('Currency')
+                                    ->label(__('keys.currency'))
                                     ->options([
                                         'USD' => 'USD',
                                         'EUR' => 'EUR',
@@ -125,7 +125,7 @@ class VendorSubscriptionForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('discount_amount')
-                                    ->label('Discount Amount')
+                                    ->label(__('keys.discount_amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -133,7 +133,7 @@ class VendorSubscriptionForm
                                     ->helperText('Discount applied to the subscription'),
 
                                 TextInput::make('tax_amount')
-                                    ->label('Tax Amount')
+                                    ->label(__('keys.tax_amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -144,7 +144,7 @@ class VendorSubscriptionForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('payment_method')
-                                    ->label('Payment Method')
+                                    ->label(__('keys.payment_method'))
                                     ->options([
                                         'credit_card' => 'Credit Card',
                                         'bank_transfer' => 'Bank Transfer',
@@ -154,26 +154,26 @@ class VendorSubscriptionForm
                                     ->helperText('How the payment was made'),
 
                                 TextInput::make('payment_reference')
-                                    ->label('Payment Reference')
+                                    ->label(__('keys.payment_reference'))
                                     ->maxLength(255)
                                     ->helperText('Transaction ID or reference number'),
                             ]),
                     ]),
 
                 Section::make('Usage & Settings')
-                    ->description('Subscription usage and configuration')
+                    ->description(__('keys.subscription_usage_and_configuration'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('listings_used')
-                                    ->label('Listings Used')
+                                    ->label(__('keys.listings_used'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(0)
                                     ->helperText('Number of listings already used'),
 
                                 TextInput::make('featured_listings_used')
-                                    ->label('Featured Listings Used')
+                                    ->label(__('keys.featured_listings_used'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(0)
@@ -183,17 +183,17 @@ class VendorSubscriptionForm
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('auto_renewal')
-                                    ->label('Auto Renewal')
+                                    ->label(__('keys.auto_renewal'))
                                     ->default(true)
                                     ->helperText('Automatically renew the subscription'),
 
                                 DatePicker::make('cancelled_at')
-                                    ->label('Cancelled At')
+                                    ->label(__('keys.cancelled_at'))
                                     ->helperText('Date when subscription was cancelled'),
                             ]),
 
                         Textarea::make('metadata')
-                            ->label('Additional Metadata')
+                            ->label(__('keys.metadata'))
                             ->rows(3)
                             ->json()
                             ->helperText('Additional subscription data (JSON format)'),

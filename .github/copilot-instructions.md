@@ -4,7 +4,7 @@
 
 **Laravel Boost Guidelines** - These guidelines are specifically curated by Laravel maintainers for this application and should be followed closely.
 
-- **PHP Version:** 8.3.16
+- **PHP Version:** ^8.2
 - **Laravel Version:** v12
 - **Filament Version:** v4
 - **Livewire Version:** v3
@@ -142,16 +142,44 @@ class UserObserver
 }
 ```
 
-### Helper Functions
-**Global helpers** in `app/Helpers/helpers.php` (auto-loaded via composer):
+### Migration Pattern
+**All migrations use MigrationTrait** for consistent field structure:
 
 ```php
-// Convert various inputs to arrays
-convertToArray($value) // string, array, Collection → array
+use App\Traits\MigrationTrait;
 
-// Generate UUIDs
-uuid() // Returns string UUID
+return new class extends Migration
+{
+    use MigrationTrait;
+
+    public function up(): void
+    {
+        Schema::create('vehicles', function (Blueprint $table) {
+            // ... specific fields ...
+            
+            // Always add general fields at the end
+            $this->addGeneralFields($table); // Adds: is_active, added_by_id, softDeletes
+        });
+    }
+}
 ```
+
+**MigrationTrait provides:**
+- `addGeneralFields()`: Adds `is_active`, `added_by_id`, `softDeletes` to all tables
+- `dropGeneralFields()`: Removes general fields during rollback
+
+### Database Field Patterns
+**Translation fields use JSON columns:**
+```php
+$table->json('title');        // Stores translations as JSON: {"en": "Title", "ar": "العنوان"}
+$table->json('description');  // Multi-language content
+```
+
+**Common field patterns:**
+- `is_active` (boolean): Activation status instead of soft deletes for business logic
+- `added_by_id` (foreign key): Tracks who created the record
+- `slug` (string): URL-friendly identifier
+- `view_count`, `inquiry_count`, `favorite_count`: Analytics fields
 
 ## Integration Points & Dependencies
 
@@ -165,7 +193,8 @@ uuid() // Returns string UUID
 ### Frontend Assets
 - **Vite + Tailwind CSS:** Modern build system
 - **Custom Brand Colors:** Defined in `Filament\DashboardPanelProvider`
-- **RTL/LTR Support:** Built-in for Arabic/English locales
+- **RTL/LTR Support:** Built-in for Arabic/English locales via `bezhansalleh/filament-language-switch`
+- **Language Switching:** Configured in `AppServiceProvider` for seamless locale switching
 
 ### External Service Integration Points
 - **Queue System:** For heavy tasks (email, notifications, processing)
@@ -207,18 +236,38 @@ $vehicle->setTranslation('name', 'ar', 'الاسم العربي');
 $vehicle->getTranslation('name', 'ar');
 ```
 
+**Language Switch Configuration** (in `AppServiceProvider`):
+```php
+LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+    $switch
+        ->locales(['ar', 'en']) // Arabic and English locales
+        ->labels(['ar' => 'العربية', 'en' => 'English'])
+        ->visible(outsidePanels: false) // Only show inside Filament panels
+        ->displayLocale('en'); // Display labels in English
+});
+```
+
 ### Media Upload Pattern
-**Spatie MediaLibrary integration** for file management:
+**Spatie MediaLibrary integration** with BaseModel helpers for file management:
 
 ```php
-// In models
-use InteractsWithMedia;
+// In models extending BaseModel
+protected array $customMediaCollections = [
+    'exterior' => [
+        'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
+        'fallbackUrl' => '/images/default-image.png',
+    ],
+    'documents' => [
+        'mimes' => ['application/pdf'],
+        'fallbackUrl' => '/images/default-image.png',
+    ],
+];
 
-public function registerMediaCollections(): void
-{
-    $this->addMediaCollection('images')->acceptsMimeTypes(['image/*']);
-    $this->addMediaCollection('documents')->acceptsMimeTypes(['application/pdf']);
-}
+// Helper methods available from BaseModel
+$vehicle->storeImages($uploadedFiles, true, 'exterior');  // Update existing
+$vehicle->storeFiles($pdfFiles, false, 'documents');     // Add to existing
+$vehicle->storeVideos($videoFiles, true, 'videos');      // Update existing
+$vehicle->deleteMedia('exterior');                       // Delete collection
 ```
 
 ## Files to Read First
@@ -228,9 +277,10 @@ public function registerMediaCollections(): void
 2. `bootstrap/providers.php` - Service providers registration
 3. `app/Providers/Filament/DashboardPanelProvider.php` - Admin panel configuration
 4. `app/Models/BaseModel.php` - Base model with common functionality
-5. `composer.json` - Dependencies and scripts
-6. `qvex_brand_colors.md` - Brand color specifications
-7. `qvex_full_requirements.md` - Business requirements and architecture
+5. `app/Traits/MigrationTrait.php` - Database migration patterns
+6. `composer.json` - Dependencies and scripts
+7. `qvex_brand_colors.md` - Brand color specifications
+8. `qvex_full_requirements.md` - Business requirements and architecture
 
 ## Testing Patterns
 

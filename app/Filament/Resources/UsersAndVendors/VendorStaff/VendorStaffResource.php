@@ -27,6 +27,16 @@ class VendorStaffResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.vendor_staff');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.users_vendors');
+    }
+
     protected static ?string $recordTitleAttribute = 'user.name';
 
     public static function getNavigationBadge(): ?string

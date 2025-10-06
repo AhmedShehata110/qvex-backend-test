@@ -21,12 +21,12 @@ class StaticPageForm
                 Section::make('Page Information')
                     ->schema([
                         TextInput::make('title')
-                            ->label('Page Title')
+                            ->label(__('keys.title'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('slug')
-                            ->label('URL Slug')
+                            ->label(__('keys.slug'))
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(255)
@@ -34,7 +34,7 @@ class StaticPageForm
                             ->helperText('URL-friendly version of the title'),
 
                         Select::make('template')
-                            ->label('Template')
+                            ->label(__('keys.template'))
                             ->options([
                                 'default' => 'Default',
                                 'full-width' => 'Full Width',
@@ -46,7 +46,7 @@ class StaticPageForm
                             ->native(false),
 
                         TextInput::make('order')
-                            ->label('Display Order')
+                            ->label(__('keys.content_staticpages_display_order'))
                             ->numeric()
                             ->default(0)
                             ->minValue(0)
@@ -56,7 +56,7 @@ class StaticPageForm
                 Section::make('Content')
                     ->schema([
                         RichEditor::make('content')
-                            ->label('Page Content')
+                            ->label(__('keys.content'))
                             ->required()
                             ->toolbarButtons([
                                 'bold',
@@ -73,7 +73,7 @@ class StaticPageForm
                             ]),
 
                         Textarea::make('excerpt')
-                            ->label('Excerpt/Summary')
+                            ->label(__('keys.content_staticpages_excerpt_summary'))
                             ->maxLength(500)
                             ->rows(3)
                             ->helperText('Brief summary for SEO and previews'),
@@ -84,12 +84,12 @@ class StaticPageForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('meta_title')
-                                    ->label('Meta Title')
+                                    ->label(__('keys.content_staticpages_meta_title'))
                                     ->maxLength(60)
                                     ->helperText('Title for search engines (60 chars max)'),
 
                                 Textarea::make('meta_description')
-                                    ->label('Meta Description')
+                                    ->label(__('keys.content_staticpages_meta_description'))
                                     ->maxLength(160)
                                     ->rows(2)
                                     ->helperText('Description for search engines (160 chars max)'),
@@ -98,12 +98,12 @@ class StaticPageForm
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('is_published')
-                                    ->label('Published')
+                                    ->label(__('keys.content_staticpages_published'))
                                     ->default(false)
                                     ->live(),
 
                                 DatePicker::make('published_at')
-                                    ->label('Publish Date')
+                                    ->label(__('keys.content_staticpages_publish_date'))
                                     ->placeholder('Set publish date')
                                     ->visible(fn ($get) => $get('is_published'))
                                     ->default(now()),

@@ -20,38 +20,38 @@ class ProductsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label(__('keys.id'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('title')
-                    ->label('Title')
+                    ->label(__('keys.title'))
                     ->sortable()
                     ->searchable()
                     ->limit(30),
 
-                TextColumn::make('make.name')
-                    ->label('Make')
+                TextColumn::make('brand.name')
+                    ->label(__('keys.make'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('model.name')
-                    ->label('Model')
+                    ->label(__('keys.model'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('year')
-                    ->label('Year')
+                    ->label(__('keys.year'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('price')
-                    ->label('Price')
+                    ->label(__('keys.price'))
                     ->money('USD')
                     ->sortable(),
 
                 BadgeColumn::make('condition')
-                    ->label('Condition')
+                    ->label(__('keys.condition'))
                     ->colors([
                         'success' => Vehicle::CONDITION_NEW,
                         'warning' => Vehicle::CONDITION_USED,
@@ -66,7 +66,7 @@ class ProductsTable
                     ]),
 
                 BadgeColumn::make('availability_type')
-                    ->label('Availability')
+                    ->label(__('keys.availability'))
                     ->colors([
                         'success' => Vehicle::AVAILABILITY_SALE,
                         'info' => Vehicle::AVAILABILITY_RENT,
@@ -82,7 +82,7 @@ class ProductsTable
                     }),
 
                 BadgeColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->colors([
                         'gray' => Vehicle::STATUS_DRAFT,
                         'warning' => Vehicle::STATUS_ACTIVE,
@@ -96,96 +96,96 @@ class ProductsTable
                     }),
 
                 TextColumn::make('vendor.name')
-                    ->label('Vendor')
+                    ->label(__('keys.vendor'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('city')
-                    ->label('Location')
+                    ->label(__('keys.location'))
                     ->formatStateUsing(function ($record) {
                         return $record->city . ', ' . $record->state;
                     })
                     ->searchable(['city', 'state']),
 
                 TextColumn::make('mileage')
-                    ->label('Mileage')
+                    ->label(__('keys.mileage'))
                     ->formatStateUsing(function ($record) {
                         return $record->mileage ? number_format($record->mileage) . ' ' . $record->mileage_unit : '-';
                     })
                     ->sortable(),
 
                 IconColumn::make('is_featured')
-                    ->label('Featured')
+                    ->label(__('keys.featured'))
                     ->boolean(),
 
                 IconColumn::make('is_urgent')
-                    ->label('Urgent')
+                    ->label(__('keys.urgent'))
                     ->boolean(),
 
                 TextColumn::make('view_count')
-                    ->label('Views')
+                    ->label(__('keys.views'))
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('inquiry_count')
-                    ->label('Inquiries')
+                    ->label(__('keys.inquiries'))
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->options(Vehicle::getStatuses())
                     ->multiple(),
 
                 SelectFilter::make('condition')
-                    ->label('Condition')
+                    ->label(__('keys.condition'))
                     ->options(Vehicle::getConditions())
                     ->multiple(),
 
                 SelectFilter::make('availability_type')
-                    ->label('Availability')
+                    ->label(__('keys.availability'))
                     ->options(Vehicle::getAvailabilityTypes())
                     ->multiple(),
 
-                SelectFilter::make('make_id')
-                    ->label('Make')
-                    ->relationship('make', 'name')
+                SelectFilter::make('brand_id')
+                    ->label(__('keys.make'))
+                    ->relationship('brand', 'name')
                     ->searchable()
                     ->preload(),
 
                 SelectFilter::make('model_id')
-                    ->label('Model')
+                    ->label(__('keys.model'))
                     ->relationship('model', 'name')
                     ->searchable()
                     ->preload(),
 
                 SelectFilter::make('vendor_id')
-                    ->label('Vendor')
+                    ->label(__('keys.vendor'))
                     ->relationship('vendor', 'name')
                     ->searchable()
                     ->preload(),
 
                 TernaryFilter::make('is_featured')
-                    ->label('Featured'),
+                    ->label(__('keys.featured')),
 
                 TernaryFilter::make('is_urgent')
-                    ->label('Urgent'),
+                    ->label(__('keys.urgent')),
 
                 SelectFilter::make('year')
-                    ->label('Year')
+                    ->label(__('keys.year'))
                     ->options(function () {
                         $currentYear = date('Y') + 1;
                         $years = [];

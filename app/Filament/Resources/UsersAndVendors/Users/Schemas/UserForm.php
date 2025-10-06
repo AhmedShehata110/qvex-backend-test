@@ -19,7 +19,7 @@ class UserForm
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('keys.email_address'))
                     ->email()
                     ->required(),
                 TextInput::make('phone')

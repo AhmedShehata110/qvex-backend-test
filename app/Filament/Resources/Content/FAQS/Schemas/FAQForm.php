@@ -19,41 +19,41 @@ class FAQForm
         return $schema
             ->components([
                 Section::make('FAQ Content')
-                    ->description('Question and answer content in multiple languages')
+                    ->description(__('keys.content_faqs_question_and_answer_content_in_multiple_languages'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('question')
-                                    ->label('Question (English)')
+                                    ->label(__('keys.question'))
                                     ->required()
                                     ->maxLength(500)
                                     ->columnSpanFull(),
 
                                 TextInput::make('question_ar')
-                                    ->label('Question (Arabic)')
+                                    ->label(__('keys.content_faqs_question_1'))
                                     ->maxLength(500)
                                     ->columnSpanFull(),
                             ]),
 
                         RichEditor::make('answer')
-                            ->label('Answer (English)')
+                            ->label(__('keys.answer'))
                             ->required()
                             ->maxLength(2000)
                             ->columnSpanFull(),
 
                         RichEditor::make('answer_ar')
-                            ->label('Answer (Arabic)')
+                            ->label(__('keys.content_faqs_answer_1'))
                             ->maxLength(2000)
                             ->columnSpanFull(),
                     ]),
 
                 Section::make('FAQ Organization')
-                    ->description('Category, tags, and organization settings')
+                    ->description(__('keys.content_faqs_category_tags_and_organization_settings'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('category')
-                                    ->label('Category')
+                                    ->label(__('keys.category'))
                                     ->options([
                                         FAQ::CATEGORY_GENERAL => 'General Questions',
                                         FAQ::CATEGORY_BUYING => 'Buying Vehicles',
@@ -67,26 +67,26 @@ class FAQForm
                                     ->default(FAQ::CATEGORY_GENERAL),
 
                                 TextInput::make('sort_order')
-                                    ->label('Sort Order')
+                                    ->label(__('keys.content_faqs_sort_order'))
                                     ->numeric()
                                     ->default(0)
                                     ->helperText('Lower numbers appear first'),
                             ]),
 
                         TagsInput::make('tags')
-                            ->label('Tags')
+                            ->label(__('keys.tags'))
                             ->placeholder('Add relevant tags')
                             ->helperText('Press Enter to add each tag')
                             ->columnSpanFull(),
                     ]),
 
                 Section::make('Publication Settings')
-                    ->description('Status and visibility settings')
+                    ->description(__('keys.content_faqs_status_and_visibility_settings'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('status')
-                                    ->label('Publication Status')
+                                    ->label(__('keys.content_faqs_publication_status'))
                                     ->options([
                                         FAQ::STATUS_DRAFT => 'Draft',
                                         FAQ::STATUS_PUBLISHED => 'Published',
@@ -96,13 +96,13 @@ class FAQForm
                                     ->default(FAQ::STATUS_DRAFT),
 
                                 Toggle::make('is_active')
-                                    ->label('Active')
+                                    ->label(__('keys.active'))
                                     ->default(true)
                                     ->helperText('Only active FAQs are shown publicly'),
                             ]),
 
                         Select::make('added_by_id')
-                            ->label('Author')
+                            ->label(__('keys.content_faqs_author'))
                             ->relationship('addedBy', 'name')
                             ->searchable()
                             ->preload()

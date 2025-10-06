@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 use App\Models\Vehicle\VehicleTrim;
 use App\Models\Vendor\SubscriptionPlan;
@@ -50,7 +50,7 @@ class SupportingModelsSeeder extends Seeder
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         VehicleTrim::truncate();
         VehicleModel::truncate();
-        VehicleMake::truncate();
+        Brand::truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         $this->command->info('Cleared existing vehicle data.');
@@ -75,7 +75,7 @@ class SupportingModelsSeeder extends Seeder
         ];
 
         foreach ($popularMakes as $makeName) {
-            $make = VehicleMake::factory()->popular()->active()->create([
+            $make = Brand::factory()->popular()->active()->create([
                 'name' => $makeName,
                 'slug' => \Illuminate\Support\Str::slug($makeName),
             ]);
@@ -87,7 +87,7 @@ class SupportingModelsSeeder extends Seeder
                     ->active()
                     ->currentProduction()
                     ->create([
-                        'make_id' => $make->id,
+                        'brand_id' => $make->id,
                         'name' => $modelName,
                         'slug' => \Illuminate\Support\Str::slug($modelName),
                     ]);
@@ -113,7 +113,7 @@ class SupportingModelsSeeder extends Seeder
         ];
 
         foreach ($luxuryMakes as $makeName) {
-            $make = VehicleMake::factory()->luxury()->active()->create([
+            $make = Brand::factory()->luxury()->active()->create([
                 'name' => $makeName,
                 'slug' => \Illuminate\Support\Str::slug($makeName),
             ]);
@@ -125,7 +125,7 @@ class SupportingModelsSeeder extends Seeder
                     ->active()
                     ->currentProduction()
                     ->create([
-                        'make_id' => $make->id,
+                        'brand_id' => $make->id,
                         'name' => $modelName,
                         'slug' => \Illuminate\Support\Str::slug($modelName),
                     ]);
@@ -151,7 +151,7 @@ class SupportingModelsSeeder extends Seeder
         // Additional makes section removed to avoid conflicts
 
         $this->command->info('Created vehicle data successfully!');
-        $this->command->info('Makes: '.VehicleMake::count());
+        $this->command->info('Makes: '.Brand::count());
         $this->command->info('Models: '.VehicleModel::count());
         $this->command->info('Trims: '.VehicleTrim::count());
     }

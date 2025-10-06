@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('postal_code', 20)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-
+            $this->addGeneralFields($table);
             $table->index(['city_id', 'is_active']);
             $table->index(['postal_code']);
         });

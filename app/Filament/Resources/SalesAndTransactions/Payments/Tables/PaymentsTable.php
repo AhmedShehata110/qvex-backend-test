@@ -22,26 +22,26 @@ class PaymentsTable
         return $table
             ->columns([
                 TextColumn::make('id')
-                    ->label('ID')
+                    ->label(__('keys.id'))
                     ->sortable()
                     ->searchable(),
 
                 TextColumn::make('transaction.transaction_number')
-                    ->label('Transaction')
+                    ->label(__('keys.transaction'))
                     ->sortable()
                     ->searchable()
                     ->copyable()
                     ->tooltip('Click to copy'),
 
                 TextColumn::make('user.name')
-                    ->label('User')
+                    ->label(__('keys.user'))
                     ->sortable()
                     ->searchable()
                     ->copyable()
                     ->tooltip('Click to copy'),
 
                 BadgeColumn::make('payment_method')
-                    ->label('Method')
+                    ->label(__('keys.method'))
                     ->colors([
                         'primary' => Payment::METHOD_CREDIT_CARD,
                         'success' => Payment::METHOD_DEBIT_CARD,
@@ -52,7 +52,7 @@ class PaymentsTable
                     ->formatStateUsing(fn (string $state): string => Payment::getMethods()[$state] ?? $state),
 
                 BadgeColumn::make('payment_gateway')
-                    ->label('Gateway')
+                    ->label(__('keys.gateway'))
                     ->colors([
                         'primary' => Payment::GATEWAY_STRIPE,
                         'success' => Payment::GATEWAY_PAYPAL,
@@ -62,18 +62,18 @@ class PaymentsTable
                     ->formatStateUsing(fn (string $state): string => Payment::getGateways()[$state] ?? $state),
 
                 TextColumn::make('amount')
-                    ->label('Amount')
+                    ->label(__('keys.amount'))
                     ->money('USD')
                     ->sortable()
                     ->alignRight(),
 
                 TextColumn::make('currency')
-                    ->label('Currency')
+                    ->label(__('keys.currency'))
                     ->sortable()
                     ->alignCenter(),
 
                 BadgeColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->colors([
                         'gray' => Payment::STATUS_PENDING,
                         'warning' => Payment::STATUS_PROCESSING,
@@ -86,59 +86,59 @@ class PaymentsTable
                     ->formatStateUsing(fn (string $state): string => Payment::getStatuses()[$state] ?? $state),
 
                 TextColumn::make('gateway_transaction_id')
-                    ->label('Gateway TX ID')
+                    ->label(__('keys.id'))
                     ->searchable()
                     ->copyable()
                     ->tooltip('Click to copy')
                     ->limit(20),
 
                 TextColumn::make('processed_at')
-                    ->label('Processed At')
+                    ->label(__('keys.processed_at'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(),
 
                 TextColumn::make('refunded_amount')
-                    ->label('Refunded')
+                    ->label(__('keys.refunded'))
                     ->money('USD')
                     ->sortable()
                     ->alignRight()
                     ->toggleable(),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->options(Payment::getStatuses())
                     ->multiple(),
 
                 SelectFilter::make('payment_method')
-                    ->label('Payment Method')
+                    ->label(__('keys.payment_method'))
                     ->options(Payment::getMethods())
                     ->multiple(),
 
                 SelectFilter::make('payment_gateway')
-                    ->label('Payment Gateway')
+                    ->label(__('keys.payment_gateway'))
                     ->options(Payment::getGateways())
                     ->multiple(),
 
                 Filter::make('processed_at')
                     ->form([
                         DatePicker::make('processed_from')
-                            ->label('Processed From'),
+                            ->label(__('keys.processed_from')),
                         DatePicker::make('processed_until')
-                            ->label('Processed Until'),
+                            ->label(__('keys.processed_until')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
@@ -155,11 +155,11 @@ class PaymentsTable
                 Filter::make('amount_range')
                     ->form([
                         \Filament\Forms\Components\TextInput::make('amount_from')
-                            ->label('Amount From')
+                            ->label(__('keys.amount_from'))
                             ->numeric()
                             ->minValue(0),
                         \Filament\Forms\Components\TextInput::make('amount_until')
-                            ->label('Amount Until')
+                            ->label(__('keys.amount_until'))
                             ->numeric()
                             ->minValue(0),
                     ])

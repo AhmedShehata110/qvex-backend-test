@@ -42,6 +42,7 @@ return new class extends Migration
             $table->timestamps();
             $table->index(['start_date', 'end_date']);
             $table->index(['status', 'end_date']);
+            $this->addGeneralFields($table);
         });
     }
 

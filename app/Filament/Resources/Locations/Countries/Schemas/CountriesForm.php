@@ -16,17 +16,17 @@ class CountriesForm
                 Section::make('Country Information')
                     ->schema([
                         TextInput::make('name.en')
-                            ->label('Name (English)')
+                            ->label(__('keys.name'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('name.ar')
-                            ->label('Name (Arabic)')
+                            ->label(__('keys.name'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('code')
-                            ->label('Country Code (ISO)')
+                            ->label(__('keys.country_code'))
                             ->required()
                             ->maxLength(2)
                             ->rules(['regex:/^[A-Z]{2}$/'])
@@ -35,13 +35,13 @@ class CountriesForm
                             ->uppercase(),
 
                         TextInput::make('phone_code')
-                            ->label('Phone Code')
+                            ->label(__('keys.phone_code'))
                             ->maxLength(5)
                             ->placeholder('e.g., +966, +971')
                             ->helperText('Country calling code'),
 
                         TextInput::make('currency_code')
-                            ->label('Currency Code')
+                            ->label(__('keys.currency_code'))
                             ->maxLength(3)
                             ->rules(['regex:/^[A-Z]{3}$/'])
                             ->placeholder('e.g., SAR, AED, EGP')
@@ -49,13 +49,13 @@ class CountriesForm
                             ->uppercase(),
 
                         TextInput::make('flag_url')
-                            ->label('Flag URL')
+                            ->label(__('keys.flag_url'))
                             ->url()
                             ->maxLength(255)
                             ->placeholder('https://example.com/flags/sa.png'),
 
                         Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('keys.active'))
                             ->default(true)
                             ->required(),
                     ])->columns(2),

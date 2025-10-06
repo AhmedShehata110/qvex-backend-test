@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\VehicleManagement\Properties\Schemas;
 
+use App\Filament\Infolists\Components\MediaImageEntry;
 use App\Models\Vehicle\VehicleFeature;
 use Filament\Infolists\Components\IconEntry;
-use Filament\Infolists\Components\SpatieMediaLibraryImageEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Section;
@@ -22,23 +22,23 @@ class PropertyInfolist
                         Section::make('Feature Information')
                             ->schema([
                                 TextEntry::make('name')
-                                    ->label('Feature Name')
+                                    ->label(__('keys.feature_name'))
                                     ->size(TextSize::Large)
                                     ->weight('bold')
                                     ->color('primary'),
 
                                 TextEntry::make('name_ar')
-                                    ->label('Arabic Name')
-                                    ->placeholder('Not provided'),
+                                    ->label(__('keys.arabic_name'))
+                                    ->placeholder(__('keys.not_provided')),
 
                                 TextEntry::make('slug')
-                                    ->label('Slug')
+                                    ->label(__('keys.slug'))
                                     ->copyable()
                                     ->badge()
                                     ->color('gray'),
 
                                 TextEntry::make('category')
-                                    ->label('Category')
+                                    ->label(__('keys.category'))
                                     ->badge()
                                     ->formatStateUsing(fn (string $state): string => VehicleFeature::getCategories()[$state] ?? ucfirst($state))
                                     ->color(function (string $state): string {
@@ -54,7 +54,7 @@ class PropertyInfolist
                                 Grid::make(2)
                                     ->schema([
                                         IconEntry::make('is_premium')
-                                            ->label('Premium Feature')
+                                            ->label(__('keys.premium_feature'))
                                             ->boolean()
                                             ->trueIcon('heroicon-o-star')
                                             ->falseIcon('heroicon-o-minus')
@@ -62,7 +62,7 @@ class PropertyInfolist
                                             ->falseColor('gray'),
 
                                         TextEntry::make('sort_order')
-                                            ->label('Sort Order')
+                                            ->label(__('keys.sort'))
                                             ->badge()
                                             ->color('secondary'),
                                     ]),
@@ -71,14 +71,14 @@ class PropertyInfolist
                         Section::make('Feature Statistics')
                             ->schema([
                                 TextEntry::make('vehicle_count')
-                                    ->label('Total Vehicles')
+                                    ->label(__('keys.total_vehicles'))
                                     ->getStateUsing(fn ($record) => $record->vehicle_count)
                                     ->badge()
                                     ->color('primary')
                                     ->size(TextSize::Large),
 
                                 TextEntry::make('active_vehicle_count')
-                                    ->label('Active Vehicles')
+                                    ->label(__('keys.active_vehicles'))
                                     ->getStateUsing(fn ($record) => $record->active_vehicle_count)
                                     ->badge()
                                     ->color('success'),
@@ -87,7 +87,7 @@ class PropertyInfolist
 
                 Section::make('Feature Icon')
                     ->schema([
-                        SpatieMediaLibraryImageEntry::make('icon')
+                        MediaImageEntry::make('icon')
                             ->hiddenLabel()
                             ->size(100)
                             ->collection('icons'),
@@ -99,15 +99,15 @@ class PropertyInfolist
                         Grid::make(3)
                             ->schema([
                                 TextEntry::make('created_at')
-                                    ->label('Created At')
+                                    ->label(__('keys.created_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('updated_at')
-                                    ->label('Updated At')
+                                    ->label(__('keys.updated_at'))
                                     ->dateTime(),
 
                                 TextEntry::make('created_at')
-                                    ->label('Days Since Created')
+                                    ->label(__('keys.days_since_created'))
                                     ->getStateUsing(fn ($record) => $record->created_at->diffInDays().' days ago')
                                     ->badge()
                                     ->color('gray'),

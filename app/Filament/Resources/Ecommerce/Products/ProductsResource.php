@@ -21,11 +21,17 @@ class ProductsResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCube;
 
-    protected static string|UnitEnum|null $navigationGroup = 'E-commerce';
-
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationLabel = 'Products (Vehicles)';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.products_vehicles');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.ecommerce');
+    }
 
     protected static ?string $recordTitleAttribute = 'title';
 

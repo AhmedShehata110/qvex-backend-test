@@ -17,19 +17,19 @@ class CartForm
         return $schema
             ->components([
                 Section::make('Cart Information')
-                    ->description('Basic cart details')
+                    ->description(__('keys.basic_cart_details'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('user_id')
-                                    ->label('User')
+                                    ->label(__('keys.user'))
                                     ->relationship('user', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->helperText('The user who owns this cart'),
 
                                 TextInput::make('session_id')
-                                    ->label('Session ID')
+                                    ->label(__('keys.session_id'))
                                     ->maxLength(255)
                                     ->helperText('Session identifier for guest carts'),
                             ]),
@@ -37,14 +37,14 @@ class CartForm
                         Grid::make(3)
                             ->schema([
                                 TextInput::make('total_items')
-                                    ->label('Total Items')
+                                    ->label(__('keys.total_items'))
                                     ->numeric()
                                     ->minValue(0)
                                     ->default(0)
                                     ->helperText('Total number of items in cart'),
 
                                 TextInput::make('total_amount')
-                                    ->label('Total Amount')
+                                    ->label(__('keys.total_amount'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->minValue(0)
@@ -53,7 +53,7 @@ class CartForm
                                     ->helperText('Total cart amount'),
 
                                 Select::make('currency')
-                                    ->label('Currency')
+                                    ->label(__('keys.currency'))
                                     ->options([
                                         'USD' => 'USD',
                                         'EUR' => 'EUR',
@@ -67,12 +67,12 @@ class CartForm
                     ]),
 
                 Section::make('Cart Status & Settings')
-                    ->description('Cart status and expiration')
+                    ->description(__('keys.cart_status_and_expiration'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('status')
-                                    ->label('Status')
+                                    ->label(__('keys.status'))
                                     ->options([
                                         'active' => 'Active',
                                         'abandoned' => 'Abandoned',
@@ -84,16 +84,16 @@ class CartForm
                                     ->helperText('Current cart status'),
 
                                 DateTimePicker::make('expires_at')
-                                    ->label('Expires At')
+                                    ->label(__('keys.expires_at'))
                                     ->helperText('When the cart expires (optional)'),
                             ]),
                     ]),
 
                 Section::make('Additional Information')
-                    ->description('Metadata and additional details')
+                    ->description(__('keys.metadata_and_additional_details'))
                     ->schema([
                         Textarea::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('keys.metadata'))
                             ->rows(4)
                             ->json()
                             ->helperText('Additional cart data (JSON format)'),

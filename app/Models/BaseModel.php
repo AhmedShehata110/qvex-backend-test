@@ -273,14 +273,30 @@ class BaseModel extends Model implements HasMedia
     }
 
     /**
+     * Register default fallback images for all media collections
+     */
+    public function getFallbackMediaUrl(?string $collectionName = 'default', string $conversionName = ''): string
+    {
+        return asset('images/default-image.png');
+    }
+
+    /**
+     * Register default fallback path for all media collections
+     */
+    public function getFallbackMediaPath(?string $collectionName = 'default', string $conversionName = ''): string
+    {
+        return public_path('images/default-image.png');
+    }
+
+    /**
      * Register media collections
      * Automatically registers collections defined in $customMediaCollections property
      * with fallback URLs for empty collections
      */
     public function registerMediaCollections(): void
     {
-        $defaultImageUrl = asset('defaults/default-image.png');
-        $defaultImagePath = public_path('defaults/default-image.png');
+        $defaultImageUrl = asset('images/default-image.png');
+        $defaultImagePath = public_path('images/default-image.png');
 
         // Register default collections if $customMediaCollections is empty
         if (empty($this->customMediaCollections)) {
@@ -347,7 +363,7 @@ class BaseModel extends Model implements HasMedia
      */
     protected function getDefaultImageUrl(): string
     {
-        return asset('defaults/default-image.png');
+        return asset('images/default-image.png');
     }
 
     /**

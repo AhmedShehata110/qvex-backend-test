@@ -32,7 +32,8 @@ return new class extends Migration
 
             $table->index(['is_active', 'published_at']);
             $table->index(['slug', 'is_active']);
-            $table->fullText(['title', 'content']);
+            // Note: FULLTEXT index removed due to MySQL limitation with JSON columns
+            // $table->fullText(['title', 'content']);
         });
     }
 

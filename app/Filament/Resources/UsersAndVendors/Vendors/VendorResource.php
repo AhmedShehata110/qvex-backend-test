@@ -21,11 +21,19 @@ class VendorResource extends Resource
 {
     protected static ?string $model = Vendor::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Vendors';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.users_vendors');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice;
 
     protected static ?int $navigationSort = 2;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.vendors');
+    }
 
     protected static ?string $recordTitleAttribute = 'business_name';
 

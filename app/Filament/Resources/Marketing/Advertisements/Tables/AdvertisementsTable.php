@@ -21,7 +21,7 @@ class AdvertisementsTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label('Title')
+                    ->label(__('keys.title'))
                     ->searchable()
                     ->sortable()
                     ->limit(30)
@@ -35,7 +35,7 @@ class AdvertisementsTable
                     }),
 
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'banner' => 'success',
@@ -47,12 +47,12 @@ class AdvertisementsTable
                     ->sortable(),
 
                 TextColumn::make('position')
-                    ->label('Position')
+                    ->label(__('keys.position'))
                     ->badge()
                     ->sortable(),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('keys.active'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -60,40 +60,40 @@ class AdvertisementsTable
                     ->falseColor('danger'),
 
                 TextColumn::make('start_date')
-                    ->label('Start Date')
+                    ->label(__('keys.start_date'))
                     ->date()
                     ->sortable(),
 
                 TextColumn::make('end_date')
-                    ->label('End Date')
+                    ->label(__('keys.end_date'))
                     ->date()
                     ->sortable()
                     ->placeholder('No end date'),
 
                 TextColumn::make('click_count')
-                    ->label('Clicks')
+                    ->label(__('keys.click_count'))
                     ->numeric()
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('view_count')
-                    ->label('Views')
+                    ->label(__('keys.views'))
                     ->numeric()
                     ->sortable()
                     ->alignCenter(),
 
                 TextColumn::make('budget')
-                    ->label('Budget')
+                    ->label(__('keys.budget'))
                     ->money('USD')
                     ->sortable(),
 
                 TextColumn::make('spent')
-                    ->label('Spent')
+                    ->label(__('keys.spent'))
                     ->money('USD')
                     ->sortable(),
 
                 TextColumn::make('priority')
-                    ->label('Priority')
+                    ->label(__('keys.priority'))
                     ->badge()
                     ->color(fn (int $state): string => match (true) {
                         $state >= 8 => 'danger',
@@ -104,14 +104,14 @@ class AdvertisementsTable
                     ->sortable(),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->options([
                         'banner' => 'Banner',
                         'popup' => 'Popup',
@@ -121,7 +121,7 @@ class AdvertisementsTable
                     ->multiple(),
 
                 SelectFilter::make('position')
-                    ->label('Position')
+                    ->label(__('keys.position'))
                     ->options([
                         'header' => 'Header',
                         'footer' => 'Footer',
@@ -132,14 +132,14 @@ class AdvertisementsTable
                     ->multiple(),
 
                 TernaryFilter::make('is_active')
-                    ->label('Active'),
+                    ->label(__('keys.active')),
 
                 Filter::make('date_range')
                     ->form([
                         DatePicker::make('start_date_from')
-                            ->label('Start Date From'),
+                            ->label(__('keys.start_date_from')),
                         DatePicker::make('start_date_to')
-                            ->label('Start Date To'),
+                            ->label(__('keys.start_date_to')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query

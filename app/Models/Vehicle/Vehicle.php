@@ -9,6 +9,7 @@ use App\Models\Customer\UserFavorite;
 use App\Models\Transaction\Transaction;
 use App\Models\User;
 use App\Models\Vendor\Vendor;
+use App\Models\Vehicle\Brand;
 use Database\Factories\VehicleFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -30,7 +31,7 @@ class Vehicle extends BaseModel
 
     protected $fillable = [
         'vendor_id',
-        'make_id',
+        'brand_id',
         'model_id',
         'trim_id',
         'vin',
@@ -116,18 +117,23 @@ class Vehicle extends BaseModel
     protected array $customMediaCollections = [
         'exterior' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'interior' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'engine' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'documents' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'featured-images' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 
@@ -166,9 +172,9 @@ class Vehicle extends BaseModel
         return $this->belongsTo(Vendor::class);
     }
 
-    public function make(): BelongsTo
+    public function brand(): BelongsTo
     {
-        return $this->belongsTo(VehicleMake::class);
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function model(): BelongsTo
@@ -292,7 +298,7 @@ class Vehicle extends BaseModel
      */
     public function getFullNameAttribute(): string
     {
-        $name = $this->make->name.' '.$this->model->name.' '.$this->year;
+        $name = $this->brand->name.' '.$this->model->name.' '.$this->year;
 
         if ($this->trim) {
             $name .= ' '.$this->trim->name;
@@ -461,9 +467,9 @@ class Vehicle extends BaseModel
         return $query->where('status', self::STATUS_PENDING_APPROVAL);
     }
 
-    public function scopeByMake($query, $makeId)
+    public function scopeByBrand($query, $brandId)
     {
-        return $query->where('make_id', $makeId);
+        return $query->where('brand_id', $brandId);
     }
 
     public function scopeByModel($query, $modelId)

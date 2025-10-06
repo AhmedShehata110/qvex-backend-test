@@ -25,11 +25,17 @@ class AdminResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
-
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $navigationLabel = 'Admin Management';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.admin_management');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.administration');
+    }
 
     protected static ?string $modelLabel = 'Admin User';
 

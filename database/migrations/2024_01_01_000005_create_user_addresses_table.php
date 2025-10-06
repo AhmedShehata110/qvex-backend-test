@@ -29,7 +29,7 @@ return new class extends Migration
             $table->decimal('longitude', 11, 8)->nullable();
             $table->boolean('is_default')->default(false);
             $table->timestamps();
-
+            $this->addGeneralFields($table);
             $table->index(['user_id', 'type']);
             $table->index(['city', 'state', 'country']);
         });

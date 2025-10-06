@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('priority')->default(0);
             $table->timestamps();
 
+            $this->addGeneralFields($table);
             // General fields (excluding is_active which is already defined)
             $table->unsignedBigInteger('added_by_id')->nullable();
             $table->foreign('added_by_id')->references('id')->on('users')->onDelete('set null');

@@ -21,30 +21,30 @@ class ColorForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('name.en')
-                                    ->label('Color Name (English)')
+                                    ->label(__('keys.color_name'))
                                     ->required()
                                     ->maxLength(255)
                                     ->columnSpan(1),
 
                                 TextInput::make('name.ar')
-                                    ->label('Color Name (Arabic)')
+                                    ->label(__('keys.color_name'))
                                     ->maxLength(255)
                                     ->columnSpan(1),
 
                                 ColorPicker::make('hex_code')
-                                    ->label('Color')
+                                    ->label(__('keys.color'))
                                     ->required()
                                     ->columnSpan(1),
                             ]),
 
                         TextInput::make('rgb_value')
-                            ->label('RGB Value')
-                            ->placeholder('e.g., 255,255,255')
+                            ->label(__('keys.rgb_value'))
+                            ->placeholder(__('keys.eg_rgb'))
                             ->helperText('Enter RGB values separated by commas')
                             ->maxLength(255),
 
                         Select::make('type')
-                            ->label('Type')
+                            ->label(__('keys.type'))
                             ->options([
                                 'exterior' => 'Exterior',
                                 'interior' => 'Interior',
@@ -56,15 +56,15 @@ class ColorForm
                         Grid::make(3)
                             ->schema([
                                 Toggle::make('is_metallic')
-                                    ->label('Metallic')
+                                    ->label(__('keys.metallic'))
                                     ->default(false),
 
                                 Toggle::make('is_popular')
-                                    ->label('Popular')
+                                    ->label(__('keys.popular'))
                                     ->default(false),
 
                                 TextInput::make('sort_order')
-                                    ->label('Sort Order')
+                                    ->label(__('keys.sort_order'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0),

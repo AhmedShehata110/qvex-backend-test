@@ -20,7 +20,7 @@ class AdminForm
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
+                    ->label(__('keys.email_address'))
                     ->email()
                     ->required()
                     ->maxLength(255),
@@ -37,7 +37,7 @@ class AdminForm
                     ->password()
                     ->required()
                     ->minLength(8)
-                    ->label('Confirm Password'),
+                    ->label(__('keys.confirm_password')),
                 TextInput::make('locale')
                     ->required()
                     ->default('en')
@@ -54,10 +54,10 @@ class AdminForm
                         'other' => 'Other'
                     ]),
                 Toggle::make('is_active')
-                    ->label('Active')
+                    ->label(__('keys.active'))
                     ->default(true),
                 Toggle::make('two_factor_enabled')
-                    ->label('Two Factor Authentication')
+                    ->label(__('keys.two_factor_authentication'))
                     ->default(false),
             ]);
     }

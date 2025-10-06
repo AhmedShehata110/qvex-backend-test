@@ -3,6 +3,12 @@
 return [
 
     /*
+     * The fallback image URL to use when no media is attached.
+     * This will be used by MediaImageColumn and other custom components.
+     */
+    'fallback_image_url' => env('MEDIA_FALLBACK_IMAGE_URL', '/images/default-image.png'),
+
+    /*
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
@@ -59,7 +65,7 @@ return [
      *
      * This model is only used in Media Library Pro (https://medialibrary.pro)
      */
-    'temporary_upload_model' => Spatie\MediaLibraryPro\Models\TemporaryUpload::class,
+    // 'temporary_upload_model' => Spatie\MediaLibraryPro\Models\TemporaryUpload::class,
 
     /*
      * When enabled, Media Library Pro will only process temporary uploads that were uploaded

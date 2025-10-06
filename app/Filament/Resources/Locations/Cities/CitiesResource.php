@@ -25,6 +25,16 @@ class CitiesResource extends Resource
 
     protected static ?int $navigationSort = 2;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.cities');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.locations');
+    }
+
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema

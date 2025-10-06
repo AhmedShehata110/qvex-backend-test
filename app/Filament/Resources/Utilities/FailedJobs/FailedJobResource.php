@@ -23,6 +23,16 @@ class FailedJobResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.failed_jobs');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.utilities');
+    }
+
     protected static ?string $recordTitleAttribute = 'uuid';
 
     public static function form(Schema $schema): Schema

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->index(['vehicle_id', 'status']);
             $table->index(['vendor_id', 'status']);
             $table->index(['user_id', 'created_at']);
+            $this->addGeneralFields($table);
         });
     }
 

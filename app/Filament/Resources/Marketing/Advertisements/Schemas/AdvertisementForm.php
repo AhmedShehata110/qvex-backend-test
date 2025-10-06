@@ -21,19 +21,19 @@ class AdvertisementForm
                 Section::make('Basic Information')
                     ->schema([
                         TextInput::make('title')
-                            ->label('Title')
+                            ->label(__('keys.title'))
                             ->required()
                             ->maxLength(255),
 
                         Textarea::make('description')
-                            ->label('Description')
+                            ->label(__('keys.description'))
                             ->maxLength(1000)
                             ->rows(3),
 
                         Grid::make(2)
                             ->schema([
                                 Select::make('type')
-                                    ->label('Type')
+                                    ->label(__('keys.type'))
                                     ->options([
                                         'banner' => 'Banner',
                                         'popup' => 'Popup',
@@ -44,7 +44,7 @@ class AdvertisementForm
                                     ->native(false),
 
                                 Select::make('position')
-                                    ->label('Position')
+                                    ->label(__('keys.position'))
                                     ->options([
                                         'header' => 'Header',
                                         'footer' => 'Footer',
@@ -60,12 +60,12 @@ class AdvertisementForm
                 Section::make('Content & Links')
                     ->schema([
                         TextInput::make('target_url')
-                            ->label('Target URL')
+                            ->label(__('keys.target_url'))
                             ->url()
                             ->maxLength(500),
 
                         TextInput::make('image_url')
-                            ->label('Image URL')
+                            ->label(__('keys.image_url'))
                             ->url()
                             ->maxLength(500),
                     ]),
@@ -75,17 +75,17 @@ class AdvertisementForm
                         Grid::make(2)
                             ->schema([
                                 DatePicker::make('start_date')
-                                    ->label('Start Date')
+                                    ->label(__('keys.start_date'))
                                     ->required()
                                     ->default(now()),
 
                                 DatePicker::make('end_date')
-                                    ->label('End Date')
+                                    ->label(__('keys.end_date'))
                                     ->placeholder('No end date'),
                             ]),
 
                         Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('keys.active'))
                             ->default(true),
                     ]),
 
@@ -94,19 +94,19 @@ class AdvertisementForm
                         Grid::make(4)
                             ->schema([
                                 TextInput::make('click_count')
-                                    ->label('Click Count')
+                                    ->label(__('keys.click_count'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0),
 
                                 TextInput::make('view_count')
-                                    ->label('View Count')
+                                    ->label(__('keys.view_count'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0),
 
                                 TextInput::make('budget')
-                                    ->label('Budget')
+                                    ->label(__('keys.budget'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->default(0)
@@ -114,7 +114,7 @@ class AdvertisementForm
                                     ->step(0.01),
 
                                 TextInput::make('spent')
-                                    ->label('Spent')
+                                    ->label(__('keys.spent'))
                                     ->numeric()
                                     ->prefix('$')
                                     ->default(0)
@@ -125,14 +125,14 @@ class AdvertisementForm
                         Grid::make(2)
                             ->schema([
                                 TextInput::make('priority')
-                                    ->label('Priority')
+                                    ->label(__('keys.priority'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0)
                                     ->maxValue(10),
 
                                 KeyValue::make('target_audience')
-                                    ->label('Target Audience')
+                                    ->label(__('keys.target_audience'))
                                     ->keyLabel('Criteria')
                                     ->valueLabel('Value')
                                     ->addable()

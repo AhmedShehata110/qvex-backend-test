@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Vehicle\Vehicle;
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 use App\Models\Vehicle\VehicleTrim;
 use App\Models\Vendor\Vendor;
@@ -29,7 +29,7 @@ class SimpleVehicleSeeder extends Seeder
         }
 
         // Get vehicle data for realistic relationships
-        $makes = VehicleMake::where('is_active', true)->get();
+        $makes = Brand::where('is_active', true)->get();
         $models = VehicleModel::where('is_active', true)->get();
         $trims = VehicleTrim::where('is_active', true)->get();
 
@@ -45,7 +45,7 @@ class SimpleVehicleSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             $vendor = $activeVendors->random();
             $make = $makes->random();
-            $makeModels = $models->where('make_id', $make->id);
+            $makeModels = $models->where('brand_id', $make->id);
 
             if ($makeModels->isEmpty()) {
                 $model = $models->random();
@@ -67,7 +67,7 @@ class SimpleVehicleSeeder extends Seeder
                 ->activeAndApproved()
                 ->create([
                     'vendor_id' => $vendor->id,
-                    'make_id' => $make->id,
+                    'brand_id' => $make->id,
                     'model_id' => $model->id,
                     'trim_id' => $trim->id,
                 ]);
@@ -77,7 +77,7 @@ class SimpleVehicleSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $vendor = $activeVendors->random();
             $make = $makes->random();
-            $makeModels = $models->where('make_id', $make->id);
+            $makeModels = $models->where('brand_id', $make->id);
 
             if ($makeModels->isEmpty()) {
                 $model = $models->random();
@@ -99,7 +99,7 @@ class SimpleVehicleSeeder extends Seeder
                 ->activeAndApproved()
                 ->create([
                     'vendor_id' => $vendor->id,
-                    'make_id' => $make->id,
+                    'brand_id' => $make->id,
                     'model_id' => $model->id,
                     'trim_id' => $trim->id,
                 ]);
@@ -109,7 +109,7 @@ class SimpleVehicleSeeder extends Seeder
         for ($i = 0; $i < 5; $i++) {
             $vendor = $activeVendors->random();
             $make = $makes->random();
-            $makeModels = $models->where('make_id', $make->id);
+            $makeModels = $models->where('brand_id', $make->id);
 
             if ($makeModels->isEmpty()) {
                 $model = $models->random();
@@ -130,7 +130,7 @@ class SimpleVehicleSeeder extends Seeder
                 ->activeAndApproved()
                 ->create([
                     'vendor_id' => $vendor->id,
-                    'make_id' => $make->id,
+                    'brand_id' => $make->id,
                     'model_id' => $model->id,
                     'trim_id' => $trim->id,
                 ]);

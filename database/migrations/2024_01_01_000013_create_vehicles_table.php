@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('vehicles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vendor_id')->constrained()->onDelete('cascade');
-            $table->foreignId('make_id')->constrained('vehicle_makes');
+            $table->foreignId('brand_id')->constrained('brands');
             $table->foreignId('model_id')->constrained('vehicle_models');
             $table->foreignId('trim_id')->nullable()->constrained('vehicle_trims');
             $table->string('vin', 17)->unique()->nullable();
@@ -67,13 +67,14 @@ return new class extends Migration
             $this->addGeneralFields($table);
 
             $table->index(['vendor_id', 'status']);
-            $table->index(['make_id', 'model_id', 'year']);
+            $table->index(['brand_id', 'model_id', 'year']);
             $table->index(['availability_type', 'status']);
             $table->index(['city', 'state', 'country']);
             $table->index(['price', 'condition']);
             $table->index(['is_featured', 'created_at']);
             $table->index(['view_count', 'created_at']);
-            $table->fullText(['title', 'description']);
+            // Note: FULLTEXT index removed due to MySQL limitation with JSON columns
+            // $table->fullText(['title', 'description']);
         });
     }
 

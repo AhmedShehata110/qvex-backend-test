@@ -20,32 +20,32 @@ class ColorsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('Color Name')
+                    ->label(__('keys.color_name'))
                     ->searchable()
                     ->sortable(),
 
                 ColorColumn::make('hex_code')
-                    ->label('Color')
+                    ->label(__('keys.color'))
                     ->copyable()
                     ->copyMessage('Color code copied!')
                     ->copyMessageDuration(1500),
 
                 TextColumn::make('hex_code')
-                    ->label('Hex Code')
+                    ->label(__('keys.hex_code'))
                     ->copyable()
                     ->copyMessage('Hex code copied!')
                     ->copyMessageDuration(1500)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('rgb_value')
-                    ->label('RGB Value')
+                    ->label(__('keys.rgb_value'))
                     ->copyable()
                     ->copyMessage('RGB value copied!')
                     ->copyMessageDuration(1500)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'exterior' => 'success',
@@ -55,49 +55,49 @@ class ColorsTable
                     ->sortable(),
 
                 IconColumn::make('is_metallic')
-                    ->label('Metallic')
+                    ->label(__('keys.metallic'))
                     ->boolean()
                     ->trueIcon('heroicon-o-sparkles')
                     ->falseIcon('heroicon-o-minus'),
 
                 IconColumn::make('is_popular')
-                    ->label('Popular')
+                    ->label(__('keys.popular'))
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-minus'),
 
                 TextColumn::make('sort_order')
-                    ->label('Sort Order')
+                    ->label(__('keys.sort'))
                     ->numeric()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('type')
-                    ->label('Type')
+                    ->label(__('keys.type'))
                     ->options([
-                        'exterior' => 'Exterior',
-                        'interior' => 'Interior',
+                        'exterior' => __('keys.exterior'),
+                        'interior' => __('keys.interior'),
                     ])
                     ->multiple(),
 
                 TernaryFilter::make('is_metallic')
-                    ->label('Metallic'),
+                    ->label(__('keys.metallic')),
 
                 TernaryFilter::make('is_popular')
-                    ->label('Popular'),
+                    ->label(__('keys.popular')),
             ])
             ->recordActions([
                 ViewAction::make(),

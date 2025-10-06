@@ -11,11 +11,11 @@ return new class extends Migration
 
     public function up(): void
     {
-        Schema::create('vehicle_makes', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->json('name'); // Translatable field
             $table->string('slug')->unique();
-            $table->string('country_origin', 2)->nullable();
+            $table->string('country_origin')->nullable();
 
             // General fields
             $this->addGeneralFields($table);
@@ -29,6 +29,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_makes');
+        Schema::dropIfExists('brands');
     }
 };

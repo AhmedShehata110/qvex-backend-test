@@ -34,7 +34,8 @@ return new class extends Migration
             $table->index(['status', 'published_at']);
             $table->index(['is_featured', 'published_at']);
             $table->index(['author_id', 'status']);
-            $table->fullText(['title', 'excerpt', 'content']);
+            // Note: FULLTEXT index removed due to MySQL limitation with JSON columns
+            // $table->fullText(['title', 'excerpt', 'content']);
         });
     }
 

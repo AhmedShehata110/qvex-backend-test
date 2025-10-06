@@ -24,11 +24,19 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Vendors';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.users_vendors');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
 
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.users');
+    }
 
     protected static ?string $recordTitleAttribute = 'name';
 

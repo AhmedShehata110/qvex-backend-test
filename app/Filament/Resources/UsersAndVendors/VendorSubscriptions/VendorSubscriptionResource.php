@@ -29,6 +29,16 @@ class VendorSubscriptionResource extends Resource
 
     protected static ?int $navigationSort = 3;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.vendor_subscriptions');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.users_vendors');
+    }
+
     protected static ?string $recordTitleAttribute = 'id';
 
     public static function getNavigationBadge(): ?string

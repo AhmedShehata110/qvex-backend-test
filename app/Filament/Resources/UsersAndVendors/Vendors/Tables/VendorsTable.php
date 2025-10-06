@@ -21,45 +21,45 @@ class VendorsTable
         return $table
             ->columns([
                 TextColumn::make('business_name')
-                    ->label('Vendor Name')
+                    ->label(__('keys.vendor_name'))
                     ->sortable()
                     ->searchable()
                     ->weight('bold'),
 
                 TextColumn::make('owner.name')
-                    ->label('Owner')
+                    ->label(__('keys.vendor_owner'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
 
                 TextColumn::make('owner.email')
-                    ->label('Email')
+                    ->label(__('keys.email'))
                     ->searchable()
                     ->copyable()
                     ->toggleable(),
 
                 TextColumn::make('owner.phone')
-                    ->label('Phone')
+                    ->label(__('keys.work_phone'))
                     ->searchable()
                     ->copyable()
                     ->toggleable(),
 
                 TextColumn::make('vehicles_count')
-                    ->label('Vehicles')
+                    ->label(__('keys.vehicles'))
                     ->counts('vehicles')
                     ->sortable()
                     ->badge()
                     ->color('primary'),
 
                 TextColumn::make('website')
-                    ->label('Website')
+                    ->label(__('keys.website_url'))
                     ->limit(30)
                     ->url(fn ($record) => $record->website)
                     ->openUrlInNewTab()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('is_active')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-x-circle')
@@ -67,21 +67,21 @@ class VendorsTable
                     ->falseColor('danger'),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Status')
-                    ->placeholder('All vendors')
+                    ->label(__('keys.status'))
+                    ->placeholder(__('keys.all_vendors'))
                     ->trueLabel('Active vendors')
                     ->falseLabel('Inactive vendors'),
 

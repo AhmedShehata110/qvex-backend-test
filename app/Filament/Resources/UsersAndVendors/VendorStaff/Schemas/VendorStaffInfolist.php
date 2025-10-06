@@ -21,35 +21,35 @@ class VendorStaffInfolist
                             ->columns(2)
                             ->schema([
                                 TextEntry::make('user.name')
-                                    ->label('Staff Name')
+                                    ->label(__('keys.staff_name'))
                                     ->size(TextSize::Large)
                                     ->weight('bold'),
 
                                 TextEntry::make('employee_id')
-                                    ->label('Employee ID')
+                                    ->label(__('keys.id'))
                                     ->badge()
                                     ->color('gray'),
 
                                 TextEntry::make('vendor.business_name')
-                                    ->label('Vendor')
+                                    ->label(__('keys.vendor'))
                                     ->icon('heroicon-m-building-office')
-                                    ->placeholder('No vendor assigned'),
+                                    ->placeholder(__('keys.no_vendor_assigned')),
 
                                 TextEntry::make('position')
-                                    ->label('Position')
-                                    ->placeholder('Not specified'),
+                                    ->label(__('keys.position'))
+                                    ->placeholder(__('keys.not_specified')),
 
                                 TextEntry::make('role')
-                                    ->label('Role')
+                                    ->label(__('keys.position_title'))
                                     ->badge()
                                     ->color('info'),
 
                                 TextEntry::make('department')
-                                    ->label('Department')
-                                    ->placeholder('Not specified'),
+                                    ->label(__('keys.department'))
+                                    ->placeholder(__('keys.not_specified')),
 
                                 TextEntry::make('employment_status')
-                                    ->label('Employment Status')
+                                    ->label(__('keys.status'))
                                     ->badge()
                                     ->color(fn (string $state): string => match ($state) {
                                         'full_time' => 'success',
@@ -61,69 +61,69 @@ class VendorStaffInfolist
                                     }),
 
                                 TextEntry::make('hire_date')
-                                    ->label('Hire Date')
+                                    ->label(__('keys.hire_date'))
                                     ->date()
-                                    ->placeholder('Not specified'),
+                                    ->placeholder(__('keys.not_specified')),
                             ]),
 
                         Section::make('Contact Information')
                             ->columns(2)
                             ->schema([
                                 TextEntry::make('email')
-                                    ->label('Work Email')
+                                    ->label(__('keys.email'))
                                     ->icon('heroicon-m-envelope')
                                     ->copyable()
-                                    ->placeholder('Not provided'),
+                                    ->placeholder(__('keys.not_provided')),
 
                                 TextEntry::make('phone')
-                                    ->label('Work Phone')
+                                    ->label(__('keys.work_phone'))
                                     ->icon('heroicon-m-phone')
                                     ->copyable()
-                                    ->placeholder('Not provided'),
+                                    ->placeholder(__('keys.not_provided')),
 
                                 TextEntry::make('address')
-                                    ->label('Address')
-                                    ->placeholder('Not provided')
+                                    ->label(__('keys.address'))
+                                    ->placeholder(__('keys.not_provided'))
                                     ->columnSpanFull(),
 
                                 TextEntry::make('emergency_contact_name')
-                                    ->label('Emergency Contact')
+                                    ->label(__('keys.emergency_contact'))
                                     ->icon('heroicon-m-user-group')
-                                    ->placeholder('Not provided'),
+                                    ->placeholder(__('keys.not_provided')),
 
                                 TextEntry::make('emergency_contact_phone')
-                                    ->label('Emergency Phone')
+                                    ->label(__('keys.emergency_phone'))
                                     ->icon('heroicon-m-phone')
                                     ->copyable()
-                                    ->placeholder('Not provided'),
+                                    ->placeholder(__('keys.not_provided')),
                             ]),
 
                         Section::make('Compensation & Permissions')
                             ->columns(2)
                             ->schema([
                                 TextEntry::make('salary')
-                                    ->label('Salary')
+                                    ->label(__('keys.salary'))
                                     ->money('USD')
-                                    ->placeholder('Not specified'),
+                                    ->placeholder(__('keys.not_specified')),
 
                                 TextEntry::make('commission_rate')
-                                    ->label('Commission Rate')
+                                    ->label(__('keys.commission'))
                                     ->suffix('%')
-                                    ->placeholder('Not specified'),
+                                    ->placeholder(__('keys.not_specified')),
 
                                 TextEntry::make('permissions')
-                                    ->label('Permissions')
+                                    ->label(__('keys.permissions'))
                                     ->listWithLineBreaks()
-                                    ->placeholder('No permissions assigned')
+                                    ->placeholder(__('keys.no_permissions_assigned'))
                                     ->columnSpanFull(),
 
                                 TextEntry::make('notes')
-                                    ->label('Notes')
-                                    ->placeholder('No notes')
+                                    ->label(__('keys.notes'))
+                                    ->placeholder(__('keys.no_notes'))
                                     ->columnSpanFull(),
 
                                 IconEntry::make('is_active')
-                                    ->label('Active Status')
+                                    ->label(__('keys.status'))
                                     ->boolean()
                                     ->trueIcon('heroicon-o-check-badge')
                                     ->falseIcon('heroicon-o-x-circle')
@@ -131,9 +131,9 @@ class VendorStaffInfolist
                                     ->falseColor('danger'),
 
                                 TextEntry::make('last_active_at')
-                                    ->label('Last Active')
+                                    ->label(__('keys.active'))
                                     ->dateTime()
-                                    ->placeholder('Never'),
+                                    ->placeholder(__('keys.never')),
                             ]),
 
                         Section::make('Timestamps')
@@ -141,17 +141,17 @@ class VendorStaffInfolist
                                 Grid::make(3)
                                     ->schema([
                                         TextEntry::make('created_at')
-                                            ->label('Created')
+                                            ->label(__('keys.created'))
                                             ->dateTime(),
 
                                         TextEntry::make('updated_at')
-                                            ->label('Last Updated')
+                                            ->label(__('keys.updated'))
                                             ->dateTime(),
 
                                         TextEntry::make('deleted_at')
-                                            ->label('Deleted')
+                                            ->label(__('keys.deleted_at'))
                                             ->dateTime()
-                                            ->placeholder('Not deleted'),
+                                            ->placeholder(__('keys.not_deleted')),
                                     ]),
                             ])
                             ->collapsible(),

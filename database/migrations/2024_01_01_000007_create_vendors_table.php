@@ -43,7 +43,8 @@ return new class extends Migration
             $table->index(['status', 'vendor_type']);
             $table->index(['is_featured', 'is_verified']);
             $table->index('rating_average');
-            $table->fullText(['business_name', 'description']);
+            // Note: FULLTEXT index removed due to MySQL limitation with JSON columns
+            // $table->fullText(['business_name', 'description']);
         });
     }
 

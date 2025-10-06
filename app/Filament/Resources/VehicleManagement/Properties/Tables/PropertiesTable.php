@@ -2,13 +2,13 @@
 
 namespace App\Filament\Resources\VehicleManagement\Properties\Tables;
 
+use App\Filament\Tables\Columns\MediaImageColumn;
 use App\Models\Vehicle\VehicleFeature;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
@@ -20,32 +20,32 @@ class PropertiesTable
     {
         return $table
             ->columns([
-                SpatieMediaLibraryImageColumn::make('icon')
-                    ->label('Icon')
+                MediaImageColumn::make('icon')
+                    ->label(__('keys.icon'))
                     ->circular()
                     ->size(40)
                     ->collection('icons'),
 
                 TextColumn::make('name')
-                    ->label('Feature Name')
+                    ->label(__('keys.feature_name'))
                     ->searchable()
                     ->sortable()
                     ->weight('semibold'),
 
                 TextColumn::make('name_ar')
-                    ->label('Arabic Name')
+                    ->label(__('keys.arabic_name'))
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('keys.slug'))
                     ->searchable()
                     ->sortable()
                     ->copyable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('keys.category'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => VehicleFeature::getCategories()[$state] ?? ucfirst($state))
                     ->colors([
@@ -58,14 +58,14 @@ class PropertiesTable
                     ->sortable(),
 
                 TextColumn::make('vehicle_count')
-                    ->label('Vehicles')
+                    ->label(__('keys.vehicles'))
                     ->counts('vehicles')
                     ->badge()
                     ->color('primary')
                     ->sortable(),
 
                 TextColumn::make('active_vehicle_count')
-                    ->label('Active Vehicles')
+                    ->label(__('keys.active_vehicles'))
                     ->getStateUsing(fn ($record) => $record->active_vehicle_count)
                     ->badge()
                     ->color('success')
@@ -73,7 +73,7 @@ class PropertiesTable
                     ->toggleable(),
 
                 IconColumn::make('is_premium')
-                    ->label('Premium')
+                    ->label(__('keys.premium'))
                     ->boolean()
                     ->trueIcon('heroicon-o-star')
                     ->falseIcon('heroicon-o-minus')
@@ -81,38 +81,38 @@ class PropertiesTable
                     ->falseColor('gray'),
 
                 TextColumn::make('sort_order')
-                    ->label('Sort')
+                    ->label(__('keys.sort'))
                     ->sortable()
                     ->badge()
                     ->color('gray')
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('category')
-                    ->label('Category')
+                    ->label(__('keys.category'))
                     ->options(VehicleFeature::getCategories())
                     ->multiple(),
 
                 TernaryFilter::make('is_premium')
-                    ->label('Premium Feature'),
+                    ->label(__('keys.premium_feature')),
 
                 SelectFilter::make('has_vehicles')
-                    ->label('Has Vehicles')
+                    ->label(__('keys.has_vehicles'))
                     ->options([
-                        'yes' => 'Has Vehicles',
-                        'no' => 'No Vehicles',
+                        'yes' => __('keys.yes'),
+                        'no' => __('keys.no'),
                     ])
                     ->query(function ($query, array $data) {
                         if ($data['value'] === 'yes') {

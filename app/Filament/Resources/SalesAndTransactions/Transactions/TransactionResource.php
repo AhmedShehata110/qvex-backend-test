@@ -21,11 +21,19 @@ class TransactionResource extends Resource
 {
     protected static ?string $model = Transaction::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Sales & Transactions';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.sales_transactions');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBanknotes;
 
     protected static ?int $navigationSort = 1;
+
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.transactions');
+    }
 
     protected static ?string $recordTitleAttribute = 'id';
 

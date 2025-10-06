@@ -18,7 +18,7 @@ class StaticPagesTable
         return $table
             ->columns([
                 TextColumn::make('title')
-                    ->label('Title')
+                    ->label(__('keys.title'))
                     ->searchable()
                     ->sortable()
                     ->limit(40)
@@ -32,7 +32,7 @@ class StaticPagesTable
                     }),
 
                 TextColumn::make('slug')
-                    ->label('Slug')
+                    ->label(__('keys.slug'))
                     ->searchable()
                     ->sortable()
                     ->copyable()
@@ -40,7 +40,7 @@ class StaticPagesTable
                     ->copyMessageDuration(1500),
 
                 IconColumn::make('is_published')
-                    ->label('Published')
+                    ->label(__('keys.published'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -48,13 +48,13 @@ class StaticPagesTable
                     ->falseColor('danger'),
 
                 TextColumn::make('published_at')
-                    ->label('Published At')
+                    ->label(__('keys.published_at'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Not published'),
 
                 TextColumn::make('template')
-                    ->label('Template')
+                    ->label(__('keys.template'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'default' => 'gray',
@@ -66,12 +66,12 @@ class StaticPagesTable
                     ->sortable(),
 
                 TextColumn::make('order')
-                    ->label('Order')
+                    ->label(__('keys.order'))
                     ->numeric()
                     ->sortable(),
 
                 TextColumn::make('meta_title')
-                    ->label('Meta Title')
+                    ->label(__('keys.meta_title'))
                     ->limit(30)
                     ->tooltip(function (TextColumn $column): ?string {
                         $state = $column->getState();
@@ -84,23 +84,23 @@ class StaticPagesTable
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_published')
-                    ->label('Published'),
+                    ->label(__('keys.published')),
 
                 SelectFilter::make('template')
-                    ->label('Template')
+                    ->label(__('keys.template'))
                     ->options([
                         'default' => 'Default',
                         'full-width' => 'Full Width',

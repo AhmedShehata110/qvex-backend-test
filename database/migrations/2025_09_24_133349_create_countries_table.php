@@ -20,10 +20,9 @@ return new class extends Migration
             $table->string('code', 2)->unique(); // ISO country code
             $table->string('currency_code', 3)->nullable();
             $table->string('phone_code', 5)->nullable();
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
-
-            $table->index(['is_active']);
+            $table->boolean('is_active')->default(true);
+            $this->addGeneralFields($table);
             $table->index(['code']);
         });
     }

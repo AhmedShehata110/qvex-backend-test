@@ -9,7 +9,7 @@ use App\Filament\Resources\VehicleManagement\Brands\Pages\ViewBrands;
 use App\Filament\Resources\VehicleManagement\Brands\Schemas\BrandsForm;
 use App\Filament\Resources\VehicleManagement\Brands\Schemas\BrandsInfolist;
 use App\Filament\Resources\VehicleManagement\Brands\Tables\BrandsTable;
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,15 +19,21 @@ use UnitEnum;
 
 class BrandsResource extends Resource
 {
-    protected static ?string $model = VehicleMake::class;
+    protected static ?string $model = Brand::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Vehicle Management';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('keys.vehicle_management');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedSquares2x2;
 
     protected static ?int $navigationSort = 2;
 
-    protected static ?string $navigationLabel = 'Brands';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.brands');
+    }
 
     protected static ?string $modelLabel = 'Brand';
 

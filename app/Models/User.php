@@ -18,6 +18,7 @@ use App\Models\Vendor\VendorStaff;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -211,11 +212,11 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * Vehicles owned/listed by user
+     * Vehicles owned/listed by user through their vendor
      */
-    public function vehicles(): HasMany
+    public function vehicles(): HasManyThrough
     {
-        return $this->hasMany(Vehicle::class);
+        return $this->hasManyThrough(Vehicle::class, Vendor::class);
     }
 
     /**
@@ -733,6 +734,7 @@ class User extends Authenticatable implements HasMedia
         'avatars' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'documents' => [
             'mimes' => [
@@ -740,6 +742,7 @@ class User extends Authenticatable implements HasMedia
                 'application/pdf', 'application/msword', 
                 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             ],
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 }

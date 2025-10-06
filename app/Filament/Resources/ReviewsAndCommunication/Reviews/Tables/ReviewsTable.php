@@ -21,7 +21,7 @@ class ReviewsTable
         return $table
             ->columns([
                 TextColumn::make('rating')
-                    ->label('Rating')
+                    ->label(__('keys.rating'))
                     ->formatStateUsing(fn ($state) => str_repeat('⭐', (int) $state).' ('.$state.'/5)')
                     ->sortable()
                     ->weight('bold')
@@ -32,34 +32,34 @@ class ReviewsTable
                     }),
 
                 TextColumn::make('title')
-                    ->label('Review Title')
+                    ->label(__('keys.title'))
                     ->searchable()
                     ->sortable()
                     ->limit(50)
                     ->weight('bold'),
 
                 TextColumn::make('reviewer.name')
-                    ->label('Reviewer')
+                    ->label(__('keys.reviewer'))
                     ->searchable()
                     ->sortable()
                     ->limit(30),
 
                 TextColumn::make('vehicle.title')
-                    ->label('Vehicle')
+                    ->label(__('keys.vehicle'))
                     ->searchable()
                     ->sortable()
                     ->limit(40)
                     ->toggleable(),
 
                 TextColumn::make('vendor.name')
-                    ->label('Vendor')
+                    ->label(__('keys.vendor'))
                     ->searchable()
                     ->sortable()
                     ->limit(30)
                     ->toggleable(),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucwords(str_replace('_', ' ', $state)))
                     ->colors([
@@ -70,7 +70,7 @@ class ReviewsTable
                     ]),
 
                 IconColumn::make('verified_purchase')
-                    ->label('Verified')
+                    ->label(__('keys.verified'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-x-circle')
@@ -78,7 +78,7 @@ class ReviewsTable
                     ->falseColor('gray'),
 
                 IconColumn::make('would_recommend')
-                    ->label('Recommends')
+                    ->label(__('keys.recommends'))
                     ->boolean()
                     ->trueIcon('heroicon-o-hand-thumb-up')
                     ->falseIcon('heroicon-o-hand-thumb-down')
@@ -87,7 +87,7 @@ class ReviewsTable
                     ->toggleable(),
 
                 IconColumn::make('flagged_inappropriate')
-                    ->label('Flagged')
+                    ->label(__('keys.flagged'))
                     ->boolean()
                     ->trueIcon('heroicon-o-flag')
                     ->falseIcon('heroicon-o-check')
@@ -95,7 +95,7 @@ class ReviewsTable
                     ->falseColor('success'),
 
                 TextColumn::make('helpful_count')
-                    ->label('Helpful')
+                    ->label(__('keys.helpful'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->badge()
                     ->color('success')
@@ -103,7 +103,7 @@ class ReviewsTable
                     ->toggleable(),
 
                 TextColumn::make('not_helpful_count')
-                    ->label('Not Helpful')
+                    ->label(__('keys.not_helpful'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->badge()
                     ->color('danger')
@@ -111,7 +111,7 @@ class ReviewsTable
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('response_count')
-                    ->label('Responses')
+                    ->label(__('keys.responses'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->badge()
                     ->color('info')
@@ -119,20 +119,20 @@ class ReviewsTable
                     ->toggleable(),
 
                 TextColumn::make('content')
-                    ->label('Review Content')
+                    ->label(__('keys.content'))
                     ->limit(100)
                     ->tooltip(fn ($record) => $record->content)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('approved_at')
-                    ->label('Approved')
+                    ->label(__('keys.approved'))
                     ->dateTime()
                     ->sortable()
                     ->placeholder('Not approved')
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -156,19 +156,19 @@ class ReviewsTable
                     ]),
 
                 TernaryFilter::make('verified_purchase')
-                    ->label('Verified Purchase')
+                    ->label(__('keys.verified_purchase'))
                     ->placeholder('All reviews')
                     ->trueLabel('Verified purchases')
                     ->falseLabel('Non-verified purchases'),
 
                 TernaryFilter::make('would_recommend')
-                    ->label('Recommendation')
+                    ->label(__('keys.recommendation'))
                     ->placeholder('All reviews')
                     ->trueLabel('Would recommend')
                     ->falseLabel('Would not recommend'),
 
                 TernaryFilter::make('flagged_inappropriate')
-                    ->label('Flagged Content')
+                    ->label(__('keys.content'))
                     ->placeholder('All reviews')
                     ->trueLabel('Flagged reviews')
                     ->falseLabel('Clean reviews'),

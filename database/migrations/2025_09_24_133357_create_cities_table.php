@@ -22,7 +22,7 @@ return new class extends Migration
             $table->decimal('longitude', 11, 8)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
-
+            $this->addGeneralFields($table);
             $table->index(['country_id', 'is_active']);
             $table->index(['latitude', 'longitude']);
         });

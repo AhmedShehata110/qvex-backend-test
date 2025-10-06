@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Vehicle\Vehicle;
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 use App\Models\Vehicle\VehicleTrim;
 use App\Models\Vendor\Vendor;
@@ -27,7 +27,7 @@ class VehicleSeeder extends Seeder
         }
 
         // Get vehicle data for realistic relationships
-        $makes = VehicleMake::where('is_active', true)->get();
+        $makes = Brand::where('is_active', true)->get();
         $models = VehicleModel::where('is_active', true)->get();
         $trims = VehicleTrim::where('is_active', true)->get();
 
@@ -157,10 +157,10 @@ class VehicleSeeder extends Seeder
         // Set realistic make/model/trim relationships
         if ($makes->isNotEmpty()) {
             $make = $makes->random();
-            $attributes['make_id'] = $make->id;
+            $attributes['brand_id'] = $make->id;
 
             // Get models for this make
-            $makeModels = $models->where('make_id', $make->id);
+            $makeModels = $models->where('brand_id', $make->id);
             if ($makeModels->isNotEmpty()) {
                 $model = $makeModels->random();
                 $attributes['model_id'] = $model->id;
@@ -178,9 +178,9 @@ class VehicleSeeder extends Seeder
             $luxuryMakes = $makes->whereIn('name', ['BMW', 'Mercedes-Benz', 'Audi', 'Lexus', 'Infiniti', 'Cadillac']);
             if ($luxuryMakes->isNotEmpty()) {
                 $make = $luxuryMakes->random();
-                $attributes['make_id'] = $make->id;
+                $attributes['brand_id'] = $make->id;
 
-                $makeModels = $models->where('make_id', $make->id);
+                $makeModels = $models->where('brand_id', $make->id);
                 if ($makeModels->isNotEmpty()) {
                     $model = $makeModels->random();
                     $attributes['model_id'] = $model->id;

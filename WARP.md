@@ -106,7 +106,7 @@ php artisan pail --timeout=0        # For real-time logs
 ### QVEX-Specific Commands
 ```bash
 # Vehicle data management
-php artisan make:model VehicleMake -mfs
+php artisan make:model Brand -mfs
 php artisan make:model VehicleModel -mfs
 php artisan make:model VehicleTrim -mfs
 
@@ -253,7 +253,7 @@ npm run build
 - `UserDocument`: KYC documents (ID, license, business registration)
 
 #### Vehicle Structure (app/Models/Vehicle/) 
-- `VehicleMake`: Car manufacturers (BMW, Toyota, etc.) with translations
+- `Brand`: Car manufacturers (BMW, Toyota, etc.) with translations
 - `VehicleModel`: Specific models within a make (Camry, X5, etc.) with year ranges
 - `VehicleTrim`: Trim levels/variants with engine specs
 - `Vehicle`: Individual listings with comprehensive specs, pricing (sale/rental rates)
@@ -317,7 +317,7 @@ app/Models/
 ├── User.php                    # Core user model
 ├── Vehicle/                    # Vehicle domain
 │   ├── Vehicle.php            # Main vehicle listings
-│   ├── VehicleMake.php        # Car manufacturers
+│   ├── Brand.php              # Car manufacturers
 │   ├── VehicleModel.php       # Vehicle models
 │   ├── VehicleTrim.php        # Trim levels/variants
 │   ├── VehicleFeature.php     # Vehicle features
@@ -338,7 +338,7 @@ app/Models/
 ```php
 // Vehicle domain models
 use App\Models\Vehicle\Vehicle;
-use App\Models\Vehicle\VehicleMake;
+use App\Models\Vehicle\Brand;
 use App\Models\Vehicle\VehicleModel;
 
 // Customer domain models (User-related)

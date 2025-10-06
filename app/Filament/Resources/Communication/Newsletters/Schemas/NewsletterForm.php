@@ -22,24 +22,24 @@ class NewsletterForm
                 Section::make('Basic Information')
                     ->schema([
                         TextInput::make('title')
-                            ->label('Title')
+                            ->label(__('keys.title'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('slug')
-                            ->label('Slug')
+                            ->label(__('keys.slug'))
                             ->required()
                             ->unique(ignoreRecord: true)
                             ->maxLength(255)
                             ->rules(['regex:/^[a-z0-9-]+$/']),
 
                         TextInput::make('subject')
-                            ->label('Email Subject')
+                            ->label(__('keys.email_subject'))
                             ->required()
                             ->maxLength(255),
 
                         Select::make('status')
-                            ->label('Status')
+                            ->label(__('keys.status'))
                             ->options([
                                 'draft' => 'Draft',
                                 'scheduled' => 'Scheduled',
@@ -54,7 +54,7 @@ class NewsletterForm
                 Section::make('Content')
                     ->schema([
                         RichEditor::make('content')
-                            ->label('Content')
+                            ->label(__('keys.content'))
                             ->required()
                             ->toolbarButtons([
                                 'bold',
@@ -68,7 +68,7 @@ class NewsletterForm
                             ]),
 
                         Textarea::make('excerpt')
-                            ->label('Excerpt')
+                            ->label(__('keys.excerpt'))
                             ->maxLength(500)
                             ->rows(3)
                             ->helperText('Brief summary of the newsletter content'),
@@ -79,19 +79,19 @@ class NewsletterForm
                         Grid::make(2)
                             ->schema([
                                 Select::make('template_id')
-                                    ->label('Email Template')
+                                    ->label(__('keys.email_template'))
                                     ->relationship('template', 'title')
                                     ->searchable()
                                     ->preload()
                                     ->placeholder('Select a template'),
 
                                 DatePicker::make('scheduled_at')
-                                    ->label('Schedule Send')
+                                    ->label(__('keys.schedule_send'))
                                     ->placeholder('Leave empty to send immediately'),
                             ]),
 
                         TagsInput::make('tags')
-                            ->label('Tags')
+                            ->label(__('keys.tags'))
                             ->placeholder('Add tags...')
                             ->helperText('Tags for organizing newsletters'),
                     ]),
@@ -101,13 +101,13 @@ class NewsletterForm
                         Grid::make(4)
                             ->schema([
                                 TextInput::make('recipient_count')
-                                    ->label('Recipient Count')
+                                    ->label(__('keys.recipient_count'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0),
 
                                 TextInput::make('open_rate')
-                                    ->label('Open Rate (%)')
+                                    ->label(__('keys.open_rate'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0)
@@ -115,7 +115,7 @@ class NewsletterForm
                                     ->step(0.01),
 
                                 TextInput::make('click_rate')
-                                    ->label('Click Rate (%)')
+                                    ->label(__('keys.click_rate'))
                                     ->numeric()
                                     ->default(0)
                                     ->minValue(0)
@@ -123,7 +123,7 @@ class NewsletterForm
                                     ->step(0.01),
 
                                 DatePicker::make('sent_at')
-                                    ->label('Sent At')
+                                    ->label(__('keys.sent_at'))
                                     ->placeholder('Not sent yet'),
                             ]),
                     ]),
@@ -131,7 +131,7 @@ class NewsletterForm
                 Section::make('Additional Information')
                     ->schema([
                         KeyValue::make('metadata')
-                            ->label('Metadata')
+                            ->label(__('keys.metadata'))
                             ->keyLabel('Key')
                             ->valueLabel('Value')
                             ->addable()

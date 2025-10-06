@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('vehicle_models', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('make_id')->constrained('vehicle_makes')->onDelete('cascade');
+            $table->foreignId('brand_id')->constrained('brands')->onDelete('cascade');
             $table->json('name'); // Translatable field
             $table->string('slug');
             $table->integer('year_start');
@@ -29,8 +29,8 @@ return new class extends Migration
             $table->integer('sort_order')->default(0);
             $table->timestamps();
 
-            $table->unique(['make_id', 'slug']);
-            $table->index(['make_id', 'is_active']);
+            $table->unique(['brand_id', 'slug']);
+            $table->index(['brand_id', 'is_active']);
             $table->index(['body_type', 'is_active']);
         });
     }

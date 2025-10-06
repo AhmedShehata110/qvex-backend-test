@@ -3,6 +3,7 @@
 namespace App\Models\Vehicle;
 
 use App\Models\BaseModel;
+use App\Models\Vehicle\Brand;
 use Database\Factories\VehicleModelFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,7 +23,7 @@ class VehicleModel extends BaseModel
     }
 
     protected $fillable = [
-        'make_id',
+        'brand_id',
         'name',
         'slug',
         'year_start',
@@ -62,9 +63,9 @@ class VehicleModel extends BaseModel
 
     const BODY_TYPE_OTHER = 'other';
 
-    public function make(): BelongsTo
+    public function brand(): BelongsTo
     {
-        return $this->belongsTo(VehicleMake::class);
+        return $this->belongsTo(Brand::class, 'brand_id');
     }
 
     public function trims(): HasMany
@@ -146,7 +147,7 @@ class VehicleModel extends BaseModel
      */
     public function getFullNameAttribute(): string
     {
-        return $this->make->name.' '.$this->name;
+        return $this->brand->name.' '.$this->name;
     }
 
     /**
@@ -186,12 +187,12 @@ class VehicleModel extends BaseModel
     }
 
     /**
-     * Scope to order by make and model name
+     * Scope to order by brand and model name
      */
     public function scopeOrdered($query)
     {
-        return $query->join('vehicle_makes', 'vehicle_models.make_id', '=', 'vehicle_makes.id')
-            ->orderBy('vehicle_makes.name')
+        return $query->join('brands', 'vehicle_models.brand_id', '=', 'brands.id')
+            ->orderBy('brands.name')
             ->orderBy('vehicle_models.sort_order')
             ->orderBy('vehicle_models.name')
             ->select('vehicle_models.*');

@@ -14,7 +14,7 @@ class ListBrands extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('New Brand')
+                ->label(__('keys.create'))
                 ->icon('heroicon-o-plus'),
         ];
     }

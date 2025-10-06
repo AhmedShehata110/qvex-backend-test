@@ -23,6 +23,16 @@ class SupportTicketResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.support_tickets');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.reviews_communication');
+    }
+
     protected static ?string $recordTitleAttribute = 'subject';
 
     public static function form(Schema $schema): Schema

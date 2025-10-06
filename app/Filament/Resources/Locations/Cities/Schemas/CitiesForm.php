@@ -18,24 +18,24 @@ class CitiesForm
                 Section::make('City Information')
                     ->schema([
                         TextInput::make('name.en')
-                            ->label('Name (English)')
+                            ->label(__('keys.name'))
                             ->required()
                             ->maxLength(255),
 
                         TextInput::make('name.ar')
-                            ->label('Name (Arabic)')
+                            ->label(__('keys.name'))
                             ->required()
                             ->maxLength(255),
 
                         Select::make('country_id')
-                            ->label('Country')
+                            ->label(__('keys.country'))
                             ->options(Country::where('is_active', true)->pluck('name', 'id'))
                             ->required()
                             ->searchable()
                             ->preload(),
 
                         Toggle::make('is_active')
-                            ->label('Active')
+                            ->label(__('keys.active'))
                             ->default(true)
                             ->required(),
                     ])->columns(2),
@@ -43,14 +43,14 @@ class CitiesForm
                 Section::make('Geographic Coordinates')
                     ->schema([
                         TextInput::make('latitude')
-                            ->label('Latitude')
+                            ->label(__('keys.latitude'))
                             ->numeric()
                             ->step(0.00000001)
                             ->placeholder('e.g., 24.7136')
                             ->helperText('Decimal degrees format'),
 
                         TextInput::make('longitude')
-                            ->label('Longitude')
+                            ->label(__('keys.longitude'))
                             ->numeric()
                             ->step(0.00000001)
                             ->placeholder('e.g., 46.6753')

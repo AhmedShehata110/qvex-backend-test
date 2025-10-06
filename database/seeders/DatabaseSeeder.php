@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         $this->command->info('FAQs: '.\App\Models\Content\FAQ::count());
         $this->command->info('Banners: '.\App\Models\Marketing\Banner::count());
         $this->command->info('Payments: '.\App\Models\Transaction\Payment::count());
-        $this->command->info('Vehicle Makes: '.\App\Models\Vehicle\VehicleMake::count());
+        $this->command->info('Vehicle Makes: '.\App\Models\Vehicle\Brand::count());
         $this->command->info('Vehicle Models: '.\App\Models\Vehicle\VehicleModel::count());
         $this->command->info('Vehicle Trims: '.\App\Models\Vehicle\VehicleTrim::count());
         $this->command->info('Vehicle Features: '.\App\Models\Vehicle\VehicleFeature::count());

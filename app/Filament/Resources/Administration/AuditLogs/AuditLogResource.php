@@ -23,11 +23,17 @@ class AuditLogResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedClipboardDocumentList;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Administration';
-
     protected static ?int $navigationSort = 4;
 
-    protected static ?string $navigationLabel = 'Audit Logs';
+    public static function getNavigationLabel(): string
+    {
+        return __('keys.audit_logs');
+    }
+
+    public static function getNavigationGroup(): string
+    {
+        return __('keys.administration');
+    }
 
     protected static ?string $recordTitleAttribute = 'event';
 

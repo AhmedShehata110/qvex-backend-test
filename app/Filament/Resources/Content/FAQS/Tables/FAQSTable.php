@@ -21,14 +21,14 @@ class FAQSTable
         return $table
             ->columns([
                 TextColumn::make('question')
-                    ->label('Question')
+                    ->label(__('keys.content_faqs_question_2'))
                     ->searchable()
                     ->sortable()
                     ->limit(80)
                     ->weight('bold'),
 
                 TextColumn::make('category')
-                    ->label('Category')
+                    ->label(__('keys.category'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         FAQ::CATEGORY_GENERAL => 'General',
@@ -49,7 +49,7 @@ class FAQSTable
                     ]),
 
                 TextColumn::make('status')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->formatStateUsing(fn (string $state): string => ucfirst($state))
                     ->colors([
@@ -59,7 +59,7 @@ class FAQSTable
                     ]),
 
                 IconColumn::make('is_active')
-                    ->label('Active')
+                    ->label(__('keys.active'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-circle')
                     ->falseIcon('heroicon-o-x-circle')
@@ -67,20 +67,20 @@ class FAQSTable
                     ->falseColor('danger'),
 
                 TextColumn::make('sort_order')
-                    ->label('Sort')
+                    ->label(__('keys.sort'))
                     ->sortable()
                     ->badge()
                     ->color('gray'),
 
                 TextColumn::make('view_count')
-                    ->label('Views')
+                    ->label(__('keys.views'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->sortable()
                     ->badge()
                     ->color('info'),
 
                 TextColumn::make('helpful_count')
-                    ->label('Helpful')
+                    ->label(__('keys.content_faqs_helpful'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->sortable()
                     ->badge()
@@ -88,7 +88,7 @@ class FAQSTable
                     ->toggleable(),
 
                 TextColumn::make('not_helpful_count')
-                    ->label('Not Helpful')
+                    ->label(__('keys.content_faqs_not_helpful'))
                     ->formatStateUsing(fn ($state) => number_format($state ?: 0))
                     ->sortable()
                     ->badge()
@@ -96,7 +96,7 @@ class FAQSTable
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('helpfulness_ratio')
-                    ->label('Helpfulness')
+                    ->label(__('keys.content_faqs_helpfulness'))
                     ->state(function ($record) {
                         $total = ($record->helpful_count ?: 0) + ($record->not_helpful_count ?: 0);
                         if ($total === 0) {
@@ -123,25 +123,25 @@ class FAQSTable
                     ->toggleable(),
 
                 TextColumn::make('tags')
-                    ->label('Tags')
+                    ->label(__('keys.tags'))
                     ->formatStateUsing(fn ($state) => is_array($state) ? implode(', ', $state) : '')
                     ->limit(50)
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('addedBy.name')
-                    ->label('Author')
+                    ->label(__('keys.content_faqs_author'))
                     ->searchable()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 TextColumn::make('updated_at')
-                    ->label('Updated')
+                    ->label(__('keys.updated'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -166,13 +166,13 @@ class FAQSTable
                     ]),
 
                 TernaryFilter::make('is_active')
-                    ->label('Active Status')
+                    ->label(__('keys.content_faqs_active_status'))
                     ->placeholder('All FAQs')
                     ->trueLabel('Active FAQs')
                     ->falseLabel('Inactive FAQs'),
 
                 SelectFilter::make('addedBy')
-                    ->label('Author')
+                    ->label(__('keys.content_faqs_author'))
                     ->relationship('addedBy', 'name')
                     ->searchable()
                     ->preload(),

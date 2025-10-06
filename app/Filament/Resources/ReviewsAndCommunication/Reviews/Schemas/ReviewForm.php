@@ -19,19 +19,19 @@ class ReviewForm
         return $schema
             ->components([
                 Section::make('Review Details')
-                    ->description('Basic review information and relationships')
+                    ->description(__('keys.basic_review_information_and_relationships'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('reviewer_id')
-                                    ->label('Reviewer')
+                                    ->label(__('keys.reviewer'))
                                     ->relationship('reviewer', 'name')
                                     ->searchable()
                                     ->preload()
                                     ->required(),
 
                                 Select::make('reviewee_id')
-                                    ->label('Reviewee')
+                                    ->label(__('keys.reviewee'))
                                     ->relationship('reviewee', 'name')
                                     ->searchable()
                                     ->preload(),
@@ -40,19 +40,19 @@ class ReviewForm
                         Grid::make(3)
                             ->schema([
                                 Select::make('vehicle_id')
-                                    ->label('Vehicle')
+                                    ->label(__('keys.vehicle'))
                                     ->relationship('vehicle', 'title')
                                     ->searchable()
                                     ->preload(),
 
                                 Select::make('vendor_id')
-                                    ->label('Vendor')
+                                    ->label(__('keys.vendor'))
                                     ->relationship('vendor', 'business_name')
                                     ->searchable()
                                     ->preload(),
 
                                 Select::make('transaction_id')
-                                    ->label('Transaction')
+                                    ->label(__('keys.transaction'))
                                     ->relationship('transaction', 'transaction_number')
                                     ->searchable()
                                     ->preload(),
@@ -60,12 +60,12 @@ class ReviewForm
                     ]),
 
                 Section::make('Review Content')
-                    ->description('Rating, title, and review content')
+                    ->description(__('keys.rating_title_and_review_content'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('rating')
-                                    ->label('Rating')
+                                    ->label(__('keys.rating'))
                                     ->options([
                                         1 => '1 Star - Poor',
                                         2 => '2 Stars - Fair',
@@ -76,18 +76,18 @@ class ReviewForm
                                     ->required(),
 
                                 Toggle::make('would_recommend')
-                                    ->label('Would Recommend')
+                                    ->label(__('keys.would_recommend'))
                                     ->default(false),
                             ]),
 
                         TextInput::make('title')
-                            ->label('Review Title')
+                            ->label(__('keys.title'))
                             ->required()
                             ->maxLength(255)
                             ->columnSpanFull(),
 
                         Textarea::make('content')
-                            ->label('Review Content')
+                            ->label(__('keys.content'))
                             ->required()
                             ->rows(4)
                             ->maxLength(2000)
@@ -96,10 +96,10 @@ class ReviewForm
                         Grid::make(2)
                             ->schema([
                                 Repeater::make('pros')
-                                    ->label('Pros (Positive Points)')
+                                    ->label(__('keys.pros'))
                                     ->schema([
                                         TextInput::make('pro')
-                                            ->label('Positive Point')
+                                            ->label(__('keys.positive_point'))
                                             ->maxLength(255)
                                             ->required(),
                                     ])
@@ -109,10 +109,10 @@ class ReviewForm
                                     ->collapsed(),
 
                                 Repeater::make('cons')
-                                    ->label('Cons (Areas for Improvement)')
+                                    ->label(__('keys.cons'))
                                     ->schema([
                                         TextInput::make('con')
-                                            ->label('Area for Improvement')
+                                            ->label(__('keys.area_for_improvement'))
                                             ->maxLength(255)
                                             ->required(),
                                     ])
@@ -124,12 +124,12 @@ class ReviewForm
                     ]),
 
                 Section::make('Review Status')
-                    ->description('Review moderation and verification status')
+                    ->description(__('keys.review_moderation_and_verification_status'))
                     ->schema([
                         Grid::make(2)
                             ->schema([
                                 Select::make('status')
-                                    ->label('Review Status')
+                                    ->label(__('keys.status'))
                                     ->options([
                                         Review::STATUS_PENDING => 'Pending Approval',
                                         Review::STATUS_APPROVED => 'Approved',
@@ -140,7 +140,7 @@ class ReviewForm
                                     ->required(),
 
                                 Toggle::make('verified_purchase')
-                                    ->label('Verified Purchase')
+                                    ->label(__('keys.verified_purchase'))
                                     ->default(false)
                                     ->helperText('Mark if this review is from a verified purchase'),
                             ]),
@@ -148,12 +148,12 @@ class ReviewForm
                         Grid::make(2)
                             ->schema([
                                 Toggle::make('flagged_inappropriate')
-                                    ->label('Flagged as Inappropriate')
+                                    ->label(__('keys.flagged_as_inappropriate'))
                                     ->default(false)
                                     ->live(),
 
                                 Textarea::make('flagged_reason')
-                                    ->label('Flag Reason')
+                                    ->label(__('keys.flag_reason'))
                                     ->rows(2)
                                     ->maxLength(500)
                                     ->visible(fn ($get) => $get('flagged_inappropriate')),

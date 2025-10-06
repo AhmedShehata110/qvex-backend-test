@@ -21,37 +21,37 @@ class VendorStaffTable
         return $table
             ->columns([
                 TextColumn::make('user.name')
-                    ->label('Staff Name')
+                    ->label(__('keys.staff_name'))
                     ->sortable()
                     ->searchable()
                     ->weight('bold'),
 
                 TextColumn::make('vendor.business_name')
-                    ->label('Vendor')
+                    ->label(__('keys.vendor'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
 
                 TextColumn::make('position')
-                    ->label('Position')
+                    ->label(__('keys.position'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
 
                 TextColumn::make('role')
-                    ->label('Role')
+                    ->label(__('keys.position_title'))
                     ->badge()
                     ->color('info')
                     ->toggleable(),
 
                 TextColumn::make('department')
-                    ->label('Department')
+                    ->label(__('keys.department'))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
 
                 TextColumn::make('employment_status')
-                    ->label('Employment Status')
+                    ->label(__('keys.status'))
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
                         'full_time' => 'success',
@@ -64,13 +64,13 @@ class VendorStaffTable
                     ->toggleable(),
 
                 TextColumn::make('hire_date')
-                    ->label('Hire Date')
+                    ->label(__('keys.hire_date'))
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('is_active')
-                    ->label('Status')
+                    ->label(__('keys.status'))
                     ->boolean()
                     ->trueIcon('heroicon-o-check-badge')
                     ->falseIcon('heroicon-o-x-circle')
@@ -78,20 +78,20 @@ class VendorStaffTable
                     ->falseColor('danger'),
 
                 TextColumn::make('created_at')
-                    ->label('Created')
+                    ->label(__('keys.created'))
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 TernaryFilter::make('is_active')
-                    ->label('Status')
-                    ->placeholder('All staff')
+                    ->label(__('keys.status'))
+                    ->placeholder(__('keys.all_staff'))
                     ->trueLabel('Active staff')
                     ->falseLabel('Inactive staff'),
 
                 SelectFilter::make('role')
-                    ->label('Role')
+                    ->label(__('keys.position_title'))
                     ->options([
                         'manager' => 'Manager',
                         'sales' => 'Sales',
@@ -103,7 +103,7 @@ class VendorStaffTable
                     ->searchable(),
 
                 SelectFilter::make('employment_status')
-                    ->label('Employment Status')
+                    ->label(__('keys.status'))
                     ->options([
                         'full_time' => 'Full Time',
                         'part_time' => 'Part Time',

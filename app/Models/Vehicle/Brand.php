@@ -3,12 +3,12 @@
 namespace App\Models\Vehicle;
 
 use App\Models\BaseModel;
-use Database\Factories\VehicleMakeFactory;
+use Database\Factories\BrandFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
-class VehicleMake extends BaseModel
+class Brand extends BaseModel
 {
     use HasFactory;
 
@@ -17,7 +17,7 @@ class VehicleMake extends BaseModel
      */
     protected static function newFactory()
     {
-        return VehicleMakeFactory::new();
+        return BrandFactory::new();
     }
 
     protected $fillable = [
@@ -36,17 +36,19 @@ class VehicleMake extends BaseModel
         'logos' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
+            'fallbackPath' => '/images/default-image.png',
         ],
     ];
 
     public function vehicleModels(): HasMany
     {
-        return $this->hasMany(VehicleModel::class, 'make_id');
+        return $this->hasMany(VehicleModel::class, 'brand_id');
     }
 
     public function vehicles(): HasMany
     {
-        return $this->hasMany(Vehicle::class, 'make_id');
+        return $this->hasMany(Vehicle::class, 'brand_id');
     }
 
     /**
@@ -133,5 +135,13 @@ class VehicleMake extends BaseModel
         return $query->withCount(['vehicles' => function ($query) {
             $query->where('is_active', true);
         }])->orderBy('vehicles_count', 'desc')->limit($limit);
+    }
+
+    /**
+     * Get logo URL attribute
+     */
+    public function getLogoAttribute(): string
+    {
+        return $this->getFirstMediaUrl('logos') ?: $this->getDefaultImageUrl();
     }
 }

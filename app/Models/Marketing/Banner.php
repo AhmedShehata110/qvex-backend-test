@@ -68,10 +68,12 @@ class Banner extends BaseModel
         'banners' => [
             'mimes' => ['image/*'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'banners-mobile' => [
             'mimes' => ['image/*'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 

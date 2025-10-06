@@ -80,6 +80,11 @@ class Vendor extends BaseModel
         return $this->hasMany(Vehicle::class);
     }
 
+    public function staff(): HasMany
+    {
+        return $this->hasMany(VendorStaff::class);
+    }
+
     public function verifiedBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'verified_by');
@@ -92,13 +97,16 @@ class Vendor extends BaseModel
         'business_license' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'tax_certificate' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
             'single' => true,
+            'fallbackUrl' => '/images/default-image.png',
         ],
         'certificates' => [
             'mimes' => ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf'],
+            'fallbackUrl' => '/images/default-image.png',
         ],
     ];
 }
